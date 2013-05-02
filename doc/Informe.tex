@@ -460,7 +460,7 @@ Algoritmos Evolutivos, triangulación, WiFi
 % and "HIS" in caps to complete the first word.
 \IEEEPARstart{E}{l} presente informe consiste en la evaluación del comportamiento de un algoritmo evolutivo aplicado a la triangulación de un nodo inalámbrico origen (dispositivo móvil), cuya posición se desconoce con exactitud, en relación a la posición de al menos tres nodos inalámbricos (routers), cuyas posiciones (absolutas o relativas a un centro elegido arbitrariamente) sí se conocen.\\
 
-Se asumirá que los routers presentes en el entorno comparten carcterísticas similares (como por ejemplo, su alcance máximo), lo cual resulta razonable asumir para un gran número de routers WiFi. Esto será considerado al momento de la inicialización de la población inicial.\\
+Se asumirá que los routers presentes en el entorno comparten características similares (como por ejemplo, su alcance máximo), lo cual resulta razonable asumir para un gran número de routers WiFi. Esto será considerado al momento de la inicialización de la población inicial.\\
 
 Por otro lado, resulta inapropiado asumir que las señales no se ven afectadas por obstáculos encontrados en el entorno, lo cual obligará a estimar, además de la posición, cuál es la caída o atenuación de la señal hacia cada router.\\
 
@@ -474,7 +474,7 @@ Desafortunadamente, ninguna de las grandes empresas en estas áreas han publicad
 
 En el ámbito científico se exploraron varias alternativas. Quizás el enfoque más sencillo consiste en la triangulación de nodos a partir simplemente de las intensidades de las señales a cada router inalámbrico, como se analiza en \cite{simple:triangulation}. Este enfoque presenta varias desventajas ya que no considera muchos aspectos de la realidad como la caída de señal por ruido u obstáculos en el ambiente, condiciones climáticas que afectan la señal, variabilidad de las señales en dispositivos que se mueven, etc.\\
 
-Otro grupo de investigadores han explorado el problema desde el área de machile learning, consiguiendo buenos resultados utilizando dos enfoques distintos. Por un lado, se han implementado satisfactoriamente sistemas basados en \textit{fuzzy logic} \cite{fuzzy:logic:based:system}, mientras que otros han intentado la integración de más de un sistema de triangulación, con el fin de tomar los beneficios de cada uno de ellos, combinando los resultados a partir de constantes de peso aprendidas \cite{adaptive:weighting}.
+Otro grupo de investigadores han explorado el problema desde el área de machine learning, consiguiendo buenos resultados utilizando dos enfoques distintos. Por un lado, se han implementado satisfactoriamente sistemas basados en \textit{fuzzy logic} \cite{fuzzy:logic:based:system}, mientras que otros han intentado la integración de más de un sistema de triangulación, con el fin de tomar los beneficios de cada uno de ellos, combinando los resultados a partir de constantes de peso aprendidas \cite{adaptive:weighting}.\\
 
 Dado el tamaño del espacio de búsqueda, resulta interesante atacar el problema mediante un algoritmo evolutivo con el objetivo de lograr aproximar la posición con una precisión comparable a los servicios existentes.\\
 
@@ -506,7 +506,7 @@ En la práctica, se analizarán dos alternativas para la función de distancia p
 
 \section{Operadores}
 
-Dado que el espacio de búsqueda es inmenso, resulta esencial mantener la diversidad hasta haber muestreado una ámplea área del plano, ya que en principio se puede asumir la existencia de muchos óptimos locales. Dicho esto, los operadores que serán evaluados serán:
+Dado que el espacio de búsqueda es inmenso, resulta esencial mantener la diversidad hasta haber muestreado una amplia área del plano, ya que en principio se puede asumir la existencia de muchos óptimos locales. Dicho esto, los operadores que serán evaluados serán:
 
 \subsection{Selección}
 
@@ -530,7 +530,7 @@ Selección estocástica universal con punteros equiespaciados.
 
 Como se ha dicho antes, se asume que los routers comparten características similares, en particular, que el alcance máximo para todos ellos es de \textit{K} metros.\\
 
-La población será inicializada eligiendo valores aleatorios para \textit{(x, y)} de manera que todos los individuos comienzen  en la intersección de los círculos de centro $(R_{i_x}, R_{i_y})$ y radio \textit{K}, en donde $(R_{i_x}, R_{i_y})$ es la posición del router $R_i$.\\
+La población será inicializada eligiendo valores aleatorios para \textit{(x, y)} de manera que todos los individuos comiencen  en la intersección de los círculos de centro $(R_{i_x}, R_{i_y})$ y radio \textit{K}, en donde $(R_{i_x}, R_{i_y})$ es la posición del router $R_i$.\\
 
 De esta manera, durante la inicialización de la población, los valores estarán limitados por:
 
