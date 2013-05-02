@@ -1,30 +1,3 @@
-
-%% bare_jrnl.tex
-%% V1.4
-%% 2012/12/27
-%% by Michael Shell
-%% see http://www.michaelshell.org/
-%% for current contact information.
-%%
-%% This is a skeleton file demonstrating the use of IEEEtran.cls
-%% (requires IEEEtran.cls version 1.8 or later) with an IEEE journal paper.
-%%
-%% Support sites:
-%% http://www.michaelshell.org/tex/ieeetran/
-%% http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
-%% and
-%% http://www.ieee.org/
-
-
-
-% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
-% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
-% *** with production work. IEEE's font choices can trigger bugs that do  ***
-% *** not appear when using other class files.                            ***
-% The testflow support page is at:
-% http://www.michaelshell.org/tex/testflow/
-
-
 %%*************************************************************************
 %% Legal Notice:
 %% This code is offered as-is without any warranty either expressed or
@@ -367,6 +340,7 @@
 \hyphenation{optical net-works semiconductor}
 
 \usepackage[utf8]{inputenc}
+\usepackage{url}
 
 \begin{document}
 
@@ -468,7 +442,6 @@ Algoritmos Evolutivos, triangulación, WiFi
 \IEEEpeerreviewmaketitle
 
 
-
 \section{Introducción}
 % The very first letter is a 2 line initial drop letter followed
 % by the rest of the first word in caps.
@@ -495,14 +468,15 @@ Por otro lado, resulta inapropiado asumir que las señales no se ven afectadas p
 
 \section{Motivación}
 
-Debido a la explosión de las redes WiFi en todo el mundo [1], recientemente surgieron servicios de geolocalización por triangulación WiFi [2] que ofrecen APIs y SKDs [3] para el desarrollo de aplicaciones sensibles a la posición del usuario.\\
+Debido a la explosión de las redes WiFi en todo el mundo \cite{wifi:coverage}, en los últimos años han surgido servicios de geolocalización por triangulación WiFi \cite{wifi:positioning} que ofrecen APIs \cite{google:maps} y SKDs  \cite{skyhook:location} para el desarrollo de aplicaciones sensibles a la posición del usuario.\\
 
-%Google Maps Geolocation
-%Skyhook Location
+Desafortunadamente, ninguna de las grandes empresas en estas áreas han publicado especificaciones de sus implementaciones, por lo que se desconocen muchos detalles del funcionamiento interno y en particular de los algoritmos que utilizan.\\
 
-Desafortunadamente parece no existir una implementación abierta de dichos algoritmos, por lo cual se desconocen muchos detalles de dichos servicios.\\
+En el ámbito científico se exploraron varias alternativas. Quizás el enfoque más sencillo consiste en la triangulación de nodos a partir simplemente de las intensidades de las señales a cada router inalámbrico, como se analiza en \cite{simple:triangulation}. Este enfoque presenta varias desventajas ya que no considera muchos aspectos de la realidad como la caída de señal por ruido u obstáculos en el ambiente, condiciones climáticas que afectan la señal, variabilidad de las señales en dispositivos que se mueven, etc.\\
 
-Dado el tamaño del espacio de búsqueda, resulta interesante atacar el problema mediante un algoritmo evolutivo con el objetivo de lograr aproximar la posición con una precisión comparable o incluso mejor a los servicios existentes.\\
+Otro grupo de investigadores han explorado el problema desde el área de machile learning, consiguiendo buenos resultados utilizando dos enfoques distintos. Por un lado, se han implementado satisfactoriamente sistemas basados en \textit{fuzzy logic} \cite{fuzzy:logic:based:system}, mientras que otros han intentado la integración de más de un sistema de triangulación, con el fin de tomar los beneficios de cada uno de ellos, combinando los resultados a partir de constantes de peso aprendidas \cite{adaptive:weighting}.
+
+Dado el tamaño del espacio de búsqueda, resulta interesante atacar el problema mediante un algoritmo evolutivo con el objetivo de lograr aproximar la posición con una precisión comparable a los servicios existentes.\\
 
 \section{Representación}
 
@@ -528,7 +502,7 @@ $$fitness(x, y, a_1, ..., a_n) = \sum_{i=1}^{n} |\sqrt{x^2 + y^2} - dp(s_i \cdot
 
 En donde $dp(s)$ es la distancia percibida entre el nodo origen y el router.\\
 
-En la práctica, se analizarán dos alternativas para la función de distancia percibida. En primer lugar, usar un modelo como el \textit{free-space path loss} [4] que permite estimar la caída en la señal en función de la distancia, o bien usar datos empíricos previamente tabulados para routers estándar.
+En la práctica, se analizarán dos alternativas para la función de distancia percibida. En primer lugar, usar un modelo como el \textit{free-space path loss} \cite{fspl} que permite estimar la caída en la señal en función de la distancia, o bien usar datos empíricos previamente tabulados para routers estándar.
 
 \section{Operadores}
 
@@ -725,21 +699,8 @@ Appendix one text goes here.
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
 
-
-%FIXME
-%{1} WiFi Coverage \url{http://www.skyhookwireless.com/location-technology/coverage.php}
-%{2} WiFi-based Positioning system \url{http://en.wikipedia.org/wiki/Wi-Fi_positioning_system}
-%{3} Google Maps geolocation \url{https://developers.google.com/maps/documentation/business/geolocation/} y Skyhook Location \url{http://www.skyhookwireless.com/location-technology/}
-%{4} Free-Space Path Loss: \url{http://en.wikipedia.org/wiki/Free-space_path_loss}
-
-
-\begin{thebibliography}{1}
-
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-
-\end{thebibliography}
+\bibliographystyle{unsrt}
+\bibliography{refs}
 
 % You can push biographies down or up by placing
 % a \vfill before or after them. The appropriate
