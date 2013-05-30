@@ -8,7 +8,7 @@
 #ifndef _MATRIX
 #define _MATRIX
 
-#include "Messages.h"
+#include <malva/Messages.h>
 #include <assert.h>
 
 template <class T> class Matrix

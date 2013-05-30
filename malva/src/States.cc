@@ -7,7 +7,7 @@
 
 
 #include <string.h>
-#include "States.hh"
+#include <malva/States.hh>
 
 // Methods of class State_Vble
 

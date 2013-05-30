@@ -1,14 +1,22 @@
-include ../environment
+MALVA_DIR=..
+include $(MALVA_DIR)/environment
 
 OBJS = States.o netstream.o
+LIB = libmallba.a
 
-all: $(OBJS)
+all: $(OBJS) $(LIB)
 
-States.o: States.cc States.hh
-	$(CXX) $(CPPFLAGS) States.cc -c
 
-netstream.o: netstream.cc netstream.hh
-	$(CXX) $(CPPFLAGS) netstream.cc -c
+%.o : %.cc
+	$(CXX) -c $(CPPFLAGS) $< -o $@
+
 	
 clean:
 	rm -f *.o *~ *% 
+	rm -f $(OBJS) $(LIB)
+
+$(LIB): $(OBJS)
+	ar -r $(LIB) $(OBJS)
+	ranlib $(LIB)
+	cp $(LIB) $(MALVA_LIB)
+

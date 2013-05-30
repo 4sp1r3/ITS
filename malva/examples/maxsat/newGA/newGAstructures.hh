@@ -6,14 +6,14 @@
 #include <fstream>
 #include <math.h>
 #include <values.h>
-#include <Mallba/Rlist.h>
-#include <Mallba/Rarray.h>
-#include <Mallba/Messages.h>
-#include <Mallba/mallba.hh>
-#include <Mallba/States.hh>
-#include <Mallba/random.hh>
-#include <Mallba/time.hh>
-#include <Mallba/netstream.hh>
+#include <malva/Rlist.h>
+#include <malva/Rarray.h>
+#include <malva/Messages.h>
+#include <malva/mallba.hh>
+#include <malva/States.hh>
+#include <malva/random.hh>
+#include <malva/time.hh>
+#include <malva/netstream.hh>
 #include <assert.h>
 
 using namespace std;

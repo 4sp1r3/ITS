@@ -1,23 +1,17 @@
 # Mallba Configuration.
-whoami=`whoami`
 
-#MALLBA_DIR=/home/${whoami}/Mallba
-MALLBA_DIR=/home/santiago/google-hosting/malva
+ifndef MALVA_DIR
+  $(error Undefined MALVA_DIR)
+endif
 
-#MPI_BIN=/home/${whoami}/mpich-1.2.7p1/bin
-#MPI_BIN=/usr/local/mpich/bin
-MPI_BIN=/opt/mpich/bin
-#MPI_BIN=/usr/bin
+MALVA_LIB=${MALVA_DIR}/lib
+MALVA_SRC=${MALVA_DIR}/src
+MALVA_INC=${MALVA_DIR}/include
+MALVA_ALGORITHMS=${MALVA_DIR}/algorithms
 
-#MALLBA_INC=${MALLBA_DIR}/inc
-MALLBA_INC=${MALLBA_DIR}/src
-MALLBA_LIB=${MALLBA_DIR}/lib
-MALLBA_SRC=${MALLBA_DIR}/src
-MALLBA_REP=${MALLBA_DIR}/rep
-
-CXX=$(MPI_BIN)/mpic++
-RUN=$(MPI_BIN)/mpirun
+CXX=mpicc
+RUN=mpirun
 #other options: -g for debugging and -pg for profiling
-CPPFLAGS=-I$(MALLBA_INC) -Wno-deprecated -O3
-LDFLAGS=-L$(MALLBA_LIB)
-LOADLIBES=-lmallba  -lm
+CPPFLAGS=-I$(MALVA_INC) -Wno-deprecated -O3
+LDFLAGS=-L$(MALVA_LIB)
+LOADLIBES=-lmallba  -lm -lmpich

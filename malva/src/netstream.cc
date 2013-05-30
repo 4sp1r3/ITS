@@ -21,7 +21,7 @@
  ***                             MPI implementation                      ***
  ***                          Developed by Erique Alba                   ***
  ***************************************************************************/
-#include "netstream.hh"
+#include <malva/netstream.hh>
 // Default constructor
 NetStream::NetStream()
 {
