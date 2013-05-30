@@ -6,13 +6,13 @@ clean:
 	rm -f MainLan MainSeq MainWan *.o *% *~
 
 MainSeq: CHC.req.o CHC.pro.o MainSeq.o
-	$(CXX) $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
+	$(CXX) $(LDFLAGS) -lstdc++ $^ $(LOADLIBES) $(CPPFLAGS) -o $@
 
 MainLan: CHC.req.o CHC.pro.o MainLan.o
-	$(CXX) $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
+	$(CXX) $(LDFLAGS) -lstdc++ $^ $(LOADLIBES) $(CPPFLAGS) -o $@
 
 MainWan: CHC.req.o CHC.pro.o MainWan.o
-	$(CXX) $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
+	$(CXX) $(LDFLAGS) -lstdc++ $^ $(LOADLIBES) $(CPPFLAGS) -o $@
 
 LAN:
 	$(RUN)  -v  -p4pg pgfileLan MainLan

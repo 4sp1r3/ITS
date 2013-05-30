@@ -5,13 +5,13 @@
 ****************************************************************************/
 
 #include <stdio.h>
-#include "Mallba/mallba.hh"
-#include "Mallba/Rarray.h"
-#include "Mallba/Rlist.h"
-#include "Mallba/States.hh"
-#include "Mallba/netstream.hh"
-#include "Mallba/time.hh"
-#include "Mallba/random.hh"
+#include "mallba.hh"
+#include "Rarray.h"
+#include "Rlist.h"
+#include "States.hh"
+#include "netstream.hh"
+#include "time.hh"
+#include "random.hh"
 #include <math.h>
 #include <strings.h>
 #include <error.h>
