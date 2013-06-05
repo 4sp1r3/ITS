@@ -5,23 +5,38 @@ int main (int argc, char** argv)
   using skeleton newGA;
 
   if(argc < 4) {
-    show_message(1);
+    cerr << endl
+         << "Error: number of arguments in the execution call is incorrect !!";
+    exit(-1);
   }
 
-  ifstream f1(argv[1]);
-  if (!f1) show_message(11);
+  ifstream ifsConfig(argv[1]);
+  if (!ifsConfig) {
+	  cerr << endl << "Error: It's imposible find Configuration file !!";
+	  exit(-1);
+  }
 
-  ifstream f2(argv[2]);
-  if (!f2) show_message(12);
+  ifstream ifsInstance(argv[2]);
+  if (!ifsInstance) {
+	  	cerr << endl << "Error: It's imposible find Instance Problem File !!";
+	  	exit(-1);
+  }
+
+  ofstream ofsResult(argv[3]);
+  if(!ofsResult) {
+  	cerr << endl << "Error: It's imposible find Resultate File !!";
+  	exit(-1);
+  }
+
+  SetUpParams cfg(pool);
+  ifsConfig >> cfg;
 
   Problem pbm;
-  f2 >> pbm;
+  ifsInstance >> pbm;
 
   Operator_Pool pool(pbm);
-  SetUpParams cfg(pool);
-  f1 >> cfg;
-
-  Solver_Seq solver(pbm,cfg);
+  Solver a ;
+  Solver_Seq solver(pbm, cfg);
   solver.run();
 
   if (solver.pid()==0)
@@ -31,9 +46,7 @@ int main (int argc, char** argv)
          << " Fitness: " << solver.global_best_solution().fitness() << endl;
     cout << "\n\n :( ---------------------- THE END --------------- :) ";
 
-    ofstream fexit(argv[3]);
-    if(!fexit) show_message(13);
-    fexit << solver.userstatistics();
+    ofsResult << solver.userstatistics();
 
   }
   return(0);
