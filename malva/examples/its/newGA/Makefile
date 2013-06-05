@@ -1,13 +1,13 @@
-MALVA_DIR = ..
+MALVA_DIR = ../../..
 include $(MALVA_DIR)/environment
 
-all: main
+all: MainSeq
 
 clean:
 	rm -f triangulationn *.o *~
 
-main: newGA.req.o newGA.pro.o main.o
+MainSeq: newGA.req.o newGA.pro.o MainSeq.o
 	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
 
 run:
-	./main config.dat instances/nodes.in nodes.out
+	./MainSeq config.dat instances/nodes.in nodes.out
