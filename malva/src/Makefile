@@ -6,17 +6,14 @@ LIB = libmallba.a
 
 all: $(OBJS) $(LIB)
 
-
 %.o : %.cc
 	$(CXX) -c $(CPPFLAGS) $< -o $@
 
-	
 clean:
-	rm -f *.o *~ *% 
+	rm -f *.o *~ *%
 	rm -f $(OBJS) $(LIB)
 
 $(LIB): $(OBJS)
 	ar -r $(LIB) $(OBJS)
 	ranlib $(LIB)
 	cp $(LIB) $(MALVA_LIB)
-

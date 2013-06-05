@@ -23,7 +23,7 @@
  ***************************************************************************/
 #ifndef INC_netstream
 #define INC_netstream
-#include "mpi.h"
+#include <mpi.h>
 #include <assert.h>
 #include <string.h>
 // Class NetStream allows to define and use network streams trhough LAN and WAN

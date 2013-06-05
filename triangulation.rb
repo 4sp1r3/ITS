@@ -21,8 +21,8 @@ class TopologyGA
   MAX_MUTATION_XY =         1     #metres
   MAX_MUTATION_DECAY =      0.1   #%
 
-  MAX_INIT_DECAYS =         0   #%
-  MIN_INIT_DECAYS =         0   #%
+  MAX_INIT_DECAYS =         0     #%
+  MIN_INIT_DECAYS =         0     #%
 
   def initialize
     # Plot
