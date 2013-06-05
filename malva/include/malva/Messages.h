@@ -1,8 +1,8 @@
 /*****************************************************************************/
 /***																	   ***/
 /***		Modificado por G.J.L.P.										   ***/
-/***		Añadidos nuevos mensajes que indican falta de algún 	 	   ***/
-/***		Fichero de Configuración (No específico para ningún	  		   ***/
+/***		AÃ±adidos nuevos mensajes que indican falta de algÃºn 	 	   ***/
+/***		Fichero de ConfiguraciÃ³n (No especÃ­fico para ningÃºn	  		   ***/
 /***		problema) o nuevos errores.				  					   ***/
 /***																	   ***/
 /*****************************************************************************/
@@ -25,42 +25,42 @@ inline void show_message(int value)
 {
 	switch (value)
 	{
-		case 1: cout << endl << "Error: number of arguments in the execution call is incorrect !!"
+		case 1: cerr << endl << "Error: number of arguments in the execution call is incorrect !!"
 			     << endl; break;
-		case 2: cout << endl << "Error: It's imposible find Configuration file !!" << endl;
+		case 2: cerr << endl << "Error: It's imposible find Configuration file !!" << endl;
 			break;
-		/* Específicos de RLFAP */
-		case 3:	cout << endl << "Error: It is imposible find the Celar problem definition file (cst.txt) !!"
+		/* EspecÃ­ficos de RLFAP */
+		case 3:	cerr << endl << "Error: It is imposible find the Celar problem definition file (cst.txt) !!"
 			     << endl; break;
-		case 4: cout << endl << "Error: It is imposible find the Celar domains file (dom.txt) !!"
+		case 4: cerr << endl << "Error: It is imposible find the Celar domains file (dom.txt) !!"
 			     << endl; break;
-		case 5:	cout << endl << "Error: It is imposible find the Celar links file (var.txt) !!"
+		case 5:	cerr << endl << "Error: It is imposible find the Celar links file (var.txt) !!"
 			     << endl; break;
-		case 6:	cout << endl << "Error: It is imposible find the Celar constraints file (ctr.txt) !!"
+		case 6:	cerr << endl << "Error: It is imposible find the Celar constraints file (ctr.txt) !!"
 			     << endl; break;
 		/* Fallos de Memoria */
-		case 7:	cout << endl << "Error: No avalible memory for \"malloc\" operation !!"  << endl;
+		case 7:	cerr << endl << "Error: No avalible memory for \"malloc\" operation !!"  << endl;
 			break;
-		case 8:	cout << endl << "Error: in \"free\" operation !!"  << endl;
+		case 8:	cerr << endl << "Error: in \"free\" operation !!"  << endl;
 			break;
-		/* Específicos del MaxCut */
-		case 9:	cout << endl << "Error: It is imposible find the Maxcut file (Maxcut.txt) !!"
+		/* EspecÃ­ficos del MaxCut */
+		case 9:	cerr << endl << "Error: It is imposible find the Maxcut file (Maxcut.txt) !!"
 			     << endl; break;
-		/* Genéricos de Falta de ficheros de configuracion  adicionales al mensaje 2 */
-		case 10: cout << endl << "Error: It's imposible find Configuration file (Config.cfg) !!"
+		/* GenÃ©ricos de Falta de ficheros de configuracion  adicionales al mensaje 2 */
+		case 10: cerr << endl << "Error: It's imposible find Configuration file (Config.cfg) !!"
 			      << endl; break;
-		case 11: cout << endl << "Error: It's imposible find Skeleton Configuration File (Ske.cfg) !!"
+		case 11: cerr << endl << "Error: It's imposible find Skeleton Configuration File (Ske.cfg) !!"
 			      << endl; break;
-		case 12: cout << endl << "Error: It's imposible find Instance Problem File !!" << endl;
+		case 12: cerr << endl << "Error: It's imposible find Instance Problem File !!" << endl;
 			 break;
-		case 13: cout << endl << "Error: It's imposible find Resultate File !!" << endl;
+		case 13: cerr << endl << "Error: It's imposible find Resultate File !!" << endl;
 			 break;
-		case 14: cout << endl << "Error: Index out of Range !!" << endl;
+		case 14: cerr << endl << "Error: Index out of Range !!" << endl;
 			 break;
-		default: cout << endl << "Unkown Error !!" << endl;
+		default: cerr << endl << "Unkown Error !!" << endl;
 	}
 
-	cout << endl << " " << endl;
+	cerr << endl << " " << endl;
 	exit(-1);
 }
 
