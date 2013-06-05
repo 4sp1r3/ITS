@@ -15,13 +15,11 @@ MainWan: newGA.req.o newGA.pro.o MainWan.o
 MainSeq: newGA.req.o newGA.pro.o MainSeq.o
 	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
 
-#TODO: change c++ to $(CXX) or something...
-
 LAN:
-	mpirun  -v  -p4pg pgfileLan MainLan
+	mpirun -v -p4pg pgfileLan MainLan
 
 WAN:
-	mpirun  -v  -p4pg pgfileWan MainWan
+	mpirun -v -p4pg pgfileWan MainWan
 
 SEQ:
-	./MainSeq newGA.cfg ../instances/sat1.txt sat1.newga.seq.txt
+	./MainSeq newGA.cfg instances/sat1.txt sat1.newga.seq.txt

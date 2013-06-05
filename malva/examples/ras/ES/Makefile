@@ -1,4 +1,5 @@
-include ../../../environment
+MALVA_DIR = ../../..
+include $(MALVA_DIR)/environment
 
 all: MainLan MainSeq
 
@@ -7,17 +8,19 @@ clean:
 
 
 MainLan: ES.req.o ES.pro.o MainLan.o
-	$(CXX) $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
+	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
 
 MainWan: ES.req.o ES.pro.o MainWan.o
-	$(CXX) $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
+	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
 
 MainSeq: ES.req.o ES.pro.o MainSeq.o
-	$(CXX) $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
+	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
 
 LAN:
-	$(RUN)  -v  -p4pg pgfileLan MainLan
+	mpirun -v -p4pg pgfileLan MainLan
+
 WAN:
-	$(RUN)  -v  -p4pg pgfileWan MainWan
+	mpirun -v -p4pg pgfileWan MainWan
+
 SEQ:
-	./MainSeq ES.cfg ../../../ProblemInstances/RAS-instances/RAS20.txt res/ras20.es.seq.txt
+	./MainSeq ES.cfg instances/RAS20.txt ras20.es.seq.txt

@@ -1,4 +1,4 @@
-# Mallba Configuration.
+# Malva Configuration.
 
 ifndef MALVA_DIR
   $(error Undefined MALVA_DIR)
@@ -9,9 +9,7 @@ MALVA_SRC=${MALVA_DIR}/src
 MALVA_INC=${MALVA_DIR}/include
 MALVA_ALGORITHMS=${MALVA_DIR}/algorithms
 
-CXX=mpicc
-RUN=mpirun
-#other options: -g for debugging and -pg for profiling
+# Other options: -g for debugging and -pg for profiling
 CPPFLAGS=-I$(MALVA_INC) -Wno-deprecated -O3
 LDFLAGS=-L$(MALVA_LIB)
 LOADLIBES=-lmallba  -lm -lmpich

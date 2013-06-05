@@ -1,52 +1,25 @@
-include ../../../../environment
+MALVA_DIR = ../../..
+include $(MALVA_DIR)/environment
 
-all: MainLan1 MainLan2 MainLan3 MainSeq1 MainSeq2 MainSeq3
+all: MainLan MainWan MainSeq
 
 clean:
-	rm -f MainLan? MainSeq? MainWan? *.o *% *~
+	rm -f MainLan MainSeq MainWan *.o *% *~
 
-MainLan1: SA.req.o SA.pro.o   newGA.req.o newGA.pro.o newGASA.req.o newGASA.pro.o MainLan1.o StopCondition.o
-	$(CXX) $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
+MainLan: SA.req.o SA.pro.o newGA.req.o newGA.pro.o newGASA.req.o newGASA.pro.o MainLan.o StopCondition.o
+	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
 
-MainLan2: SA.req.o SA.pro.o  newGA.req.o newGA.pro.o newGASA.req.o newGASA.pro.o MainLan2.o StopCondition.o
-	$(CXX) $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
+MainWan: SA.req.o SA.pro.o newGA.req.o newGA.pro.o newGASA.req.o newGASA.pro.o MainWan.o StopCondition.o
+	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
 
-MainLan3: SA.req.o SA.pro.o newGA.req.o newGA.pro.o newGASA.req.o newGASA.pro.o MainLan3.o StopCondition.o
-	$(CXX) $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
+MainSeq: SA.req.o SA.pro.o newGA.req.o newGA.pro.o newGASA.req.o newGASA.pro.o MainSeq.o StopCondition.o
+	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
 
-MainWan1: SA.req.o SA.pro.o newGA.req.o newGA.pro.o newGASA.req.o newGASA.pro.o MainWan1.o StopCondition.o
-	$(CXX) $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
+LAN:
+	mpirun -v -p4pg pgfileLan1 MainLan
 
-MainWan2: SA.req.o SA.pro.o newGA.req.o newGA.pro.o newGASA.req.o newGASA.pro.o MainWan2.o StopCondition.o
-	$(CXX) $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
+WAN:
+	mpirun -v -p4pg pgfileWan1 MainWan
 
-MainWan3: SA.req.o SA.pro.o newGA.req.o newGA.pro.o newGASA.req.o newGASA.pro.o MainWan3.o StopCondition.o
-	$(CXX) $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
-
-MainSeq1: SA.req.o SA.pro.o newGA.req.o newGA.pro.o newGASA.req.o newGASA.pro.o MainSeq1.o StopCondition.o
-	$(CXX) $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
-
-MainSeq2: SA.req.o SA.pro.o newGA.req.o newGA.pro.o newGASA.req.o newGASA.pro.o MainSeq2.o StopCondition.o
-	$(CXX) $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
-
-MainSeq3: SA.req.o SA.pro.o newGA.req.o newGA.pro.o newGASA.req.o newGASA.pro.o MainSeq3.o StopCondition.o
-	$(CXX) $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
-
-LAN_1:
-	$(RUN)  -v  -p4pg pgfileLan1 MainLan1
-WAN_1:
-	$(RUN)  -v  -p4pg pgfileWan1 MainWan1
 SEQ_1:
-	./MainSeq1
-LAN_2:
-	$(RUN)  -v  -p4pg pgfileLan2 MainLan2
-WAN_2:
-	$(RUN)  -v  -p4pg pgfileWan2 MainWan2
-SEQ_2:
-	./MainSeq2
-LAN_3:
-	$(RUN)  -v  -p4pg pgfileLan3 MainLan3
-WAN_3:
-	$(RUN)  -v  -p4pg pgfileWan3 MainWan3
-SEQ_3:
-	./MainSeq3
+	./MainSeq
