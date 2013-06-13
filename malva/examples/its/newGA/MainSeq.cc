@@ -28,26 +28,24 @@ int main (int argc, char** argv)
   	exit(-1);
   }
 
-  SetUpParams cfg(pool);
-  ifsConfig >> cfg;
-
   Problem pbm;
   ifsInstance >> pbm;
 
   Operator_Pool pool(pbm);
-  Solver a ;
+
+  SetUpParams cfg(pool);
+  ifsConfig >> cfg;
+
+  Solver a;
   Solver_Seq solver(pbm, cfg);
   solver.run();
 
-  if (solver.pid()==0)
-  {
+  if (solver.pid() == 0) {
     solver.show_state();
-    cout << "Solution: " << solver.global_best_solution()
-         << " Fitness: " << solver.global_best_solution().fitness() << endl;
-    cout << "\n\n :( ---------------------- THE END --------------- :) ";
-
+    cout << "Solution: " << solver.global_best_solution() << " " <<
+         << "Fitness: " << solver.global_best_solution().fitness();
     ofsResult << solver.userstatistics();
-
   }
+
   return(0);
 }

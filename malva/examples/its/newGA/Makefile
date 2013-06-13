@@ -4,10 +4,10 @@ include $(MALVA_DIR)/environment
 all: MainSeq
 
 clean:
-	rm -f triangulationn *.o *~
+	rm -f MainSeq *.o *~
 
 MainSeq: newGA.req.o newGA.pro.o MainSeq.o
 	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
 
-run:
+SEQ:
 	./MainSeq config.dat instances/nodes.in nodes.out
