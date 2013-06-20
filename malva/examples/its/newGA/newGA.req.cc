@@ -2,10 +2,6 @@
 #define INC_REQ_newGA
 
 #include <math.h>
-
-skeleton newGA {
-
-
-}
+#include <malva/mallba.hh>
 
 #endif

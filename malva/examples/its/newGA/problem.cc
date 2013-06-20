@@ -1,4 +1,3 @@
-
 Problem::Problem() : _numvar(0), _numclause(0), _clauses(NULL), _lenclause(0) {
 }
 
