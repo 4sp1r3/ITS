@@ -1,6 +1,10 @@
-#ifndef INC_newGA
-#define INC_newGA
+#ifndef SOLUTION__HH
+#define SOLUTION__HH
+
 #include "newGAstructures.hh"
+#include "problem.hh"
+#include "Vec2.h"
+
 
 skeleton newGA
 {
@@ -29,12 +33,14 @@ skeleton newGA
         double fitness();
         unsigned int size() const;
 
-        int& var(const int index);
-        Rarray<int>& array_var();
+        inline Vec2 & getCoord() { return _coord; };
+        inline Vec & getDecay() { return _decay; };
 
-    private:
-        Rarray<int> _var;
+ //   private:
+        Vec2 _coord;
+        Vec _decay;
         const Problem& _pbm;
+
     };
 
 }

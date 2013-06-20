@@ -1,6 +1,9 @@
-#ifndef INC_newGA
-#define INC_newGA
+#ifndef PROBLEM__HH
+#define PROBLEM__HH
 #include "newGAstructures.hh"
+
+#include "Vec.h"
+#include "Vec2.h"
 
 skeleton newGA
 {
@@ -19,16 +22,21 @@ skeleton newGA
 
         Direction direction() const;
 
-        int numvar() const;
-        int numclause() const;
-        int lenclause() const;
-        int *clause(const int i) const;
+        inline int getNumNodes() { return _numnodes; };
+        inline int getSignal(int i) { return _signal[i]; };
+        inline Vec2 * getNodes() {return _nodes;};
 
-    private:
-        int _numvar;
-        int _numclause;
-        int _lenclause;
-        int ** _clauses;
+        inline double getPercibedDistance(double signal) { return 0; }
+
+//    private:
+        int _numnodes;
+        Vec2 * _nodes;
+        Vec * _signal;
+
+        double _minx;
+        double _miny;
+        double _maxx;
+        double _maxy;
     };
 
 }

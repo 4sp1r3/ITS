@@ -6,7 +6,9 @@ all: MainSeq
 clean:
 	rm -f MainSeq *.o *~
 
-MainSeq: newGA.req.o newGA.pro.o MainSeq.o
+# newGA.req.o 
+
+MainSeq: newGA.pro.o MainSeq.o problem.o
 	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
 
 SEQ:

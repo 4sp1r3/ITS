@@ -1,42 +1,40 @@
-Problem::Problem() : _numvar(0), _numclause(0), _clauses(NULL), _lenclause(0) {
+#include "problem.hh"
+
+namespace newGA {
+
+#define MAXDISTANCE 10000.0
+
+Problem::Problem() {
+	this->_numnodes = 0;
+	this->_nodes = NULL;
+	this->_signal = NULL;
+	this->_maxx = -MAXDISTANCE;
+	this->_maxy = -MAXDISTANCE;
+	this->_minx = MAXDISTANCE;
+	this->_miny = MAXDISTANCE;
 }
 
-ostream& operator<<(ostream& os, const Problem & pbm) {
-    os << endl << endl << "Number of variables " << pbm._numvar
-            << endl << endl << "Number of clauses " << pbm._numclause
-            << endl << endl << "Length of clauses " << pbm._lenclause
-            << endl << endl
-            << " Clauses: " << endl;
 
-    for (int i = 0; i < pbm._numclause; i++) {
-        os << "\t clause " << i << "\t ";
-        for (int j = 0; j < pbm._lenclause; j++)
-            os << pbm._clauses[i][j] << " ";
-        os << endl;
-    }
-    return os;
-}
+istream& Problem::operator>>(istream& is) {
+	is >> _numnodes;
 
-istream& operator>>(istream& is, Problem & pbm) {
-    int l;
-    int n;
-    is >> pbm._numvar >> pbm._numclause >> pbm._lenclause;
+    // read nodes
+    _nodes = new Vec2[_numnodes];
+    _signal = new Vec[_numnodes];
 
-    n = pbm._lenclause;
-    // read clauses
-    pbm._clauses = new int*[pbm._numclause];
-
-    for (int i = 0; i < pbm._numclause; i++) {
-        pbm._clauses[i] = new int[n];
-        for (int j = 0; j < n; j++) {
-            is >> l;
-            pbm._clauses[i][j] = l;
-        }
-        is >> l;
-    }
+    for (int i = 0; i < _numnodes ; i++) {
+        is >> _nodes[i][0];
+        if (_nodes[i][0] > maxx) maxx = _nodes[i][0];
+        if (_nodes[i][0] < minx) minx = _nodes[i][0];
+        is >> _nodes[i][1];
+        if (_nodes[i][1] > maxy) maxy = _nodes[i][1];
+        if (_nodes[i][1] < miny) miny = _nodes[i][1];
+        is >> _signal[i];
+   }
 
     return is;
 }
+
 
 Problem & Problem::operator=(const Problem & pbm) {
     int n;
@@ -72,8 +70,8 @@ bool Problem::operator!=(const Problem & pbm) const {
 }
 
 Direction Problem::direction() const {
-    return maximize;
-    //return minimize;
+    //return maximize;
+    return minimize;
 }
 
 int Problem::numvar() const {
@@ -97,4 +95,6 @@ Problem::~Problem() {
         delete [] _clauses[i];
 
     delete [] _clauses;
+}
+
 }

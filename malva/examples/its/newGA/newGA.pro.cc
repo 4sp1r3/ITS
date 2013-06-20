@@ -1,4 +1,11 @@
-#include "newGA.hh"
+#include "operators.hh"
+#include "population.hh"
+#include "problem.hh"
+#include "setup.hh"
+#include "solution.hh"
+#include "solver.hh"
+#include "stop.hh"
+#include "stats.hh"
 
 skeleton newGA
 {
@@ -2390,7 +2397,7 @@ skeleton newGA
 			if (display_state()) show_state();
 		} // end while
 		
-		// Actualización de las estadísticas // Termination phase //
+		// Actualizaciï¿½n de las estadï¿½sticas // Termination phase //
 		iteration_best_found_in_trial(acum_iterations/(_netstream.pnumber()-1));
 		evaluations_best_found_in_trial(acum_evaluations/(_netstream.pnumber()-1));
 		

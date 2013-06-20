@@ -1,6 +1,8 @@
-#ifndef INC_newGA
-#define INC_newGA
+#ifndef OPERATORS__HH
+#define OPERATORS__HH
+
 #include "newGAstructures.hh"
+
 
 skeleton newGA
 {
