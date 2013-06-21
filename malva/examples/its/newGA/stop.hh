@@ -1,5 +1,5 @@
-#ifndef INC_newGA
-#define INC_newGA
+#ifndef STOP__H
+#define STOP__H
 #include "newGAstructures.hh"
 
 skeleton newGA
@@ -18,6 +18,10 @@ skeleton newGA
         virtual bool EvaluateCondition(const Problem& pbm, const Solver& solver, const SetUpParams& setup);
         ~StopCondition_1();
     };
+
+
+    bool terminateQ(const Problem& pbm, const Solver& solver,
+            const SetUpParams & setup);
 
 }
 

@@ -8,7 +8,7 @@ clean:
 
 # newGA.req.o 
 
-MainSeq: newGA.pro.o MainSeq.o problem.o
+MainSeq: newGA.pro.o MainSeq.o operators.o problem.o setup.o solution.o stats.o stop.o
 	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
 
 SEQ:

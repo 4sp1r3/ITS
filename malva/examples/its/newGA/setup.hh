@@ -1,8 +1,9 @@
-#ifndef INC_newGA
-#define INC_newGA
+#ifndef SETUP__H
+#define SETUP__H
 #include "newGAstructures.hh"
+#include "operators.hh"
 
-skeleton newGA
+namespace newGA
 {
 
     provides class SetUpParams {

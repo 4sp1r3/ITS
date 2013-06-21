@@ -6,9 +6,14 @@
 #include "solver.hh"
 #include "stop.hh"
 #include "stats.hh"
+#include "newGAstructures.hh"
 
 skeleton newGA
 {
+
+
+	// Si se algún operador tiene más de 5 parámetros se debe modificar esta variable
+	#define MAX_PROB_PER_OP 5
 
 // StopCondition -------------------------------------------------------------------------------------
 

@@ -1,6 +1,10 @@
-#ifndef INC_newGA
-#define INC_newGA
+#ifndef POPULATION__HH
+#define POPULATION__HH
+
 #include "newGAstructures.hh"
+#include "population.hh"
+#include "solution.hh"
+#include "setup.hh"
 
 skeleton newGA
 {

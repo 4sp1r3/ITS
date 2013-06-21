@@ -24,22 +24,18 @@ public:
                 Vec2();
                 Vec2(double x, double y);       // (x, y)
                 Vec2(const Vec2 &v);        // Copy constructor
-                Vec2(ZeroOrOne k);          // v[i] = vl_zero
-                Vec2(Axis k);               // v[k] = 1
 
     // Accessor functions
 
-    double        &operator [] (Int i);
-    const double  &operator [] (Int i) const;
+    double        &operator [] (int i);
+    const double  &operator [] (int i) const;
 
-    Int         Elts() const { return(2); };
+    int         Elts() const { return(2); };
     double        *Ref() const;                       // Return ptr to data
 
     // Assignment operators
 
     Vec2        &operator =  (const Vec2 &a);
-    Vec2        &operator =  (ZeroOrOne k);
-    Vec2        &operator =  (Axis k);
 
     Vec2        &operator += (const Vec2 &a);
     Vec2        &operator -= (const Vec2 &a);
@@ -50,8 +46,8 @@ public:
 
     // Comparison operators
 
-    Bool        operator == (const Vec2 &a) const;  // v == a?
-    Bool        operator != (const Vec2 &a) const;  // v != a?
+    bool        operator == (const Vec2 &a) const;  // v == a?
+    bool        operator != (const Vec2 &a) const;  // v != a?
 
     // Arithmetic operators
 
@@ -66,8 +62,6 @@ public:
     // Initialisers
 
     Vec2        &MakeZero();                        // Zero vector
-    Vec2        &MakeUnit(Int i, double k = vl_one);  // I[i]
-    Vec2        &MakeBlock(double k = vl_one);        // All-k vector
 
     Vec2        &Normalise();                       // normalise vector
 
@@ -86,7 +80,7 @@ inline double     dot(const Vec2 &a, const Vec2 &b);  // v . a
 inline double     len(const Vec2 &v);                 // || v ||
 inline double     sqrlen(const Vec2 &v);              // v . v
 inline Vec2     norm(const Vec2 &v);                // v / || v ||
-inline Void     normalise(Vec2 &v);                 // v = norm(v)
+inline void     normalise(Vec2 &v);                 // v = norm(v)
 inline Vec2     cross(const Vec2 &v);               // cross prod.
 
 std::ostream &operator << (std::ostream &s, const Vec2 &v);
@@ -95,15 +89,15 @@ std::istream &operator >> (std::istream &s, Vec2 &v);
 
 // --- Inlines ----------------------------------------------------------------
 
-inline double &Vec2::operator [] (Int i)
+inline double &Vec2::operator [] (int i)
 {
-    CheckRange(i, 0, 2, "(Vec2::[i]) index out of range");
+    //CheckRange(i, 0, 2, "(Vec2::[i]) index out of range");
     return(elt[i]);
 }
 
-inline const double &Vec2::operator [] (Int i) const
+inline const double &Vec2::operator [] (int i) const
 {
-    CheckRange(i, 0, 2, "(Vec2::[i]) index out of range");
+    //CheckRange(i, 0, 2, "(Vec2::[i]) index out of range");
     return(elt[i]);
 }
 
@@ -133,7 +127,7 @@ inline Vec2 &Vec2::operator = (const Vec2 &v)
     elt[0] = v[0];
     elt[1] = v[1];
 
-    return(SELF);
+    return(*this);
 }
 
 inline Vec2 &Vec2::operator += (const Vec2 &v)
@@ -141,7 +135,7 @@ inline Vec2 &Vec2::operator += (const Vec2 &v)
     elt[0] += v[0];
     elt[1] += v[1];
 
-    return(SELF);
+    return(*this);
 }
 
 inline Vec2 &Vec2::operator -= (const Vec2 &v)
@@ -149,7 +143,7 @@ inline Vec2 &Vec2::operator -= (const Vec2 &v)
     elt[0] -= v[0];
     elt[1] -= v[1];
 
-    return(SELF);
+    return(*this);
 }
 
 inline Vec2 &Vec2::operator *= (const Vec2 &v)
@@ -157,7 +151,7 @@ inline Vec2 &Vec2::operator *= (const Vec2 &v)
     elt[0] *= v[0];
     elt[1] *= v[1];
 
-    return(SELF);
+    return(*this);
 }
 
 inline Vec2 &Vec2::operator *= (double s)
@@ -165,7 +159,7 @@ inline Vec2 &Vec2::operator *= (double s)
     elt[0] *= s;
     elt[1] *= s;
 
-    return(SELF);
+    return(*this);
 }
 
 inline Vec2 &Vec2::operator /= (const Vec2 &v)
@@ -173,7 +167,7 @@ inline Vec2 &Vec2::operator /= (const Vec2 &v)
     elt[0] /= v[0];
     elt[1] /= v[1];
 
-    return(SELF);
+    return(*this);
 }
 
 inline Vec2 &Vec2::operator /= (double s)
@@ -181,7 +175,7 @@ inline Vec2 &Vec2::operator /= (double s)
     elt[0] /= s;
     elt[1] /= s;
 
-    return(SELF);
+    return(*this);
 }
 
 inline Vec2 Vec2::operator + (const Vec2 &a) const
@@ -290,73 +284,25 @@ inline Vec2 norm(const Vec2 &v)
     return(v / len(v));
 }
 
-inline Void normalise(Vec2 &v)
+inline void normalise(Vec2 &v)
 {
     v /= len(v);
 }
 
-inline Vec2 &Vec2::MakeUnit(Int i, double k)
-{
-    if (i == 0)
-    { elt[0] = k; elt[1] = vl_zero; }
-    else if (i == 1)
-    { elt[0] = vl_zero; elt[1] = k; }
-    else
-        _Error("(Vec2::Unit) illegal unit vector");
-    return(SELF);
-}
-
-inline Vec2 &Vec2::MakeZero()
-{
-    elt[0] = vl_zero; elt[1] = vl_zero;
-    return(SELF);
-}
-
-inline Vec2 &Vec2::MakeBlock(double k)
-{
-    elt[0] = k; elt[1] = k;
-    return(SELF);
-}
 
 inline Vec2 &Vec2::Normalise()
 {
-    Assert(sqrlen(SELF) > 0.0, "normalising length-zero vector");
-    SELF /= len(SELF);
-    return(SELF);
+    Assert(sqrlen(*this) > 0.0, "normalising length-zero vector");
+    *this /= len(*this);
+    return(*this);
 }
 
-
-inline Vec2::Vec2(ZeroOrOne k)
-{
-    elt[0] = k;
-    elt[1] = k;
-}
-
-inline Vec2::Vec2(Axis k)
-{
-    MakeUnit(k, vl_one);
-}
-
-inline Vec2 &Vec2::operator = (ZeroOrOne k)
-{
-    elt[0] = k; elt[1] = k;
-
-    return(SELF);
-}
-
-inline Vec2 &Vec2::operator = (Axis k)
-{
-    MakeUnit(k, vl_1);
-
-    return(SELF);
-}
-
-inline Bool Vec2::operator == (const Vec2 &a) const
+inline bool Vec2::operator == (const Vec2 &a) const
 {
     return(elt[0] == a[0] && elt[1] == a[1]);
 }
 
-inline Bool Vec2::operator != (const Vec2 &a) const
+inline bool Vec2::operator != (const Vec2 &a) const
 {
     return(elt[0] != a[0] || elt[1] != a[1]);
 }

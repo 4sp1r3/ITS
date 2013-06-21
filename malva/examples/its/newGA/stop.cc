@@ -1,3 +1,5 @@
+namespace newGA {
+
 StopCondition_1::StopCondition_1() : StopCondition() {
 }
 
@@ -14,3 +16,6 @@ bool terminateQ(const Problem& pbm, const Solver& solver,
     StopCondition_1 stop;
     return stop.EvaluateCondition(pbm, solver, setup);
 }
+
+}
+

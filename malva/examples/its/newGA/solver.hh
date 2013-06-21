@@ -1,9 +1,12 @@
-#ifndef INC_newGA
-#define INC_newGA
+#ifndef SOLVER__HH
+#define SOLVER__HH
 #include "newGAstructures.hh"
+#include "stats.hh"
 
 skeleton newGA
 {
+	// Si se definen más de 5 nuevos operadores por parte del usuario, se debe cambiar esta constante.
+	#define MAX_OP_USER 5
 
     provides class Solver {
     protected:

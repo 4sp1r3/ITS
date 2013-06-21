@@ -1,5 +1,5 @@
-#ifndef INC_newGA
-#define INC_newGA
+#ifndef STATS__HH
+#define STATS__HH
 #include "newGAstructures.hh"
 
 skeleton newGA
