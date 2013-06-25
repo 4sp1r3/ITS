@@ -5,4 +5,6 @@
 *.dvi
 *.log
 *~
+nbproject
 
+/malva/examples/its/newGA/nbproject/private/
