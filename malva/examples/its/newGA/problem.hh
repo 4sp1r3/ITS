@@ -1,7 +1,6 @@
 #ifndef PROBLEM__HH
 #define PROBLEM__HH
 
-#include "newGA.hh"
 #include "newGAstructures.hh"
 
 #include "Vec.h"
@@ -14,12 +13,11 @@ namespace newGA {
         Problem();
         ~Problem();
 
-        friend ostream & operator<<(ostream& os, const Problem& pbm);
-        friend istream & operator>>(istream& is, Problem& pbm);
-
         Problem & operator=(const Problem& pbm);
         bool operator==(const Problem& pbm) const;
         bool operator!=(const Problem& pbm) const;
+        
+        friend istream & operator>>(istream& is, Problem& pbm);
 
         Direction direction() const;
 
@@ -27,11 +25,11 @@ namespace newGA {
         inline double getSignal(int i) { return _signal[i]; };
         inline Vec2 * getNodes() {return _nodes;};
 
-        inline double getPercibedDistance(double signal) { return 0; }
+        double getPercibedDistance(double signal) const;
 
         int _numnodes;
-        Vec2 * _nodes;
-        Vec * _signal;
+        Vec2* _nodes;
+        Vec _signal;
 
         double _minx;
         double _miny;

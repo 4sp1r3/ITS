@@ -1,10 +1,14 @@
 #ifndef POPULATION__HH
 #define POPULATION__HH
 
-#include "setup.hh"
 #include "newGAstructures.hh"
 
 namespace newGA {
+
+    class Solution;
+    class SetUpParams;
+    class Population;
+    class Problem;
 
     class Population {
     private:

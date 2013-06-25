@@ -2,9 +2,18 @@
 #define SOLVER__HH
 
 #include "stats.hh"
+#include "solution.hh"
+#include "population.hh"
 #include "newGAstructures.hh"
 
+#include <malva/States.hh>
+
 namespace newGA {
+
+    class Problem;
+    class SetUpParams;
+    class Population;
+    class Statistics;
 
     // Si se definen más de 5 nuevos operadores por parte del usuario, se debe cambiar esta constante.
     #define MAX_OP_USER 5
@@ -72,7 +81,6 @@ namespace newGA {
         State_Vble _parameter_select_offsprings;
 
         State_Vble _display_state;
-
 
     public:
         Solver(const Problem& pbm, const SetUpParams& setup);

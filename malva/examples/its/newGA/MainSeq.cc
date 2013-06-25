@@ -1,51 +1,54 @@
-#include "newGA.hh"
+#include "problem.hh"
+#include "operators.hh"
+#include "setup.hh"
+#include "solver.hh"
 
-int main (int argc, char** argv)
-{
-  using skeleton newGA;
+using namespace newGA;
 
-  if(argc < 4) {
-    cerr << endl
-         << "Error: number of arguments in the execution call is incorrect !!";
-    exit(-1);
-  }
+int main(int argc, char** argv) {
+    using skeleton newGA;
 
-  ifstream ifsConfig(argv[1]);
-  if (!ifsConfig) {
-	  cerr << endl << "Error: It's imposible find Configuration file !!";
-	  exit(-1);
-  }
+    if (argc < 4) {
+        cerr << endl
+                << "Error: number of arguments in the execution call is incorrect !!";
+        exit(-1);
+    }
 
-  ifstream ifsInstance(argv[2]);
-  if (!ifsInstance) {
-	  	cerr << endl << "Error: It's imposible find Instance Problem File !!";
-	  	exit(-1);
-  }
+    ifstream ifsConfig(argv[1]);
+    if (!ifsConfig) {
+        cerr << endl << "Error: It's imposible find Configuration file !!";
+        exit(-1);
+    }
 
-  ofstream ofsResult(argv[3]);
-  if(!ofsResult) {
-  	cerr << endl << "Error: It's imposible find Resultate File !!";
-  	exit(-1);
-  }
+    ifstream ifsInstance(argv[2]);
+    if (!ifsInstance) {
+        cerr << endl << "Error: It's imposible find Instance Problem File !!";
+        exit(-1);
+    }
 
-  Problem pbm;
-  ifsInstance >> pbm;
+    ofstream ofsResult(argv[3]);
+    if (!ofsResult) {
+        cerr << endl << "Error: It's imposible find Resultate File !!";
+        exit(-1);
+    }
 
-  Operator_Pool pool(pbm);
+    Problem pbm;
+    ifsInstance >> pbm;
 
-  SetUpParams cfg(pool);
-  ifsConfig >> cfg;
+    Operator_Pool pool(pbm);
 
-  Solver a;
-  Solver_Seq solver(pbm, cfg);
-  solver.run();
+    SetUpParams cfg(pool);
+    ifsConfig >> cfg;
 
-  if (solver.pid() == 0) {
-    solver.show_state();
-    cout << "Solution: " << solver.global_best_solution() << " " <<
-         << "Fitness: " << solver.global_best_solution().fitness();
-    ofsResult << solver.userstatistics();
-  }
+    Solver_Seq solver(pbm, cfg);
+    solver.run();
 
-  return(0);
+    if (solver.pid() == 0) {
+        solver.show_state();
+        cout << "Solution: " << solver.global_best_solution() << " "
+             << "Fitness: " << solver.global_best_solution().fitness();
+        ofsResult << solver.userstatistics();
+    }
+
+    return (0);
 }

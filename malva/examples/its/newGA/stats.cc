@@ -1,3 +1,8 @@
+#include "stats.hh"
+#include "solver.hh"
+#include "stop.hh"
+#include "setup.hh"
+
 namespace newGA {
 
     UserStatistics::UserStatistics() {

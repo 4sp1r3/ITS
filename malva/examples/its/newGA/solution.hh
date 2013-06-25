@@ -1,11 +1,13 @@
 #ifndef SOLUTION__HH
 #define SOLUTION__HH
 
-#include "problem.hh"
 #include "newGAstructures.hh"
 #include "Vec2.h"
+#include "Vec.h"
 
 namespace newGA {
+
+    class Problem;
 
     class Solution {
     public:
@@ -23,12 +25,13 @@ namespace newGA {
         Solution & operator=(const Solution& sol);
         bool operator==(const Solution& sol) const;
         bool operator!=(const Solution& sol) const;
+        bool operator>(const Solution & sol) const;
 
         char *to_String() const;
         void to_Solution(char * string);
 
         void initialize();
-        double fitness();
+        double fitness() const;
         unsigned int size() const;
 
         Vec2 _coord;

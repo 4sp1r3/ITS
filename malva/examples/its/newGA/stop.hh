@@ -1,10 +1,13 @@
 #ifndef STOP__H
 #define STOP__H
 
-#include "newGA.hh"
 #include "newGAstructures.hh"
 
 namespace newGA {
+
+    class Problem;
+    class Solver;
+    class SetUpParams;
 
     class StopCondition {
     public:
@@ -13,16 +16,14 @@ namespace newGA {
         ~StopCondition();
     };
 
-    class StopCondition_1 : public StopCondition {
+    class StopITS : public StopCondition {
     public:
-        StopCondition_1();
+        StopITS();
         virtual bool EvaluateCondition(const Problem& pbm, const Solver& solver, const SetUpParams& setup);
-        ~StopCondition_1();
+        ~StopITS();
     };
 
-
-    bool terminateQ(const Problem& pbm, const Solver& solver,
-            const SetUpParams & setup);
+    bool terminateQ(const Problem& pbm, const Solver& solver, const SetUpParams & setup);
 
 }
 

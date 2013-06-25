@@ -1,10 +1,13 @@
 #ifndef SETUP__H
 #define SETUP__H
 
-#include "operators.hh"
 #include "newGAstructures.hh"
 
+#include <malva/States.hh>
+
 namespace newGA {
+
+    class Operator_Pool;
 
     class SetUpParams {
     private:
@@ -28,6 +31,8 @@ namespace newGA {
         Rlist<unsigned int> _intra_operators;
         Rlist<unsigned int> _inter_operators;
 
+        double _fitness_treshold;
+        
         Operator_Pool& _pool;
 
     public:
@@ -61,6 +66,8 @@ namespace newGA {
         const unsigned int inter_operator_index(const unsigned int index) const;
         const unsigned int inter_operators_size() const;
 
+        const double fitness_treshold() const;
+        
         // gets the i-th operator of intra-population
         const unsigned int intra_operator_index(const unsigned int index) const;
         const unsigned int intra_operators_size() const;

@@ -3,7 +3,7 @@ include $(MALVA_DIR)/environment
 
 all: MainSeq
 
-MainSeq: newGA.pro.o MainSeq.o operators.o problem.o solution.o stats.o stop.o
+MainSeq: MainSeq.o newGA.pro.o operators.o problem.o solution.o stats.o stop.o Vec.o
 	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
 
 SEQ:

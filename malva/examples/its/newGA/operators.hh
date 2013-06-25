@@ -1,11 +1,16 @@
 #ifndef OPERATORS__HH
 #define OPERATORS__HH
 
-#include "solution.hh"
-#include "population.hh"
 #include "newGAstructures.hh"
 
+#include <malva/States.hh>
+
 namespace newGA {
+
+    class Solution;
+    class Mutation;
+    class Population;
+    class Problem;
 
     class Intra_Operator {
     protected:

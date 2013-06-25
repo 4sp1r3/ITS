@@ -1,19 +1,27 @@
+#include "stop.hh"
+#include "solution.hh"
+#include "setup.hh"
+#include "solver.hh"
+
 namespace newGA {
 
-    StopCondition_1::StopCondition_1() : StopCondition() {
+    StopITS::StopITS() : StopCondition() {
     }
 
-    bool StopCondition_1::EvaluateCondition(const Problem& pbm, const Solver& solver, const SetUpParams & setup) {
-        return ((int) solver.best_cost_trial() == pbm.numclause());
+    bool StopITS::EvaluateCondition(const Problem& pbm, const Solver& solver, const SetUpParams & setup) {
+        if (solver.current_best_solution().fitness() < setup.fitness_treshold()) {
+            return true;
+        }
+        return false;
     }
 
-    StopCondition_1::~StopCondition_1() {
+    StopITS::~StopITS() {
 
     }
 
     bool terminateQ(const Problem& pbm, const Solver& solver,
             const SetUpParams & setup) {
-        StopCondition_1 stop;
+        StopITS stop;
         return stop.EvaluateCondition(pbm, solver, setup);
     }
 
