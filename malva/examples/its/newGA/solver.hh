@@ -1,14 +1,15 @@
 #ifndef SOLVER__HH
 #define SOLVER__HH
-#include "newGAstructures.hh"
+
 #include "stats.hh"
+#include "newGAstructures.hh"
 
-skeleton newGA
-{
-	// Si se definen más de 5 nuevos operadores por parte del usuario, se debe cambiar esta constante.
-	#define MAX_OP_USER 5
+namespace newGA {
 
-    provides class Solver {
+    // Si se definen más de 5 nuevos operadores por parte del usuario, se debe cambiar esta constante.
+    #define MAX_OP_USER 5
+
+    class Solver {
     protected:
         const Problem& problem;
         const SetUpParams& params;
@@ -192,7 +193,7 @@ skeleton newGA
         void KeepHistory(const Solution& best_sol, const double best_cost, const double worst_cost, const float time_spent_trial, const float total_time_spent);
     };
 
-    provides class Solver_Seq : public Solver {
+    class Solver_Seq : public Solver {
     public:
         Solver_Seq(const Problem& pbm, const SetUpParams& setup);
         virtual ~Solver_Seq();
@@ -211,7 +212,7 @@ skeleton newGA
         virtual void DoStep();
     };
 
-    provides class Solver_Lan : public Solver {
+    class Solver_Lan : public Solver {
     private:
         NetStream _netstream;
         int mypid;
@@ -258,7 +259,7 @@ skeleton newGA
         void reset();
     };
 
-    provides class Solver_Wan : public Solver {
+    class Solver_Wan : public Solver {
     private:
         NetStream _netstream;
         int mypid;

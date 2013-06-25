@@ -3,113 +3,113 @@
 
 namespace newGA {
 
-#define MAXDECAY 0.5
-#define MINDECAY -0.1
+		#define MAXDECAY 0.5
+		#define MINDECAY -0.1
 
-Solution::Solution(const Problem & pbm) :
-			_pbm(pbm),
-			_decay(pbm.getNumNodes()),
-			_coord(((pbm._maxx - pbm._minx) * rand01()) - pbm._minx,
-					((pbm._maxy - pbm._miny) * rand01()) - pbm._miny) {
+		Solution::Solution(const Problem & pbm) :
+					_pbm(pbm),
+					_decay(pbm.getNumNodes()),
+					_coord(((pbm._maxx - pbm._minx) * rand01()) - pbm._minx,
+							((pbm._maxy - pbm._miny) * rand01()) - pbm._miny) {
 
-	for (int i = 0; i < pbm.getNumNodes(); i++) {
-		_decay[i] = (rand01() * (MAXDECAY - MINDECAY)) + MINDECAY;
-	}
+			for (int i = 0; i < pbm.getNumNodes(); i++) {
+				_decay[i] = (rand01() * (MAXDECAY - MINDECAY)) + MINDECAY;
+			}
 
-}
+		}
 
-const Problem & Solution::pbm() const {
-	return _pbm;
-}
+		const Problem & Solution::pbm() const {
+			return _pbm;
+		}
 
-Solution::Solution(const Solution & sol) :
-	_pbm(sol.pbm()) {
-	*this = sol;
-}
+		Solution::Solution(const Solution & sol) :
+			_pbm(sol.pbm()) {
+			*this = sol;
+		}
 
-istream& operator>>(istream& is, Solution & sol) {
-	for (int i = 0; i < sol.pbm().numvar(); i++)
-		is >> sol._var[i];
-	return is;
-}
+		istream& operator>>(istream& is, Solution & sol) {
+			for (int i = 0; i < sol.pbm().numvar(); i++)
+				is >> sol._var[i];
+			return is;
+		}
 
-ostream& operator<<(ostream& os, const Solution & sol) {
-	for (int i = 0; i < sol.pbm().numvar(); i++)
-		os << " " << sol._var[i];
-	return os;
-}
+		ostream& operator<<(ostream& os, const Solution & sol) {
+			for (int i = 0; i < sol.pbm().numvar(); i++)
+				os << " " << sol._var[i];
+			return os;
+		}
 
-NetStream& operator <<(NetStream& ns, const Solution & sol) {
-	for (int i = 0; i < sol._var.size(); i++)
-		ns << sol._var[i];
-	return ns;
-}
+		NetStream& operator <<(NetStream& ns, const Solution & sol) {
+			for (int i = 0; i < sol._var.size(); i++)
+				ns << sol._var[i];
+			return ns;
+		}
 
-NetStream& operator >>(NetStream& ns, Solution & sol) {
-	for (int i = 0; i < sol._var.size(); i++)
-		ns >> sol._var[i];
-	return ns;
-}
+		NetStream& operator >>(NetStream& ns, Solution & sol) {
+			for (int i = 0; i < sol._var.size(); i++)
+				ns >> sol._var[i];
+			return ns;
+		}
 
-Solution & Solution::operator=(const Solution & sol) {
-	_var = sol._var;
-	return *this;
-}
+		Solution & Solution::operator=(const Solution & sol) {
+			_var = sol._var;
+			return *this;
+		}
 
-bool Solution::operator==(const Solution & sol) const {
-	if (sol.pbm() != _pbm)
-		return false;
-	return true;
-}
+		bool Solution::operator==(const Solution & sol) const {
+			if (sol.pbm() != _pbm)
+				return false;
+			return true;
+		}
 
-bool Solution::operator!=(const Solution & sol) const {
-	return !(*this == sol);
-}
+		bool Solution::operator!=(const Solution & sol) const {
+			return !(*this == sol);
+		}
 
-void Solution::initialize() {
-	for (int i = 0; i < _pbm.getNumNodes(); i++) {
+		void Solution::initialize() {
+			for (int i = 0; i < _pbm.getNumNodes(); i++) {
 
-	}
-}
+			}
+		}
 
-bool Solution::operator>(const Solution & sol) const {
-	return this->fitness()>sol.fitness();
-}
+		bool Solution::operator>(const Solution & sol) const {
+			return this->fitness()>sol.fitness();
+		}
 
-double Solution::fitness() {
-	double fitness = 0.0;
+		double Solution::fitness() {
+			double fitness = 0.0;
 
-	for (int i = 0; i < _pbm._numnodes; i++) {
-		fitness += len(_pbm._nodes[i] - this->_coord) - _pbm.getPercibedDistance(_pbm._signal[i]*(1-_decay[i]));
-	}
-	return fitness;
-}
+			for (int i = 0; i < _pbm._numnodes; i++) {
+				fitness += len(_pbm._nodes[i] - this->_coord) - _pbm.getPercibedDistance(_pbm._signal[i]*(1-_decay[i]));
+			}
+			return fitness;
+		}
 
-char* Solution::to_String() const {
-	return (char *) _var.get_first();
-}
+		char* Solution::to_String() const {
+			return (char *) _var.get_first();
+		}
 
-void Solution::to_Solution(char *_string_) {
-	int *ptr = (int *) _string_;
-	for (int i = 0; i < _pbm.numvar(); i++) {
-		_var[i] = *ptr;
-		ptr++;
-	}
-}
+		void Solution::to_Solution(char *_string_) {
+			int *ptr = (int *) _string_;
+			for (int i = 0; i < _pbm.numvar(); i++) {
+				_var[i] = *ptr;
+				ptr++;
+			}
+		}
 
-unsigned int Solution::size() const {
-	return (_pbm.numvar() * sizeof(int));
-}
+		unsigned int Solution::size() const {
+			return (_pbm.numvar() * sizeof(int));
+		}
 
-int& Solution::var(const int index) {
-	return _var[index];
-}
+		int& Solution::var(const int index) {
+			return _var[index];
+		}
 
-Rarray<int>& Solution::array_var() {
-	return _var;
-}
+		Rarray<int>& Solution::array_var() {
+			return _var;
+		}
 
-Solution::~Solution() {
-}
+		Solution::~Solution() {
+		}
 
 }

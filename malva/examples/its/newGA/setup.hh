@@ -1,12 +1,12 @@
 #ifndef SETUP__H
 #define SETUP__H
-#include "newGAstructures.hh"
+
 #include "operators.hh"
+#include "newGAstructures.hh"
 
-namespace newGA
-{
+namespace newGA {
 
-    provides class SetUpParams {
+    class SetUpParams {
     private:
         unsigned int _independent_runs;
         unsigned long _nb_evolution_steps;

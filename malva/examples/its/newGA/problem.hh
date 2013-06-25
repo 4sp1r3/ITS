@@ -1,14 +1,15 @@
 #ifndef PROBLEM__HH
 #define PROBLEM__HH
+
+#include "newGA.hh"
 #include "newGAstructures.hh"
 
 #include "Vec.h"
 #include "Vec2.h"
 
-skeleton newGA
-{
+namespace newGA {
 
-    requires class Problem {
+    class Problem {
     public:
         Problem();
         ~Problem();
@@ -23,12 +24,11 @@ skeleton newGA
         Direction direction() const;
 
         inline int getNumNodes() { return _numnodes; };
-        inline int getSignal(int i) { return _signal[i]; };
+        inline double getSignal(int i) { return _signal[i]; };
         inline Vec2 * getNodes() {return _nodes;};
 
         inline double getPercibedDistance(double signal) { return 0; }
 
-//    private:
         int _numnodes;
         Vec2 * _nodes;
         Vec * _signal;

@@ -1,15 +1,13 @@
 #ifndef SOLUTION__HH
 #define SOLUTION__HH
 
-#include "newGAstructures.hh"
 #include "problem.hh"
+#include "newGAstructures.hh"
 #include "Vec2.h"
 
+namespace newGA {
 
-skeleton newGA
-{
-
-    requires class Solution {
+    class Solution {
     public:
         Solution(const Problem& pbm);
         Solution(const Solution& sol);
@@ -27,16 +25,12 @@ skeleton newGA
         bool operator!=(const Solution& sol) const;
 
         char *to_String() const;
-        void to_Solution(char *_cadena_);
+        void to_Solution(char * string);
 
         void initialize();
         double fitness();
         unsigned int size() const;
 
-        inline Vec2 & getCoord() { return _coord; };
-        inline Vec & getDecay() { return _decay; };
-
- //   private:
         Vec2 _coord;
         Vec _decay;
         const Problem& _pbm;

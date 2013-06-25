@@ -1,11 +1,12 @@
 #ifndef STATS__HH
 #define STATS__HH
+
+#include "solver.hh"
 #include "newGAstructures.hh"
 
-skeleton newGA
-{
+namespace newGA {
 
-    requires class UserStatistics {
+    class UserStatistics {
     private:
 
         struct user_stat {
@@ -31,7 +32,7 @@ skeleton newGA
         void clear();
     };
 
-    provides class Statistics {
+    class Statistics {
     private:
 
         struct stat {

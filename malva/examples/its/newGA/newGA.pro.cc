@@ -1,15 +1,7 @@
-#include "operators.hh"
-#include "population.hh"
-#include "problem.hh"
-#include "setup.hh"
-#include "solution.hh"
-#include "solver.hh"
-#include "stop.hh"
-#include "stats.hh"
+#include "newGA.hh"
 #include "newGAstructures.hh"
 
-skeleton newGA
-{
+namespace newGA {
 
 
 	// Si se algún operador tiene más de 5 parámetros se debe modificar esta variable
@@ -172,12 +164,12 @@ skeleton newGA
         return os;
 	}
 
-	const unsigned int    SetUpParams::independent_runs() const
+	const unsigned int SetUpParams::independent_runs() const
 	{
 		return _independent_runs;
 	}
 
-	const unsigned long    SetUpParams::nb_evolution_steps() const
+	const unsigned long SetUpParams::nb_evolution_steps() const
 	{
 		return _nb_evolution_steps;
 	}

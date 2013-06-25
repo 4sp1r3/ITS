@@ -1,15 +1,12 @@
 #ifndef POPULATION__HH
 #define POPULATION__HH
 
-#include "newGAstructures.hh"
-#include "population.hh"
-#include "solution.hh"
 #include "setup.hh"
+#include "newGAstructures.hh"
 
-skeleton newGA
-{
+namespace newGA {
 
-    provides class Population {
+    class Population {
     private:
         Rarray<Solution*> _parents; // individuals in population
         Rarray<Solution*> _offsprings; // offsprings of current population

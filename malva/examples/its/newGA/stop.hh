@@ -1,18 +1,19 @@
 #ifndef STOP__H
 #define STOP__H
+
+#include "newGA.hh"
 #include "newGAstructures.hh"
 
-skeleton newGA
-{
+namespace newGA {
 
-    provides class StopCondition {
+    class StopCondition {
     public:
         StopCondition();
         virtual bool EvaluateCondition(const Problem& pbm, const Solver& solver, const SetUpParams& setup) = 0;
         ~StopCondition();
     };
 
-    requires class StopCondition_1 : public StopCondition {
+    class StopCondition_1 : public StopCondition {
     public:
         StopCondition_1();
         virtual bool EvaluateCondition(const Problem& pbm, const Solver& solver, const SetUpParams& setup);
