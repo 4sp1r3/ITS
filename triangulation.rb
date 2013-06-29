@@ -2,27 +2,28 @@ require "gnuplot"
 
 class TopologyGA
 
-  NODES =                   10
+  NODES =                   3
   FREQUENCY =               2.4   #GHz
 
   POPULATION =              10
-  GENERATIONS =             100
+  GENERATIONS =             10000
 
-  MAX_DISTANCE =            5.0   #metres
-  MIN_DISTANCE =            0.5   #metres
+  MAX_DISTANCE =            20.0  #metres
+  MIN_DISTANCE =            0.0   #metres
   MAX_SIGNAL_DECAY =        0.0   #%
   ACCEPTANCE =              1     #metres error
 
-  SELECTION_SIZE =          5
+  SELECTION_SIZE =          10
+  SELECTION_PROBABILITY =   0.3
 
   CROSSOVER_PROBABILITY =   0.7
 
   MUTATION_PROBABILITY =    0.2
   MAX_MUTATION_XY =         1     #metres
-  MAX_MUTATION_DECAY =      0.1   #%
+  MAX_MUTATION_DECAY =      0.0   #%
 
-  MAX_INIT_DECAYS =         0     #%
-  MIN_INIT_DECAYS =         0     #%
+  MAX_INIT_DECAYS =         0.0   #%
+  MIN_INIT_DECAYS =         0.0   #%
 
   def initialize
     # Plot
@@ -113,8 +114,17 @@ class TopologyGA
     end
 
     def selection(individuals)
-      tournament = sort Array.new(SELECTION_SIZE).map {individuals[random [SELECTION_SIZE, individuals.length].min]}
-      tournament[0..1]
+      tournament = sort individuals.sample [SELECTION_SIZE, individuals.length].min
+      selected = []
+      while selected.length < 2 do
+        tournament.each do |individual|
+          if random < SELECTION_PROBABILITY
+            selected.push individual
+            tournament.delete individual
+          end
+        end
+      end
+      selected
     end
 
     def crossover(i1, i2)

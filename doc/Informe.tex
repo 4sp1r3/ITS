@@ -498,7 +498,9 @@ En otras palabras, si la intensidad de la señal que percibe de, por ejemplo, el
 
 La función de fitness a minimizar es la suma de errores entre la posición estimada por el algoritmo evolutivo y la mejor aproximación (distancia percibida) obtenida mediante las intensidades de las señales, $S = (s_1, ..., s_n)$.
 
-$$fitness(x, y, a_1, ..., a_n) = \sum_{i=1}^{n} |\sqrt{x^2 + y^2} - dp(s_i \cdot (1 + a_i))|$$
+$$f(x, y, a_1, ..., a_n) = \sum_{i=1}^{n} |\sqrt{(x-x_o)^2 + (y-y_0)^2} - dp(s_i \cdot (1 + a_i))|$$
+
+$$dp = \sqrt{k \cdot 10^{L_{dBm}}}$$
 
 En donde $dp(s)$ es la distancia percibida entre el nodo origen y el router.\\
 

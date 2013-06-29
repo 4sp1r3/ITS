@@ -15,7 +15,7 @@
 #define inherits typedef
 #define as 
 
-enum Direction  { minimize=-1,maximize=1};
+enum Direction  { minimize=-1, maximize=1};
 
 extern const double plus_infinity;
 extern const double minus_infinity;
