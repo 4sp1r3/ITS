@@ -93,7 +93,7 @@ namespace newGA {
     double Solution::fitness() const {
         double fitness = 0.0;
         for (int i = 0; i < _pbm._numnodes; i++) {
-            fitness += len(_pbm._nodes[i] - _coord) - _pbm.getPercibedDistance(_pbm._signal[i]*(1 - _decay[i]));
+            fitness += len(_pbm._nodes[i] - _coord) - _pbm.getPercibedDistance(_pbm._signal[i]*(1 + _decay[i]));
         }
         return fitness;
     }
