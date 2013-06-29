@@ -84,21 +84,28 @@ namespace newGA {
     	return P1;
     }
 
+    double frec2lambda(double frec) {
+    	double speedoflight = 299792458.0;
+    	return speedoflight / frec;
+    }
+
     double Problem::getPercibedDistance(double signal) const {
-    	double GHZ = 100000000;
+    	double GHZ = 1000000000;
 
     	double Gt = 5.0; //Ganancia estandar de antenas wifi
         double Gr = 5.0; //Ganancia estandar de antenas wifi
 
         double frec = 2.4 * GHZ;
+        double lambda = frec2lambda(frec);
+
         double dbm_r = signal;
         double dbm_t = 20.0;
 
         double Pt = dbm2pot(dbm_t);
         double Pr = dbm2pot(dbm_r);
 
-        // Pr = (Gt * Gr * (1/frec)^2 * Pt) / (4 * PI * dist)^2
-        double dist2 = (Gt * Gr * pow(1.0 / frec, 2)) / ( Pr * 16 * pow(M_PI,2) );
+        // Pr = (Gt * Gr * (lambda)^2 * Pt) / (4 * PI * dist)^2
+        double dist2 = (Gt * Gr * pow(lambda,2)) / ( Pr * 16 * pow(M_PI,2) );
         return sqrt(dist2);
     }
 

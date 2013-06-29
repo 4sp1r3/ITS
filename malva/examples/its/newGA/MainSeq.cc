@@ -45,8 +45,8 @@ int main(int argc, char** argv) {
 
     if (solver.pid() == 0) {
         solver.show_state();
-        cout << "Solution: " << solver.global_best_solution() << " "
-             << "Fitness: " << solver.global_best_solution().fitness();
+        cout << "Solution: " << solver.global_best_solution()
+             << "Fitness: " << solver.global_best_solution().fitness() << endl;
         ofsResult << solver.userstatistics();
     }
 
