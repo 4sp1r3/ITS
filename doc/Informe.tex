@@ -341,6 +341,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage{url}
+\usepackage{amsmath}
 \usepackage{breqn}
 
 \begin{document}
@@ -417,10 +418,9 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract or keywords.
 
-% FIXME
-%\begin{abstract}
-%The abstract goes here.
-%\end{abstract}
+\begin{abstract}
+The abstract goes here.
+\end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
 \begin{IEEEkeywords}
@@ -465,7 +465,7 @@ Se asumirá que los routers presentes en el entorno comparten características s
 
 Por otro lado, resulta inapropiado asumir que las señales no se ven afectadas por obstáculos encontrados en el entorno, lo cual obligará a estimar, además de la posición, cuál es la caída o atenuación de la señal hacia cada router y para esto se estudiarán varias alternativas de modelo de propagación de ondas.\\
 
-\hfill Julio 19, 2013
+\hfill 19 Julio, 2013
 
 \section{Problema}
 
@@ -525,31 +525,71 @@ La cantidad de nodos afectará la precisión con la que se consiga triangular al
 
 El modelo de propagación de ondas permitirá la traducción de una intensidad de señal a una distancia y viceversa. Se usará fuertemente este modelo para evaluar al individuo y encontrar el error entre la estimación de la posición y la distancia teórica real.\\
 
-Existen muchas aproximaciones que fueron analizadas en \cite{low:cost:location:determination} y \cite{generic:model:signal:propagation}, aquí se describirán 4 de ellas, partiendo de la más simple a la más compleja.\\
+Existen muchas aproximaciones que fueron analizadas en \cite{low:cost:location:determination}, \cite{radar:tracking:system} y \cite{generic:model:signal:propagation}, aquí se describirán 4 de ellas, partiendo de la más simple a la más compleja.\\
 
 \subsection{Empirical Model}
 
-Este modelo de propagación es quizás el más preciso de todos a pesar de ser muy simple. La principal desventaja, que lo hace impracticable en muchos casos, es que requiere del estudio del ambiente en cuestión pero como vimos antes esto depende fuertemente de las condiciones del ambiente en un instante dado, por lo que su utilidad es limitada a medida que avanza el tiempo.\\
+Este modelo de propagación es quizás el más preciso de todos a pesar de ser muy simple. La principal desventaja, que lo hace impracticable en muchos casos, es que requiere del estudio del ambiente en cuestión, pero como vimos antes esto depende fuertemente de las condiciones en un instante dado, por lo que su utilidad es limitada a medida que avanza el tiempo.\\
 
-$$distance(rs) = |rs - ts| \times k$$
+$$d(rs) = |rs - ts| \times k$$
 
-En donde $rs$ es la intensidad de señal recibida, $ts$ es la intensidad de señal transmitida por el router y $k$ es un valor empírico que corresponde a la distancia cubierta por 1dBm.\\
+En donde $d$ es la distancia entre el nodo transmisor y el nodo receptor, $rs$ es la intensidad de señal recibida, $ts$ es la intensidad de señal transmitida por el router y $k$ es un valor empírico que corresponde a la distancia cubierta por 1dBm.\\
 
-\subsection{Land Propagation}
-\subsection{Generic Radio Signal Propagation Model}
-\subsection{Empirical Signal Propagation Model (WAF)}
+\subsection{Wall Attenuation Factor Propagation Model}
 
-\subsection{Free Space Propagation}
+Este modelo es una adaptación del \emph{Floor Attenuation Factor Propagation Model} sugerido en \cite{Sei92, de RADAR}.
 
-Este modelo de propagación está inspirado en la ecuación de propagación de Friis \cite{friis:transmission:equation} y es quizás el más útil de todos.
+En lugar de considerar la atenuación de la señal debido al factor del piso del edificio, considera el efecto causado por las paredes entre el transmisor y receptor.
 
-$$P_r = \frac {G_t \times G_r \times \lambda^2} {(4 \times \pi \times d)^2} \times P_t$$
+La ecuación que relaciona la potencia en función de la distancia es:
+
+\begin{equation*}
+P(d) = P(d_0) - 10 \times n \times log(\frac {d} {d_0}) - \begin{cases}
+n \times W \times WAF &nW < C\\
+C \times WAF &nW \geq C.
+\end{cases}
+\end{equation*}
+
+En donde $n$ indica el ratio de incremento de la atenuación debido a la distancia, $P(d_0)$ es la potencia de la señal en la distancia de referencia $d_0$, $d$ es la distancia entre el transmisor y el emisor, $C$ es la cantidad de paredes hasta la que el factor de atenuación se ve afectado y $WAF$ es el factor de atenuación.
+
+Como se puede apreciar este modelo es bastante más complejo y sigue requiriendo un análisis empírico para determinar el factor de atenuación.
+
+\subsection{Land Propagation Model}
+
+Un tercer modelo teórico bastante más complejo considera la pérdida de potencia en la señal debido a tres factores principales:
+
+\begin{itemize}
+
+\item \emph{Path loss} ($L_p$): se refiere a la perdida promedio debido a la propagación de las ondas en el espacio
+
+\item \emph{Slow fading} ($L_s$): se refiere a perdidas de señal causadas en distancias largas debido a variaciones lentas en el espacio tiempo [1 de generic model]
+
+\item \emph{Fast fading} ($L_f$), se refiere a perdidas de señal por variaciones bruscas en el espacio. [2, 9 y 11 de generic model]
+
+\end{itemize}
+
+De esta forma la ecuación que relaciona potencia con distancia está dada por:
+
+\begin{align*}
+P_r &= {\frac {G_r \times G_t} {L}} \times P_t\\
+L &= L_p \times L_s \times L_f
+\end{align*}
+
+En donde $G_r$ y $G_t$ son las ganancias de las antenas de recepción y transmisión respectivamente y $P_t$ es la potencia con la que transmite el router.\\
+
+Calcular $L$ es extremadamente complejo y requiere de mediciones del ambiente en donde se va a desenvolver el algoritmo, lo que lo hace poco práctico en este contexto.
+
+\subsection{Free Space Propagation Model}
+
+Este modelo de propagación está inspirado en la ecuación de propagación de \emph{Friis} \cite{friis:transmission:equation} y es quizás el más útil de todos ya que ofrece un compromiso entre simplicidad y utilidad.
+
+$$P_r = \frac {G_t \times G_r \times \lambda^2} {(4 \pi \times d)^2} \times P_t$$
 
 En donde $P_r$ es la potencia recibida, $G_t$ y $G_r$ son la ganancia de las antenas de transmisión y recepción respectivamente, $\lambda$ es la longitud de onda usada y $d$ la distancia entre el transmisor y receptor.
 
 A partir de esta ecuación se puede despejar la distancia teórica entre ambos nodos.
 
-$$d = \sqrt {\frac {G_t \times G_r \times \lambda^2} {4 \times \pi \times P_r} \times P_t}$$
+$$d(L_{dB}) = \sqrt {\frac {G_t \times G_r \times \lambda^2} {4 \pi \times P_r} \times P_t}$$
 
 $\lambda$ se puede obtener a partir de la frecuencia ($F$), utilizando la velocidad de la luz ($C$).
 
@@ -561,17 +601,22 @@ $$P_1 = 10^{\frac {L_{dB}} {10}} \times P_0$$
 
 Finalmente, obtenemos la distancia teórica entre los nodos a partir de la siguiente ecuación.
 
-$$d = \sqrt {\frac {G_t \times G_r \times (\frac {C} {F})^2} {4 \times \pi \times 10^{\frac {L_{dB}} {10}} \times P_0} \times P_t}$$
+$$d(L_{dB}) = \sqrt {\frac {G_t \times G_r \times (\frac {C} {F})^2} {4 \pi \times 10^{\frac {L_{dB}} {10}} \times P_0} \times P_t}$$
 
-En donde simplificándola usando los valores antes mencionados se tiene lo siguiente.
+En donde simplificándola y usando los valores antes mencionados se tiene:
 
-$$d = \sqrt {\frac {5 \times 5 \times (\frac {299.792.458} {2.442.000.000})^2} {4 \times \pi \times 10^{\frac {L_{dB}} {10}} \times 0,001} \times P_t}$$
+\begin{equation*}
+\begin{split}
+d(L_{dB}) &= \sqrt {\frac {5 \times 5 \times (\frac {299.792.458} {2.442.000.000})^2} {4 \pi \times 10^{\frac {L_{dB}} {10}} \times 0,001} \times P_t}\\\\
+&= \sqrt {\frac {29,98336} {10^{\frac {L_{dB}} {10}}} \times P_t}
+\end{split}
+\end{equation*}
 
-\section{Propuesta}
+\section{Algoritmo}
 
 \subsection{Tecnologías usadas}
 
-Los lenguajes de programación usados serán \emph{C/C++} \cite{language} debido a su sencillez, bajo consumo de memoria, velocidad de ejecución y herramientas disponibles.\\
+Los lenguajes de programación usados serán \emph{C/C++} \cite{c:c++:language} debido a su sencillez, bajo consumo de memoria, velocidad de ejecución y herramientas disponibles \cite{why:c:c++}.\\
 
 Se implementará el algoritmo usando el framework \emph{Malva} \cite{malva}, el cual es un fork de \emph{Mallba} \cite{mallba}. Se estudiaron otras alternativas pero finalmente se optó por este debido a recomendaciones hechas en el curso y al hecho de que contábamos con el soporte del foro de discusión del mismo.\\
 
@@ -579,7 +624,11 @@ Se implementará el algoritmo usando el framework \emph{Malva} \cite{malva}, el 
 
 Cada individuo será una n-úpla de la forma:
 
-$$I = (x, y, d_1, \dots, d_n), x, y \in (-\infty, +\infty), d_i \in [0, 1] \forall i \in (1, \dots, n)$$
+\begin{gather*}
+I = (x, y, d_1, \dots, d_n)\\
+x, y \in (-\infty, +\infty)\\
+d_i \in [0, 1] \forall i \in (1, \dots, n)
+\end{gather*}
 
 En donde \textit{(x, y)} se corresponde con las coordenadas estimadas del individuo en el plano y las constantes $d_i$ representan la atenuación estimada de la señal entre dicho nodo y el router \textit{i}.\\
 
@@ -595,22 +644,27 @@ En otras palabras, si la intensidad de la señal que percibe de, por ejemplo, el
 
 La función de fitness a minimizar es la suma de errores entre la posición estimada por el algoritmo evolutivo y la distancia teórica obtenida mediante el modelo de propagación \emph{free space propagation model} descripto anteriormente.\\
 
-\begin{dmath*}
-$$f(x, y, d_1, ..., d_n) = \sum_{i=1}^{n} |\sqrt{(x-x_o)^2 + (y-y_0)^2} - distance(s_i \times (1 + d_i))|
-\end{dmath*}
+\begin{equation*}
+\begin{split}
+f(x, y, d_1, ..., d_n) = &\sum_{i=1}^{n} |\sqrt{(x-x_o)^2 + (y-y_0)^2} \\
+&- d(s_i \times (1 + d_i))|
+\end{split}
+\end{equation*}
 
 En donde $s_i$ es la intensidad recibida del router $R_i$.\\
 
 \subsection{Inicialización}
 
-Como se ha dicho antes, se asume que los routers comparten características similares, en particular, que el alcance máximo para todos ellos es de \textit{K} metros.\\
+Como se ha dicho antes, se asume que los routers comparten características similares, en particular, que el alcance máximo para todos ellos es de \textit{A} metros.\\
 
-La población será inicializada eligiendo valores aleatorios para \textit{(x, y)} de manera que todos los individuos comiencen  en la intersección de los círculos de centro $(R_{i_x}, R_{i_y})$ y radio \textit{K}, en donde $(R_{i_x}, R_{i_y})$ es la posición del router $R_i$.\\
+La población será inicializada eligiendo valores aleatorios para \textit{(x, y)} de manera que todos los individuos comiencen  en la intersección de los círculos de centro $(R_{i_x}, R_{i_y})$ y radio \textit{A}, en donde $(R_{i_x}, R_{i_y})$ es la posición del router $R_i$.\\
 
 De esta manera, durante la inicialización de la población, los valores estarán limitados por:
 
-$$x_{max} = rand(\max_{i=1} {R_{i_x} - K}, \min_{i=1} {R_{i_x} + K})$$
-$$y_{max} = rand(\max_{i=1} {R_{i_y} - K}, \min_{i=1} {R_{i_y} + K})$$
+$$x_{max} = rand(\max_{i=1} {R_{i_x} - A}, \min_{i=1} {R_{i_x} + A})$$
+$$y_{max} = rand(\max_{i=1} {R_{i_y} - A}, \min_{i=1} {R_{i_y} + A})$$
+
+En donde $rand(min, max)$ es una función que devuelve un número en punto flotante aleatoreo entre $min$ y $max$.
 
 \subsection{Operadores}
 
@@ -630,7 +684,7 @@ $$x_3 = \frac {x_1 + x_2} {2}, y_3 = \frac {y_1 + y_2} {2}, d_{3_i} = \frac {d_{
 
 El operador de mutación alterará de acuerdo a un valor aleatorio elegido en un determinado rango.
 
-$$x = x + k_1, y = y + k_2, d_i = d_i + k_{3_i}, k \in (n,m)$$
+$$x = x + k_1, y = y + k_2, d_i = d_i + k_{3_i}, k_i \in (n,m)$$
 
 \subsubsection{Búsqueda Local (sí? no? por qué?)}
 
