@@ -81,7 +81,7 @@ namespace newGA {
                     break;
                 case 1: op = -1; // creates the chosen selection method
                     parameter = 0;
-                    sscanf(buffer, " %d %d", &op, &parameter);
+                    sscanf(buffer, " %ld %d", &op, &parameter);
                     if (nb_selection >= 2) break;
                     assert(parameter >= 0);
                     if (nb_selection == 0) {

@@ -105,7 +105,7 @@ namespace newGA {
         double Pr = dbm2pot(dbm_r);
 
         // Pr = (Gt * Gr * (lambda)^2 * Pt) / (4 * PI * dist)^2
-        double dist2 = (Gt * Gr * pow(lambda,2)) / ( Pr * 16 * pow(M_PI,2) );
+        double dist2 = (Gt * Gr * pow(lambda,2) * Pt) / ( Pr * 16 * pow(M_PI,2) );
         return sqrt(dist2);
     }
 
