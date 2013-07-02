@@ -1,0 +1,4 @@
+Low cost... conocen el hardware, usan constante k (distancia por 1dbm)
+Pesos adaptativos... combinan 3 técnicas de triangulación con pesos dinámicos (a aprtir de la variancia de las medidas)
+Fuzzy logic... razones por las que varían las señales
+RADAR.. impacto de diferentes parámetros del entorno (modelos en página 7)
