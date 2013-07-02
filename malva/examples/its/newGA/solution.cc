@@ -6,18 +6,16 @@
 namespace newGA {
 
 #define MAXDECAY 0.5
-#define MINDECAY -0.1
+#define MINDECAY 0.0
 
     Solution::Solution(const Problem & pbm) :
     _pbm(pbm),
     _decay(pbm._numnodes),
-    _coord(((pbm._maxx - pbm._minx) * rand01()) - pbm._minx,
-    ((pbm._maxy - pbm._miny) * rand01()) - pbm._miny) {
-
+    _coord(((pbm._maxx - pbm._minx) * rand01()) + pbm._minx,
+    ((pbm._maxy - pbm._miny) * rand01()) + pbm._miny) {
         for (int i = 0; i < pbm._numnodes; i++) {
             _decay[i] = (rand01() * (MAXDECAY - MINDECAY)) + MINDECAY;
         }
-
     }
 
     const Problem & Solution::pbm() const {
@@ -38,10 +36,12 @@ namespace newGA {
     }
 
     ostream& operator<<(ostream& os, const Solution & sol) {
-        /*
-        for (int i = 0; i < sol.pbm().numvar(); i++)
-            os << " " << sol._var[i];
-        */
+    	os << "(" << sol._coord[0] << "," << sol._coord[1] << ")";
+
+        for (int i = 0 ; i < sol._pbm._numnodes; i++)
+            os << " " << sol._decay[i];
+
+        os << endl;
         return os;
     }
 
@@ -78,8 +78,8 @@ namespace newGA {
     }
 
     void Solution::initialize() {
-        _coord[0] = (_pbm._maxx - _pbm._minx) * rand01() - _pbm._minx;
-        _coord[1] = (_pbm._maxy - _pbm._miny) * rand01() - _pbm._miny;
+        _coord[0] = (_pbm._maxx - _pbm._minx) * rand01() + _pbm._minx;
+        _coord[1] = (_pbm._maxy - _pbm._miny) * rand01() + _pbm._miny;
         for (int i = 0; i < _pbm._numnodes; i++) {
             _decay[i] = (rand01() * (MAXDECAY - MINDECAY)) + MINDECAY;
         }
@@ -93,7 +93,7 @@ namespace newGA {
     double Solution::fitness() const {
         double fitness = 0.0;
         for (int i = 0; i < _pbm._numnodes; i++) {
-            fitness += len(_pbm._nodes[i] - _coord) - _pbm.getPercibedDistance(_pbm._signal[i]*(1 - _decay[i]));
+            fitness += pow(len(_pbm._nodes[i] - _coord) - _pbm.getPercibedDistance(_pbm._signal[i] / (1 - _decay[i])),2);
         }
         return fitness;
     }

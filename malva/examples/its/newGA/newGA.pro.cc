@@ -1800,7 +1800,7 @@ namespace newGA {
         cout << endl << "Evaluations best found: " << evaluations_best_found();
         cout << endl << "Time best found: " << time_best_found();
         //		cout << endl << endl << "Best Solution: " << endl << global_best_solution();
-        cout << endl << endl << "Current time spent (so far): " << current_time_spent() << endl;
+        cout << endl << endl << "Current time spent (so far): " << current_time_spent() << endl << endl;
     }
 
     Solver::~Solver() {

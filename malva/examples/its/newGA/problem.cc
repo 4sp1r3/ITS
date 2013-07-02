@@ -1,4 +1,5 @@
 #include "problem.hh"
+#include <math.h>
 
 namespace newGA {
 
@@ -74,9 +75,40 @@ namespace newGA {
         return minimize;
     }
 
-    double Problem::getPercibedDistance(double signal) const {
-        return 0.0;
+    /* Dada una dbm te devuelve la potencia en miliwats*/
+    double dbm2pot(double dbm){
+    	double mwatts = 0.001;
+    	double P0 = 1 * mwatts;
+
+    	double P1 = pow(10 , (dbm / 10.0)) * P0;
+    	return P1;
     }
+
+    double frec2lambda(double frec) {
+    	double speedoflight = 299792458.0;
+    	return speedoflight / frec;
+    }
+
+    double Problem::getPercibedDistance(double signal) const {
+    	double GHZ = 1000000000;
+
+    	double Gt = 5.0; //Ganancia estandar de antenas wifi
+        double Gr = 5.0; //Ganancia estandar de antenas wifi
+
+        double frec = 2.4 * GHZ;
+        double lambda = frec2lambda(frec);
+
+        double dbm_r = signal;
+        double dbm_t = 20.0;
+
+        double Pt = dbm2pot(dbm_t);
+        double Pr = dbm2pot(dbm_r);
+
+        // Pr = (Gt * Gr * (lambda)^2 * Pt) / (4 * PI * dist)^2
+        double dist2 = (Gt * Gr * pow(lambda,2)) / ( Pr * 16 * pow(M_PI,2) );
+        return sqrt(dist2);
+    }
+
     
     Problem::~Problem() {
         delete [] _nodes;

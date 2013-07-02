@@ -122,6 +122,7 @@ namespace newGA {
         for (int i = 0; i < num_nodes; i++) {
             if (rand01() <= probability[1]) {
                 sol._decay[i] += ((rand01() * 2.0) - 1) * MAX_MUTATION_DECAY;
+                if (sol._decay[i] < 0.0) sol._decay[i] = 0.0 ;
             }
         }
     }
