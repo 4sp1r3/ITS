@@ -25,7 +25,8 @@ namespace newGA {
         inline double getSignal(int i) { return _signal[i]; };
         inline Vec2 * getNodes() {return _nodes;};
 
-        double getPercibedDistance(double signal) const;
+        double getPercibedDistance(double dbm_signal) const;
+        double getPercibedSignal(const double dist) const;
 
         int _numnodes;
         Vec2* _nodes;

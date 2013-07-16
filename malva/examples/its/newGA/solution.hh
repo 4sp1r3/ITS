@@ -33,9 +33,9 @@ namespace newGA {
         void initialize();
         double fitness() const;
         unsigned int size() const;
+        double getpersivedDecay(int nodo) const;
 
         Vec2 _coord;
-        Vec _decay;
         const Problem& _pbm;
 
     };

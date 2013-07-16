@@ -51,7 +51,6 @@ namespace newGA {
     {
         Solution ret = Solution(sol1.pbm());
         ret._coord = (sol1._coord + sol2._coord) / 2.0;
-        ret._decay = (sol1._decay + sol2._decay) / 2.0;
 
         if (sol1.pbm().direction() == maximize) {
             if (sol1 > sol2) {
@@ -119,12 +118,6 @@ namespace newGA {
         //mutate decays
         Problem& problem = (Problem&) sol.pbm();
         int num_nodes = problem.getNumNodes();
-        for (int i = 0; i < num_nodes; i++) {
-            if (rand01() <= probability[1]) {
-                sol._decay[i] += ((rand01() * 2.0) - 1) * MAX_MUTATION_DECAY;
-                if (sol._decay[i] < 0.0) sol._decay[i] = 0.0 ;
-            }
-        }
     }
 
     void Mutation::execute(Rarray<Solution*>& sols) const {

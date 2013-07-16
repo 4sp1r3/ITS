@@ -84,6 +84,12 @@ namespace newGA {
     	return P1;
     }
 
+    double pot2dbm(double pot){
+    	double mwatts = 0.001;
+
+    	return 10.0 * log(pot/ 1 * mwatts);
+    }
+
     double frec2lambda(double frec) {
     	double speedoflight = 299792458.0;
     	return speedoflight / frec;
@@ -109,7 +115,23 @@ namespace newGA {
         return sqrt(dist2);
     }
 
-    
+    double Problem::getPercibedSignal(const double dist) const {
+    	double GHZ = 1000000000;
+
+    	double Gt = 5.0; //Ganancia estandar de antenas wifi
+        double Gr = 5.0; //Ganancia estandar de antenas wifi
+
+        double frec = 2.4 * GHZ;
+        double lambda = frec2lambda(frec);
+
+        double dbm_t = 20.0;
+        double Pt = dbm2pot(dbm_t);
+
+    	// Pr = (Gt * Gr * (lambda)^2 * Pt) / (4 * PI * dist)^2
+    	double Pr = (Gt * Gr * pow(lambda,2) * Pt) / pow(4 * M_PI * dist, 2);
+    	return pot2dbm(Pr);
+    }
+
     Problem::~Problem() {
         delete [] _nodes;
     }

@@ -10,12 +10,8 @@ namespace newGA {
 
     Solution::Solution(const Problem & pbm) :
     _pbm(pbm),
-    _decay(pbm._numnodes),
     _coord(((pbm._maxx - pbm._minx) * rand01()) + pbm._minx,
     ((pbm._maxy - pbm._miny) * rand01()) + pbm._miny) {
-        for (int i = 0; i < pbm._numnodes; i++) {
-            _decay[i] = (rand01() * (MAXDECAY - MINDECAY)) + MINDECAY;
-        }
     }
 
     const Problem & Solution::pbm() const {
@@ -25,6 +21,12 @@ namespace newGA {
     Solution::Solution(const Solution & sol) :
     _pbm(sol.pbm()) {
         *this = sol;
+    }
+
+    double Solution::getpersivedDecay(int nodo) const{
+    	double SigEsperada = pbm().getPercibedSignal( len(this->_coord - this->_pbm._nodes[nodo]) ) ;
+    	double SigReal = pbm()._signal[nodo];
+    	return 1.0 - (SigReal / SigEsperada) ;
     }
 
     istream& operator>>(istream& is, Solution & sol) {
@@ -39,7 +41,7 @@ namespace newGA {
     	os << "(" << sol._coord[0] << "," << sol._coord[1] << ")";
 
         for (int i = 0 ; i < sol._pbm._numnodes; i++)
-            os << " " << sol._decay[i];
+            os << " " << sol.getpersivedDecay(i);
 
         os << endl;
         return os;
@@ -63,7 +65,6 @@ namespace newGA {
 
     Solution & Solution::operator=(const Solution & sol) {
         _coord = sol._coord;
-        _decay = sol._decay;
         return *this;
     }
 
@@ -80,9 +81,6 @@ namespace newGA {
     void Solution::initialize() {
         _coord[0] = (_pbm._maxx - _pbm._minx) * rand01() + _pbm._minx;
         _coord[1] = (_pbm._maxy - _pbm._miny) * rand01() + _pbm._miny;
-        for (int i = 0; i < _pbm._numnodes; i++) {
-            _decay[i] = (rand01() * (MAXDECAY - MINDECAY)) + MINDECAY;
-        }
     }
 
     bool Solution::operator>(const Solution & sol) const {
@@ -93,7 +91,7 @@ namespace newGA {
     double Solution::fitness() const {
         double fitness = 0.0;
         for (int i = 0; i < _pbm._numnodes; i++) {
-            fitness += pow(len(_pbm._nodes[i] - _coord) - _pbm.getPercibedDistance(_pbm._signal[i] / (1 - _decay[i])),2);
+            fitness += pow(len(_pbm._nodes[i] - _coord) - _pbm.getPercibedDistance(_pbm._signal[i]) ,2);
         }
         return fitness;
     }
@@ -104,10 +102,6 @@ namespace newGA {
         values[0] = _coord[0];
         values[1] = _coord[1];
 
-        for (int i = 0; i < _pbm._numnodes; i++) {
-            values[i+2] = _decay[i];
-        }
-
         return (char*) values;
     }
 
@@ -117,13 +111,10 @@ namespace newGA {
         _coord[0] = values[0];
         _coord[1] = values[1];
 
-        for (int i = 0; i < _pbm._numnodes; i++) {
-            _decay[i] = values[i+2];
-        }
     }
 
     unsigned int Solution::size() const {
-        return (2+_decay.Elts())*sizeof(double);
+        return sizeof(double) * 2;
     }
 
     Solution::~Solution() {
