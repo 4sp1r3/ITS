@@ -542,7 +542,7 @@ En donde $rs$ es la intensidad de señal recibida, $ts$ la intensidad de señal 
 
 \subsection{Wall Attenuation Factor Propagation Model}
 
-Este modelo es una adaptación del \emph{Floor Attenuation Factor Propagation Model} sugerido en \cite{Sei92, de RADAR}.
+Este modelo es una adaptación del \emph{Floor Attenuation Factor Propagation Model} sugerido en \cite{path:loss:prediction:models}.
 
 En lugar de considerar la atenuación de la señal debido al factor del piso del edificio, considera el efecto causado por las paredes entre el transmisor y receptor.
 
@@ -567,9 +567,9 @@ Un tercer modelo teórico bastante más complejo considera la pérdida de potenc
 
 \item \emph{Path loss} ($L_p$): se refiere a la perdida promedio debido a la propagación de las ondas en el espacio
 
-\item \emph{Slow fading} ($L_s$): se refiere a perdidas de señal causadas en distancias largas debido a variaciones lentas en el espacio tiempo [1 de generic model]
+\item \emph{Slow fading} ($L_s$): se refiere a perdidas de señal causadas en distancias largas debido a variaciones lentas en el espacio-tiempo \cite{introduction:wireless:mobile:systems}
 
-\item \emph{Fast fading} ($L_f$), se refiere a perdidas de señal por variaciones bruscas en el espacio. [2, 9 y 11 de generic model]
+\item \emph{Fast fading} ($L_f$), se refiere a perdidas de señal por variaciones bruscas en el espacio \cite{survey:propagation:models} \cite{wireless:communications}.
 
 \end{itemize}
 
@@ -621,7 +621,7 @@ d(L_{dB}) &= \sqrt {\frac {5 \times 5 \times (\frac {299.792.458} {2.442.000.000
 
 \subsection{Tecnologías usadas}
 
-Los lenguajes de programación usados son \emph{C/C++} \cite{c:c++:language} debido a su sencillez, bajo consumo de memoria, velocidad de ejecución y herramientas disponibles \cite{why:c:c++}.\\
+Los lenguajes de programación usados son \emph{C/C++} \cite{c} \cite{c++} debido a su sencillez, bajo consumo de memoria, velocidad de ejecución y herramientas disponibles \cite{why:c:c++}.\\
 
 Se implementará el algoritmo usando el framework \emph{Malva} \cite{malva}, el cual es un fork de \emph{Mallba} \cite{mallba}. Se estudiaron otras alternativas pero finalmente se optó por este debido a recomendaciones hechas en el curso y al hecho de que contábamos con el soporte del foro de discusión del curso.\\
 
@@ -800,13 +800,13 @@ Intel Core i5 2.67GHz (doble nucelo, cuatro threads).
 
 \subsubsection{Sistema Operativo}
 
-Se usó \emph{GNU/Linux} \cite{linux}, en su variante \emph{Debian 7.0 (Wheezy)} \cite{debian:wheezy} para 64 bits (amd64).
+Se usó \emph{GNU/Linux} \cite{gnu} \cite{linux}, en su variante \emph{Debian 7.0 (Wheezy)} \cite{debian:stable} para 64 bits (amd64).
 
 Se prestó especial cuidado a los procesos corriendo, deteniendo todos los procesos y servicios innecesarios al momento de realizar las pruebas.
 
 \subsection{Instancias de prueba}
 
-Para el ajuste paramétrico se usará una instancia de prueba reducida, conformada por 5 routers ubicados aleatoriamente en el plano.\\
+Para el ajuste paramétrico se usará una instancia de prueba reducida, conformada por 3 routers ubicados aleatoriamente en el plano.\\
 
 Para realizar la evaluación del algoritmo se usarán 25 ejecuciones divididas en 5 conjuntos de 3, 4, 5, 6 y 7 routers (cada conjunto contendrá 5 escenarios inicializados independientemente).\\
 
@@ -973,17 +973,7 @@ Generación & Fitness & Promedio & Desviación & Tiempo & Desviación \\
 
 The conclusion goes here.
 
-\appendices
-
-\section{Something here}
-
-...
-
-% Can use something like this to put references on a page
-% by themselves when using endfloat and the captionsoff option.
-\ifCLASSOPTIONcaptionsoff
-  \newpage
-\fi
+\newpage
 
 % trigger a \newpage just before the given reference
 % number - used to balance the columns on the last page
