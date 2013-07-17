@@ -594,7 +594,7 @@ En donde $P_r$ es la potencia recibida, $G_t$ y $G_r$ son la ganancia de las ant
 
 A partir de esta ecuación se puede despejar la distancia teórica entre ambos nodos.
 
-$$d(L_{dB}) = \sqrt {\frac {G_t \times G_r \times \lambda^2} {4 \pi \times P_r} \times P_t}$$
+$$d(L_{dB}) = \sqrt {\frac {G_t \times G_r \times \lambda^2} {(4 \pi)^2 \times P_r} \times P_t}$$
 
 $\lambda$ se puede obtener a partir de la frecuencia ($F$), utilizando la velocidad de la luz ($C$).
 
@@ -606,14 +606,13 @@ $$P_1 = 10^{\frac {L_{dB}} {10}} \times P_0$$
 
 Finalmente, obtenemos la distancia teórica entre los nodos a partir de la siguiente ecuación.
 
-$$d(L_{dB}) = \sqrt {\frac {G_t \times G_r \times (\frac {C} {F})^2} {4 \pi \times 10^{\frac {L_{dB}} {10}} \times P_0} \times P_t}$$
+$$d(L_{dB}) = \sqrt {\frac {G_t \times G_r \times (\frac {C} {F})^2} {(4 \pi)^2 \times 10^{\frac {L_{dB}} {10}} \times P_0} \times P_t}$$
 
 En donde simplificándola y usando los valores antes mencionados se tiene:
 
 \begin{equation*}
 \begin{split}
-d(L_{dB}) &= \sqrt {\frac {5 \times 5 \times (\frac {299.792.458} {2.442.000.000})^2} {4 \pi \times 10^{\frac {L_{dB}} {10}} \times 0,001} \times P_t}\\\\
-&= \sqrt {\frac {29,98336} {10^{\frac {L_{dB}} {10}}} \times P_t}
+d(L_{dB}) &= \sqrt {\frac {5 \times 5 \times (\frac {299.792.458} {2.442.000.000})^2} {(4 \pi)^2 \times 10^{\frac {L_{dB}} {10}} \times 0,001} \times 0,1} = \sqrt {\frac {0.2386} {10^{\frac {L_{dB}} {10}}}}
 \end{split}
 \end{equation*}
 
