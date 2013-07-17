@@ -7,38 +7,47 @@ ROUTERS = ARGV[0].to_i
 SETS = ARGV[1].to_i
 FILE = ARGV[2]
 
-MIN_X, MAX_X = 1, 20
-MIN_Y, MAX_Y = 1, 20
+MIN_X, MAX_X = 1, 10
+MIN_Y, MAX_Y = 1, 10
 MIN_DECAY, MAX_DECAY = 0, 10
 
-def rand(min, max)
-  (Random.rand*(MAX_X-MIN_X) + MIN_X).round 2
+def rand(min, max, sign)
+  value = (Random.rand*(MAX_X-MIN_X) + MIN_X).round 2
+  value *= (Random.rand < 0.5) ? 1 : -1 if sign
+  value
 end
 
 def signal(distance)
   s = Math.log(0.2386 / distance**2) / Math.log(10) * 10
-  s += rand(MIN_DECAY, MAX_DECAY)
   s.round 2
 end
 
 SETS.times do |n|
-  File.open("#{FILE}_#{n+1}.in", "w") do |fp|
+  fp_in = File.open("#{FILE}_#{n+1}.in", "w")
+  fp_ck = File.open("#{FILE}_#{n+1}.ck", "w")
 
-    device = {x: rand(MIN_X, MAX_X), y: rand(MIN_Y, MAX_Y)}
+  device = {x: rand(MIN_X, MAX_X, true), y: rand(MIN_Y, MAX_Y, true)}
 
-    puts "DEVICE: #{device[:x]} #{device[:y]}"
-    fp.puts ROUTERS
+  check = "DEVICE:\t\tx=#{device[:x]}\t\ty=#{device[:y]}"
+  puts check
+  fp_ck.puts check
+  fp_in.puts ROUTERS
 
-    ROUTERS.times do |r|
-      node = {x: rand(MIN_X, MAX_X), y: rand(MIN_Y, MAX_Y)}
-      distance = Math.sqrt((device[:x]-node[:x])**2+(device[:y]-node[:y])**2).round 2
-      puts "ROUTER #{r}: #{node[:x]}\t#{node[:y]}\t#{distance}\t#{signal(distance)}"
-      fp.puts "#{node[:x]} #{node[:y]} #{signal(distance)}"
-    end
+  ROUTERS.times do |r|
+    node = {x: rand(MIN_X, MAX_X, true), y: rand(MIN_Y, MAX_Y, true)}
+    distance = Math.sqrt((device[:x]-node[:x])**2+(device[:y]-node[:y])**2).round 2
+    decay = rand(MIN_DECAY, MAX_DECAY, false)
+    signal = signal(distance)
 
-    puts
-
+    check = "ROUTER #{r}:\tx=#{node[:x]}\t\ty=#{node[:y]}\t\td=#{distance}\t\ts=#{signal}\t\ta=#{decay}"
+    puts check
+    fp_ck.puts check
+    fp_in.puts "#{node[:x]} #{node[:y]} #{signal-decay}"
   end
+
+  puts
+  fp_in.close
+  fp_ck.close
 end
 
 Random.rand
