@@ -9,10 +9,10 @@ FILE = ARGV[2]
 
 MIN_X, MAX_X = 1, 5
 MIN_Y, MAX_Y = 1, 5
-MIN_DECAY, MAX_DECAY = 0, 5
+MIN_DECAY, MAX_DECAY = 0, 2
 
 def rand(min, max, sign)
-  value = (Random.rand*(MAX_X-MIN_X) + MIN_X).round 2
+  value = (Random.rand*(max-min) + min).round 2
   value *= (Random.rand < 0.5) ? 1 : -1 if sign
   value
 end
