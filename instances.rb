@@ -7,9 +7,9 @@ ROUTERS = ARGV[0].to_i
 SETS = ARGV[1].to_i
 FILE = ARGV[2]
 
-MIN_X, MAX_X = 1, 10
-MIN_Y, MAX_Y = 1, 10
-MIN_DECAY, MAX_DECAY = 0, 10
+MIN_X, MAX_X = 1, 5
+MIN_Y, MAX_Y = 1, 5
+MIN_DECAY, MAX_DECAY = 0, 5
 
 def rand(min, max, sign)
   value = (Random.rand*(MAX_X-MIN_X) + MIN_X).round 2
