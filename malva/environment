@@ -10,7 +10,13 @@ MALVA_INC=${MALVA_DIR}/include
 MALVA_ALGORITHMS=${MALVA_DIR}/algorithms
 
 # Other options: -g for debugging and -pg for profiling
-#CPPFLAGS=-I$(MALVA_INC) -Wno-deprecated -O3 -I/usr/include/mpi
+
+ifdef DEBUG
 CPPFLAGS=-I$(MALVA_INC) -Wno-deprecated  -I/usr/include/mpi -g3
 LDFLAGS=-L$(MALVA_LIB) -g3
+else
+CPPFLAGS=-I$(MALVA_INC) -Wno-deprecated -O3 -I/usr/include/mpi
+LDFLAGS=-L$(MALVA_LIB)
+endif
+
 LOADLIBES=-lmallba  -lm -lmpich

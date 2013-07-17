@@ -1,12 +1,14 @@
 MALVA_DIR = ../../..
 include $(MALVA_DIR)/environment
 
-all: MainSeq test
+OBJECTS = MainSeq test
+
+all: MainSeq
 
 MainSeq: MainSeq.o newGA.pro.o operators.o problem.o solution.o stats.o stop.o Vec.o
 	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
 
-test:  newGA.pro.o operators.o problem.o solution.o stats.o stop.o Vec.o test.o
+test: newGA.pro.o operators.o problem.o solution.o stats.o stop.o Vec.o test.o
 	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -g -o $@
 
 SEQ:
@@ -14,3 +16,8 @@ SEQ:
 
 clean:
 	rm -f MainSeq *.o *~
+
+clean-all:
+	$(MAKE) clean
+	rm -f test
+

@@ -26,7 +26,7 @@ namespace newGA {
     double Solution::getpersivedDecay(int nodo) const{
     	double SigEsperada = pbm().getPercibedSignal( len(this->_coord - this->_pbm._nodes[nodo]) ) ;
     	double SigReal = pbm()._signal[nodo];
-    	return 1.0 - (SigReal / SigEsperada) ;
+    	return SigEsperada - SigReal ;
     }
 
     istream& operator>>(istream& is, Solution & sol) {

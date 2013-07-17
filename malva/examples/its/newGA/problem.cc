@@ -3,7 +3,22 @@
 
 namespace newGA {
 
+// CONSTANTS
+
 #define MAXDISTANCE 30.0
+
+double GHZ = 1000000000;
+double mwatts = 0.001;
+double speedoflight = 299792458.0;
+
+double frec = 2.442 * GHZ;
+double lambda = speedoflight / frec;
+
+double Gt = 5.0; //Ganancia estandar de antenas wifi
+double Gr = 5.0; //Ganancia estandar de antenas wifi
+
+double dbm_trans = 20.0; // dbm de transmicion de los routers
+
 
     Problem::Problem() {
         this->_numnodes = 0;
@@ -77,7 +92,6 @@ namespace newGA {
 
     /* Dada una dbm te devuelve la potencia en miliwats*/
     double dbm2pot(double dbm){
-    	double mwatts = 0.001;
     	double P0 = 1 * mwatts;
 
     	double P1 = pow(10 , (dbm / 10.0)) * P0;
@@ -85,27 +99,13 @@ namespace newGA {
     }
 
     double pot2dbm(double pot){
-    	double mwatts = 0.001;
-
-    	return 10.0 * log(pot/ 1 * mwatts);
-    }
-
-    double frec2lambda(double frec) {
-    	double speedoflight = 299792458.0;
-    	return speedoflight / frec;
+    	return 10.0 * (log(pot/ (1 * mwatts)) / log(10.0));
     }
 
     double Problem::getPercibedDistance(double signal) const {
-    	double GHZ = 1000000000;
-
-    	double Gt = 5.0; //Ganancia estandar de antenas wifi
-        double Gr = 5.0; //Ganancia estandar de antenas wifi
-
-        double frec = 2.4 * GHZ;
-        double lambda = frec2lambda(frec);
 
         double dbm_r = signal;
-        double dbm_t = 20.0;
+        double dbm_t = dbm_trans;
 
         double Pt = dbm2pot(dbm_t);
         double Pr = dbm2pot(dbm_r);
@@ -116,15 +116,7 @@ namespace newGA {
     }
 
     double Problem::getPercibedSignal(const double dist) const {
-    	double GHZ = 1000000000;
-
-    	double Gt = 5.0; //Ganancia estandar de antenas wifi
-        double Gr = 5.0; //Ganancia estandar de antenas wifi
-
-        double frec = 2.4 * GHZ;
-        double lambda = frec2lambda(frec);
-
-        double dbm_t = 20.0;
+        double dbm_t = dbm_trans;
         double Pt = dbm2pot(dbm_t);
 
     	// Pr = (Gt * Gr * (lambda)^2 * Pt) / (4 * PI * dist)^2
