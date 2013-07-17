@@ -91,8 +91,12 @@ namespace newGA {
     }
 
     void Crossover::setup(char line[MAX_BUFFER]) {
-        int op;
-        sscanf(line, " %d %f ", &op, &probability[0]);
+        sscanf(line, " %*d %f ", &probability[0]);
+        assert(probability[0] >= 0);
+    }
+
+    void Crossover::setup(double p){
+    	probability[0] = p;
         assert(probability[0] >= 0);
     }
 
@@ -104,7 +108,7 @@ namespace newGA {
 
     Mutation::Mutation() :
     Intra_Operator(1) {
-        probability = new float[2];
+        probability = new float[1];
     }
 
 #define MAX_MUTATION_XY      1.0
@@ -127,16 +131,18 @@ namespace newGA {
     }
 
     ostream& operator<<(ostream& os, const Mutation & mutation) {
-        os << "Mutation." << " Probability: " << mutation.probability[0]
-                << " Probability1: " << mutation.probability[1] << endl;
+        os << "Mutation." << " Probability: " << mutation.probability[0] << endl;
         return os;
     }
 
     void Mutation::setup(char line[MAX_BUFFER]) {
-        int op;
-        sscanf(line, " %d %f %f ", &op, &probability[0], &probability[1]);
+        sscanf(line, " %*d %f ", &probability[0]);
         assert(probability[0] >= 0);
-        assert(probability[1] >= 0);
+    }
+
+    void Mutation::setup(double p){
+        probability[0] = p;
+        assert(probability[0] >= 0);
     }
 
     void Mutation::RefreshState(const StateCenter & _sc) const {

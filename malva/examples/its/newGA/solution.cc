@@ -7,6 +7,7 @@ namespace newGA {
 
 #define MAXDECAY 0.5
 #define MINDECAY 0.0
+#define SIMILARS 0.1
 
     Solution::Solution(const Problem & pbm) :
     _pbm(pbm),
@@ -69,9 +70,10 @@ namespace newGA {
     }
 
     bool Solution::operator==(const Solution & sol) const {
-        if (sol.pbm() != _pbm)
+    	if (sol.pbm() != _pbm)
             return false;
-        return true;
+    	if (len(sol._coord - this->_coord) < SIMILARS) return true;
+        return false;
     }
 
     bool Solution::operator!=(const Solution & sol) const {

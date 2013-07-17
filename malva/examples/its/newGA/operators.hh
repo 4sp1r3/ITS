@@ -26,6 +26,7 @@ namespace newGA {
 
         virtual void execute(Rarray<Solution*>& sols) const = 0;
         virtual void setup(char line[MAX_BUFFER]) = 0;
+        virtual void setup(double p) = 0;
         unsigned int number_operator() const;
 
         virtual void RefreshState(const StateCenter& _sc) const = 0;
@@ -44,6 +45,7 @@ namespace newGA {
         void cross(Solution &sol1, Solution &sol2) const;
         virtual void execute(Rarray<Solution*>& sols) const;
         virtual void setup(char line[MAX_BUFFER]);
+        virtual void setup(double p);
 
         virtual void RefreshState(const StateCenter& _sc) const;
         virtual void UpdateFromState(const StateCenter& _sc);
@@ -62,6 +64,7 @@ namespace newGA {
         // applies mutation over all solutions in array sols
         virtual void execute(Rarray<Solution*>& sols) const;
         virtual void setup(char line[MAX_BUFFER]);
+        virtual void setup(double p);
 
         virtual void RefreshState(const StateCenter& _sc) const;
         virtual void UpdateFromState(const StateCenter& _sc);

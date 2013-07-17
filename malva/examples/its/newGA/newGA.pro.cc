@@ -33,7 +33,7 @@ namespace newGA {
     _check_asynchronous(1),
     _display_state(0),
     _pool(pool),
-    _fitness_treshold(1.0) {
+    _fitness_treshold(0.05) {
     }
 
     Operator_Pool& SetUpParams::pool() const {
@@ -1790,17 +1790,17 @@ namespace newGA {
         cout << endl << "Worst cost trial: " << worst_cost_trial();
         cout << endl << "Iteration best found in trial: " << iteration_best_found_in_trial();
         cout << endl << "Evaluations best found in trial: " << evaluations_best_found_in_trial();
-        cout << endl << "Time best found trial: " << time_best_found_trial();
-        cout << endl << "Time spent in trial: " << time_spent_trial();
+        cout << endl << "Time best found trial: " << time_best_found_trial() / 1000000.0;
+        cout << endl << "Time spent in trial: " << time_spent_trial() / 1000000.0;
         cout << endl << endl << "Global: ";
         cout << endl << "Global best cost: " << global_best_cost();
         cout << endl << "Global worst cost: " << global_worst_cost();
         cout << endl << "Trial best found: " << trial_best_found();
         cout << endl << "Iteration best found: " << iteration_best_found();
         cout << endl << "Evaluations best found: " << evaluations_best_found();
-        cout << endl << "Time best found: " << time_best_found();
+        cout << endl << "Time best found: " << time_best_found() / 1000000.0;
         //		cout << endl << endl << "Best Solution: " << endl << global_best_solution();
-        cout << endl << endl << "Current time spent (so far): " << current_time_spent() << endl << endl;
+        cout << endl << endl << "Current time spent (so far): " << current_time_spent() / 1000000.0 << endl << endl;
     }
 
     Solver::~Solver() {
@@ -1811,7 +1811,7 @@ namespace newGA {
 
     Solver_Seq::Solver_Seq(const Problem& pbm, const SetUpParams& setup)
     : Solver(pbm, setup) {
-        random_seed(time(0));
+    	// random_seed(time(0)); BUG!!!!!
         _end_trial = true;
     }
 

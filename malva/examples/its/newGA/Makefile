@@ -11,6 +11,9 @@ MainSeq: MainSeq.o newGA.pro.o operators.o problem.o solution.o stats.o stop.o V
 test: newGA.pro.o operators.o problem.o solution.o stats.o stop.o Vec.o test.o
 	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -g -o $@
 
+Parameters: Parameters.o newGA.pro.o operators.o problem.o solution.o stats.o stop.o Vec.o
+	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -o $@
+
 SEQ:
 	./MainSeq config.dat ../instances/nodes.in nodes.out
 
@@ -20,4 +23,5 @@ clean:
 clean-all:
 	$(MAKE) clean
 	rm -f test
+	rm -f Parameters
 

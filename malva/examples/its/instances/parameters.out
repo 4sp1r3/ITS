@@ -1,0 +1,891 @@
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3005
+Current best cost: 29.243
+Current worst cost: 29.243
+Current Average cost: 29.243
+Current Standard Deviation: 3.97205e-15
+
+Trial: 
+Best cost trial: 21.7911
+Worst cost trial: 8209.64
+Iteration best found in trial: 24
+Evaluations best found in trial: 1445
+Time best found trial: 0.003768
+Time spent in trial: 0.007905
+
+Global: 
+Global best cost: 21.7911
+Global worst cost: 8209.64
+Trial best found: 3
+Iteration best found: 24
+Evaluations best found: 1445
+Time best found: 0.003768
+
+Current time spent (so far): 0.023955
+
+Solution: (-7.59942,0.53281) -3.36875 -2.63623 -4.67349
+Fitness: 21.7911
+FINISH Poblacion = 5 , Cross = 0.700000 , Mutation = 0.010000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3005
+Current best cost: 52.377
+Current worst cost: 52.377
+Current Average cost: 52.377
+Current Standard Deviation: 0
+
+Trial: 
+Best cost trial: 52.377
+Worst cost trial: 6595.83
+Iteration best found in trial: 46
+Evaluations best found in trial: 2765
+Time best found trial: 0.007377
+Time spent in trial: 0.008023
+
+Global: 
+Global best cost: 0.106664
+Global worst cost: 10218.2
+Trial best found: 2
+Iteration best found: 27
+Evaluations best found: 1625
+Time best found: 0.004266
+
+Current time spent (so far): 0.024094
+
+Solution: (-1.9247,2.21992) 0.125718 -0.204819 0.8885
+Fitness: 0.106664
+FINISH Poblacion = 5 , Cross = 0.700000 , Mutation = 0.050000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3005
+Current best cost: 130.973
+Current worst cost: 135.637
+Current Average cost: 133.771
+Current Standard Deviation: 2.55429
+
+Trial: 
+Best cost trial: 130.973
+Worst cost trial: 8201.46
+Iteration best found in trial: 47
+Evaluations best found in trial: 2825
+Time best found trial: 0.007727
+Time spent in trial: 0.008226
+
+Global: 
+Global best cost: 11.4425
+Global worst cost: 9085.58
+Trial best found: 1
+Iteration best found: 50
+Evaluations best found: 3005
+Time best found: 0.008437
+
+Current time spent (so far): 0.024752
+
+Solution: (-4.91102,-1.6969) -0.68006 4.37741 -5.83104
+Fitness: 11.4425
+FINISH Poblacion = 5 , Cross = 0.700000 , Mutation = 0.100000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3005
+Current best cost: 178.572
+Current worst cost: 178.572
+Current Average cost: 178.572
+Current Standard Deviation: 0
+
+Trial: 
+Best cost trial: 178.572
+Worst cost trial: 10643.1
+Iteration best found in trial: 42
+Evaluations best found in trial: 2525
+Time best found trial: 0.007259
+Time spent in trial: 0.008613
+
+Global: 
+Global best cost: 12.2612
+Global worst cost: 13694
+Trial best found: 2
+Iteration best found: 36
+Evaluations best found: 2165
+Time best found: 0.006029
+
+Current time spent (so far): 0.025562
+
+Solution: (-3.31074,-0.972488) 0.758836 8.45882 -4.57771
+Fitness: 12.2612
+FINISH Poblacion = 5 , Cross = 0.800000 , Mutation = 0.010000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3005
+Current best cost: 606.194
+Current worst cost: 606.194
+Current Average cost: 606.194
+Current Standard Deviation: 0
+
+Trial: 
+Best cost trial: 606.194
+Worst cost trial: 12841.2
+Iteration best found in trial: 42
+Evaluations best found in trial: 2525
+Time best found trial: 0.007222
+Time spent in trial: 0.008591
+
+Global: 
+Global best cost: 0.177302
+Global worst cost: 12841.2
+Trial best found: 2
+Iteration best found: 25
+Evaluations best found: 1505
+Time best found: 0.004283
+
+Current time spent (so far): 0.025628
+
+Solution: (-2.36021,1.83952) 0.0656514 0.585824 0.933211
+Fitness: 0.177302
+FINISH Poblacion = 5 , Cross = 0.800000 , Mutation = 0.050000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3005
+Current best cost: 9.3474
+Current worst cost: 9.3474
+Current Average cost: 9.3474
+Current Standard Deviation: 0
+
+Trial: 
+Best cost trial: 9.3474
+Worst cost trial: 6606.5
+Iteration best found in trial: 45
+Evaluations best found in trial: 2705
+Time best found trial: 0.007669
+Time spent in trial: 0.008506
+
+Global: 
+Global best cost: 9.3474
+Global worst cost: 10223
+Trial best found: 3
+Iteration best found: 45
+Evaluations best found: 2705
+Time best found: 0.007669
+
+Current time spent (so far): 0.025566
+
+Solution: (-5.63141,-1.20546) -1.44474 2.0412 -5.36295
+Fitness: 9.3474
+FINISH Poblacion = 5 , Cross = 0.800000 , Mutation = 0.100000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3005
+Current best cost: 336.777
+Current worst cost: 336.777
+Current Average cost: 336.777
+Current Standard Deviation: 0
+
+Trial: 
+Best cost trial: 336.777
+Worst cost trial: 9921.35
+Iteration best found in trial: 35
+Evaluations best found in trial: 2105
+Time best found trial: 0.006357
+Time spent in trial: 0.009015
+
+Global: 
+Global best cost: 11.3414
+Global worst cost: 9921.35
+Trial best found: 1
+Iteration best found: 40
+Evaluations best found: 2405
+Time best found: 0.007182
+
+Current time spent (so far): 0.026981
+
+Solution: (-3.90542,-1.2194) 0.209365 7.187 -4.93567
+Fitness: 11.3414
+FINISH Poblacion = 5 , Cross = 0.900000 , Mutation = 0.010000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3005
+Current best cost: 0.09118
+Current worst cost: 0.09118
+Current Average cost: 0.09118
+Current Standard Deviation: 0
+
+Trial: 
+Best cost trial: 0.09118
+Worst cost trial: 8068.6
+Iteration best found in trial: 35
+Evaluations best found in trial: 2105
+Time best found trial: 0.006296
+Time spent in trial: 0.009056
+
+Global: 
+Global best cost: 0.09118
+Global worst cost: 11782.3
+Trial best found: 3
+Iteration best found: 35
+Evaluations best found: 2105
+Time best found: 0.006296
+
+Current time spent (so far): 0.027087
+
+Solution: (-1.77979,2.20648) 0.246303 -0.206545 0.507159
+Fitness: 0.09118
+FINISH Poblacion = 5 , Cross = 0.900000 , Mutation = 0.050000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3005
+Current best cost: 169.236
+Current worst cost: 221.89
+Current Average cost: 179.876
+Current Standard Deviation: 23.4866
+
+Trial: 
+Best cost trial: 169.236
+Worst cost trial: 7457.57
+Iteration best found in trial: 50
+Evaluations best found in trial: 3005
+Time best found trial: 0.009273
+Time spent in trial: 0.009273
+
+Global: 
+Global best cost: 115.718
+Global worst cost: 10753
+Trial best found: 1
+Iteration best found: 32
+Evaluations best found: 1925
+Time best found: 0.00585
+
+Current time spent (so far): 0.027438
+
+Solution: (-9.53486,-6.0693) -4.38099 -5.27992 -11.8494
+Fitness: 115.718
+FINISH Poblacion = 5 , Cross = 0.900000 , Mutation = 0.100000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3015
+Current best cost: 0.0860447
+Current worst cost: 0.0860447
+Current Average cost: 0.0860447
+Current Standard Deviation: 1.43649e-17
+
+Trial: 
+Best cost trial: 0.0860447
+Worst cost trial: 12098.9
+Iteration best found in trial: 21
+Evaluations best found in trial: 1275
+Time best found trial: 0.003455
+Time spent in trial: 0.008178
+
+Global: 
+Global best cost: 0.0860447
+Global worst cost: 14017.5
+Trial best found: 3
+Iteration best found: 21
+Evaluations best found: 1275
+Time best found: 0.003455
+
+Current time spent (so far): 0.024262
+
+Solution: (-1.96817,2.10562) 0.179978 0.0224198 0.742078
+Fitness: 0.0860447
+FINISH Poblacion = 15 , Cross = 0.700000 , Mutation = 0.010000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3015
+Current best cost: 0.105451
+Current worst cost: 0.105451
+Current Average cost: 0.105451
+Current Standard Deviation: 2.87298e-17
+
+Trial: 
+Best cost trial: 0.105451
+Worst cost trial: 11391.5
+Iteration best found in trial: 17
+Evaluations best found in trial: 1035
+Time best found trial: 0.002795
+Time spent in trial: 0.008162
+
+Global: 
+Global best cost: 0.0825818
+Global worst cost: 11391.5
+Trial best found: 1
+Iteration best found: 23
+Evaluations best found: 1395
+Time best found: 0.003739
+
+Current time spent (so far): 0.024338
+
+Solution: (-1.89359,2.12441) 0.223223 -0.0263369 0.608824
+Fitness: 0.0825818
+FINISH Poblacion = 15 , Cross = 0.700000 , Mutation = 0.050000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3015
+Current best cost: 0.0845201
+Current worst cost: 0.843943
+Current Average cost: 0.135148
+Current Standard Deviation: 0.196082
+
+Trial: 
+Best cost trial: 0.0845201
+Worst cost trial: 8260.25
+Iteration best found in trial: 7
+Evaluations best found in trial: 435
+Time best found trial: 0.001141
+Time spent in trial: 0.00805
+
+Global: 
+Global best cost: 0.0836782
+Global worst cost: 11515.1
+Trial best found: 1
+Iteration best found: 38
+Evaluations best found: 2295
+Time best found: 0.006156
+
+Current time spent (so far): 0.024256
+
+Solution: (-1.88074,2.15326) 0.210777 -0.084485 0.639807
+Fitness: 0.0836782
+FINISH Poblacion = 15 , Cross = 0.700000 , Mutation = 0.100000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3015
+Current best cost: 1.04772
+Current worst cost: 1.04772
+Current Average cost: 1.04772
+Current Standard Deviation: 0
+
+Trial: 
+Best cost trial: 1.04772
+Worst cost trial: 11391.5
+Iteration best found in trial: 22
+Evaluations best found in trial: 1335
+Time best found trial: 0.003851
+Time spent in trial: 0.008665
+
+Global: 
+Global best cost: 0.129831
+Global worst cost: 11391.5
+Trial best found: 1
+Iteration best found: 20
+Evaluations best found: 1215
+Time best found: 0.003437
+
+Current time spent (so far): 0.025732
+
+Solution: (-1.67019,2.1359) 0.386419 -0.0987784 0.110706
+Fitness: 0.129831
+FINISH Poblacion = 15 , Cross = 0.800000 , Mutation = 0.010000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3015
+Current best cost: 0.160238
+Current worst cost: 0.487459
+Current Average cost: 0.182053
+Current Standard Deviation: 0.0844879
+
+Trial: 
+Best cost trial: 0.160238
+Worst cost trial: 8260.25
+Iteration best found in trial: 42
+Evaluations best found in trial: 2535
+Time best found trial: 0.007247
+Time spent in trial: 0.00862
+
+Global: 
+Global best cost: 0.0831656
+Global worst cost: 13460.7
+Trial best found: 1
+Iteration best found: 25
+Evaluations best found: 1515
+Time best found: 0.004362
+
+Current time spent (so far): 0.025741
+
+Solution: (-1.86268,2.14322) 0.232453 -0.0684683 0.575924
+Fitness: 0.0831656
+FINISH Poblacion = 15 , Cross = 0.800000 , Mutation = 0.050000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3015
+Current best cost: 0.135784
+Current worst cost: 0.135784
+Current Average cost: 0.135784
+Current Standard Deviation: 2.87298e-17
+
+Trial: 
+Best cost trial: 0.135784
+Worst cost trial: 7483.94
+Iteration best found in trial: 40
+Evaluations best found in trial: 2415
+Time best found trial: 0.006966
+Time spent in trial: 0.008692
+
+Global: 
+Global best cost: 0.0833426
+Global worst cost: 10193.9
+Trial best found: 1
+Iteration best found: 50
+Evaluations best found: 3015
+Time best found: 0.00865
+
+Current time spent (so far): 0.026046
+
+Solution: (-1.85755,2.14442) 0.23547 -0.0717569 0.566315
+Fitness: 0.0833426
+FINISH Poblacion = 15 , Cross = 0.800000 , Mutation = 0.100000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3015
+Current best cost: 0.746413
+Current worst cost: 1.45712
+Current Average cost: 1.06284
+Current Standard Deviation: 0.235221
+
+Trial: 
+Best cost trial: 0.746413
+Worst cost trial: 6937.55
+Iteration best found in trial: 49
+Evaluations best found in trial: 2955
+Time best found trial: 0.008889
+Time spent in trial: 0.009072
+
+Global: 
+Global best cost: 0.746413
+Global worst cost: 11515.1
+Trial best found: 3
+Iteration best found: 49
+Evaluations best found: 2955
+Time best found: 0.008889
+
+Current time spent (so far): 0.027317
+
+Solution: (-0.954506,2.48757) 0.614798 -1.00254 -1.04397
+Fitness: 0.746413
+FINISH Poblacion = 15 , Cross = 0.900000 , Mutation = 0.010000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3015
+Current best cost: 0.107865
+Current worst cost: 0.951411
+Current Average cost: 0.164101
+Current Standard Deviation: 0.217803
+
+Trial: 
+Best cost trial: 0.107865
+Worst cost trial: 12172.5
+Iteration best found in trial: 13
+Evaluations best found in trial: 795
+Time best found trial: 0.002414
+Time spent in trial: 0.009178
+
+Global: 
+Global best cost: 0.0826917
+Global worst cost: 12172.5
+Trial best found: 2
+Iteration best found: 30
+Evaluations best found: 1815
+Time best found: 0.005528
+
+Current time spent (so far): 0.027531
+
+Solution: (-1.8805,2.13041) 0.228677 -0.0403386 0.590878
+Fitness: 0.0826917
+FINISH Poblacion = 15 , Cross = 0.900000 , Mutation = 0.050000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3015
+Current best cost: 0.0866771
+Current worst cost: 0.0866771
+Current Average cost: 0.0866771
+Current Standard Deviation: 0
+
+Trial: 
+Best cost trial: 0.0866771
+Worst cost trial: 10730.7
+Iteration best found in trial: 5
+Evaluations best found in trial: 315
+Time best found trial: 0.000899
+Time spent in trial: 0.009137
+
+Global: 
+Global best cost: 0.0840119
+Global worst cost: 10730.7
+Trial best found: 2
+Iteration best found: 6
+Evaluations best found: 375
+Time best found: 0.001135
+
+Current time spent (so far): 0.027464
+
+Solution: (-1.94591,2.10449) 0.19809 0.0212498 0.687807
+Fitness: 0.0840119
+FINISH Poblacion = 15 , Cross = 0.900000 , Mutation = 0.100000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3030
+Current best cost: 1.68734
+Current worst cost: 1.68734
+Current Average cost: 1.68734
+Current Standard Deviation: 4.51681e-16
+
+Trial: 
+Best cost trial: 1.68734
+Worst cost trial: 12988.5
+Iteration best found in trial: 26
+Evaluations best found in trial: 1590
+Time best found trial: 0.004244
+Time spent in trial: 0.008082
+
+Global: 
+Global best cost: 0.0834106
+Global worst cost: 12988.5
+Trial best found: 2
+Iteration best found: 18
+Evaluations best found: 1110
+Time best found: 0.002957
+
+Current time spent (so far): 0.024539
+
+Solution: (-1.93461,2.09997) 0.210311 0.0282756 0.651696
+Fitness: 0.0834106
+FINISH Poblacion = 30 , Cross = 0.700000 , Mutation = 0.010000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3030
+Current best cost: 0.0834303
+Current worst cost: 0.0834303
+Current Average cost: 0.0834303
+Current Standard Deviation: 7.05752e-17
+
+Trial: 
+Best cost trial: 0.0834303
+Worst cost trial: 12742.5
+Iteration best found in trial: 31
+Evaluations best found in trial: 1890
+Time best found trial: 0.005105
+Time spent in trial: 0.008243
+
+Global: 
+Global best cost: 0.0834303
+Global worst cost: 12742.5
+Trial best found: 3
+Iteration best found: 31
+Evaluations best found: 1890
+Time best found: 0.005105
+
+Current time spent (so far): 0.024495
+
+Solution: (-1.9162,2.09444) 0.228857 0.0360454 0.597049
+Fitness: 0.0834303
+FINISH Poblacion = 30 , Cross = 0.700000 , Mutation = 0.050000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3030
+Current best cost: 0.0842484
+Current worst cost: 0.237447
+Current Average cost: 0.089355
+Current Standard Deviation: 0.0279701
+
+Trial: 
+Best cost trial: 0.0842484
+Worst cost trial: 12903.1
+Iteration best found in trial: 35
+Evaluations best found in trial: 2130
+Time best found trial: 0.005768
+Time spent in trial: 0.008256
+
+Global: 
+Global best cost: 0.0832922
+Global worst cost: 13910.4
+Trial best found: 1
+Iteration best found: 10
+Evaluations best found: 630
+Time best found: 0.001656
+
+Current time spent (so far): 0.024593
+
+Solution: (-1.88597,2.10892) 0.241103 0.00241211 0.558055
+Fitness: 0.0832922
+FINISH Poblacion = 30 , Cross = 0.700000 , Mutation = 0.100000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3030
+Current best cost: 0.0870298
+Current worst cost: 0.0870298
+Current Average cost: 0.0870298
+Current Standard Deviation: 5.64601e-17
+
+Trial: 
+Best cost trial: 0.0870298
+Worst cost trial: 12313.6
+Iteration best found in trial: 38
+Evaluations best found in trial: 2310
+Time best found trial: 0.006594
+Time spent in trial: 0.008683
+
+Global: 
+Global best cost: 0.0870298
+Global worst cost: 12313.6
+Trial best found: 3
+Iteration best found: 38
+Evaluations best found: 2310
+Time best found: 0.006594
+
+Current time spent (so far): 0.026041
+
+Solution: (-1.8131,2.18468) 0.238074 -0.157931 0.543507
+Fitness: 0.0870298
+FINISH Poblacion = 30 , Cross = 0.800000 , Mutation = 0.010000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3030
+Current best cost: 0.0839766
+Current worst cost: 0.885439
+Current Average cost: 0.110692
+Current Standard Deviation: 0.146326
+
+Trial: 
+Best cost trial: 0.0839766
+Worst cost trial: 10168.8
+Iteration best found in trial: 11
+Evaluations best found in trial: 690
+Time best found trial: 0.001947
+Time spent in trial: 0.008819
+
+Global: 
+Global best cost: 0.0839766
+Global worst cost: 13910.4
+Trial best found: 3
+Iteration best found: 11
+Evaluations best found: 690
+Time best found: 0.001947
+
+Current time spent (so far): 0.026257
+
+Solution: (-1.93535,2.11977) 0.194533 -0.0102511 0.696647
+Fitness: 0.0839766
+FINISH Poblacion = 30 , Cross = 0.800000 , Mutation = 0.050000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3030
+Current best cost: 0.083269
+Current worst cost: 0.083269
+Current Average cost: 0.083269
+Current Standard Deviation: 4.23451e-17
+
+Trial: 
+Best cost trial: 0.083269
+Worst cost trial: 13977.6
+Iteration best found in trial: 23
+Evaluations best found in trial: 1410
+Time best found trial: 0.004093
+Time spent in trial: 0.008807
+
+Global: 
+Global best cost: 0.0826806
+Global worst cost: 14265.9
+Trial best found: 2
+Iteration best found: 25
+Evaluations best found: 1530
+Time best found: 0.004428
+
+Current time spent (so far): 0.028274
+
+Solution: (-1.90877,2.11544) 0.218417 -0.00624374 0.625115
+Fitness: 0.0826806
+FINISH Poblacion = 30 , Cross = 0.800000 , Mutation = 0.100000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3030
+Current best cost: 11.827
+Current worst cost: 12.849
+Current Average cost: 12.8149
+Current Standard Deviation: 0.186599
+
+Trial: 
+Best cost trial: 11.827
+Worst cost trial: 12355
+Iteration best found in trial: 50
+Evaluations best found in trial: 3030
+Time best found trial: 0.009308
+Time spent in trial: 0.009308
+
+Global: 
+Global best cost: 0.485862
+Global worst cost: 13910.4
+Trial best found: 1
+Iteration best found: 15
+Evaluations best found: 930
+Time best found: 0.00282
+
+Current time spent (so far): 0.027773
+
+Solution: (-3.00728,1.44512) -0.206278 1.30283 0.788506
+Fitness: 0.485862
+FINISH Poblacion = 30 , Cross = 0.900000 , Mutation = 0.010000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3030
+Current best cost: 0.113322
+Current worst cost: 0.113322
+Current Average cost: 0.113322
+Current Standard Deviation: 4.23451e-17
+
+Trial: 
+Best cost trial: 0.113322
+Worst cost trial: 13302.3
+Iteration best found in trial: 11
+Evaluations best found in trial: 690
+Time best found trial: 0.002051
+Time spent in trial: 0.009266
+
+Global: 
+Global best cost: 0.0827006
+Global worst cost: 14265.9
+Trial best found: 2
+Iteration best found: 23
+Evaluations best found: 1410
+Time best found: 0.00426
+
+Current time spent (so far): 0.027747
+
+Solution: (-1.88795,2.11966) 0.231247 -0.0181268 0.585532
+Fitness: 0.0827006
+FINISH Poblacion = 30 , Cross = 0.900000 , Mutation = 0.050000 
+
+
+ Current State ---------------------------------------------
+
+Current trial: 3
+Current iteration: 50
+Current evaluations: 3030
+Current best cost: 0.0889718
+Current worst cost: 1.55006
+Current Average cost: 0.137675
+Current Standard Deviation: 0.266758
+
+Trial: 
+Best cost trial: 0.0889718
+Worst cost trial: 13797.7
+Iteration best found in trial: 14
+Evaluations best found in trial: 870
+Time best found trial: 0.002588
+Time spent in trial: 0.009143
+
+Global: 
+Global best cost: 0.0826793
+Global worst cost: 13797.7
+Trial best found: 2
+Iteration best found: 15
+Evaluations best found: 930
+Time best found: 0.002778
+
+Current time spent (so far): 0.027696
+
+Solution: (-1.90865,2.11714) 0.2172 -0.00957136 0.628489
+Fitness: 0.0826793
+FINISH Poblacion = 30 , Cross = 0.900000 , Mutation = 0.100000 
+
