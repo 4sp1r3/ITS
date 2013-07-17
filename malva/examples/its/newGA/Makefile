@@ -12,7 +12,7 @@ test: newGA.pro.o operators.o problem.o solution.o stats.o stop.o Vec.o test.o
 	g++ $(LDFLAGS) $^ $(LOADLIBES) $(CPPFLAGS) -g -o $@
 
 SEQ:
-	./MainSeq config.dat instances/nodes.in nodes.out
+	./MainSeq config.dat ../instances/nodes.in nodes.out
 
 clean:
 	rm -f MainSeq *.o *~

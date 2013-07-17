@@ -343,6 +343,9 @@
 \usepackage{url}
 \usepackage{amsmath}
 \usepackage{breqn}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[justification=centering]{caption}
 
 \begin{document}
 
@@ -539,7 +542,7 @@ En donde $rs$ es la intensidad de señal recibida, $ts$ la intensidad de señal 
 
 \subsection{Wall Attenuation Factor Propagation Model}
 
-Este modelo es una adaptación del \emph{Floor Attenuation Factor Propagation Model} sugerido en \cite{Sei92, de RADAR}.
+Este modelo es una adaptación del \emph{Floor Attenuation Factor Propagation Model} sugerido en \cite{path:loss:prediction:models}.
 
 En lugar de considerar la atenuación de la señal debido al factor del piso del edificio, considera el efecto causado por las paredes entre el transmisor y receptor.
 
@@ -564,9 +567,9 @@ Un tercer modelo teórico bastante más complejo considera la pérdida de potenc
 
 \item \emph{Path loss} ($L_p$): se refiere a la perdida promedio debido a la propagación de las ondas en el espacio
 
-\item \emph{Slow fading} ($L_s$): se refiere a perdidas de señal causadas en distancias largas debido a variaciones lentas en el espacio tiempo [1 de generic model]
+\item \emph{Slow fading} ($L_s$): se refiere a perdidas de señal causadas en distancias largas debido a variaciones lentas en el espacio-tiempo \cite{introduction:wireless:mobile:systems}
 
-\item \emph{Fast fading} ($L_f$), se refiere a perdidas de señal por variaciones bruscas en el espacio. [2, 9 y 11 de generic model]
+\item \emph{Fast fading} ($L_f$), se refiere a perdidas de señal por variaciones bruscas en el espacio \cite{survey:propagation:models} \cite{wireless:communications}.
 
 \end{itemize}
 
@@ -591,7 +594,7 @@ En donde $P_r$ es la potencia recibida, $G_t$ y $G_r$ son la ganancia de las ant
 
 A partir de esta ecuación se puede despejar la distancia teórica entre ambos nodos.
 
-$$d(L_{dB}) = \sqrt {\frac {G_t \times G_r \times \lambda^2} {4 \pi \times P_r} \times P_t}$$
+$$d(L_{dB}) = \sqrt {\frac {G_t \times G_r \times \lambda^2} {(4 \pi)^2 \times P_r} \times P_t}$$
 
 $\lambda$ se puede obtener a partir de la frecuencia ($F$), utilizando la velocidad de la luz ($C$).
 
@@ -603,14 +606,13 @@ $$P_1 = 10^{\frac {L_{dB}} {10}} \times P_0$$
 
 Finalmente, obtenemos la distancia teórica entre los nodos a partir de la siguiente ecuación.
 
-$$d(L_{dB}) = \sqrt {\frac {G_t \times G_r \times (\frac {C} {F})^2} {4 \pi \times 10^{\frac {L_{dB}} {10}} \times P_0} \times P_t}$$
+$$d(L_{dB}) = \sqrt {\frac {G_t \times G_r \times (\frac {C} {F})^2} {(4 \pi)^2 \times 10^{\frac {L_{dB}} {10}} \times P_0} \times P_t}$$
 
 En donde simplificándola y usando los valores antes mencionados se tiene:
 
 \begin{equation*}
 \begin{split}
-d(L_{dB}) &= \sqrt {\frac {5 \times 5 \times (\frac {299.792.458} {2.442.000.000})^2} {4 \pi \times 10^{\frac {L_{dB}} {10}} \times 0,001} \times P_t}\\\\
-&= \sqrt {\frac {29,98336} {10^{\frac {L_{dB}} {10}}} \times P_t}
+d(L_{dB}) &= \sqrt {\frac {5 \times 5 \times (\frac {299.792.458} {2.442.000.000})^2} {(4 \pi)^2 \times 10^{\frac {L_{dB}} {10}} \times 0,001} \times 0,1} = \sqrt {\frac {0.2386} {10^{\frac {L_{dB}} {10}}}}
 \end{split}
 \end{equation*}
 
@@ -618,7 +620,7 @@ d(L_{dB}) &= \sqrt {\frac {5 \times 5 \times (\frac {299.792.458} {2.442.000.000
 
 \subsection{Tecnologías usadas}
 
-Los lenguajes de programación usados son \emph{C/C++} \cite{c:c++:language} debido a su sencillez, bajo consumo de memoria, velocidad de ejecución y herramientas disponibles \cite{why:c:c++}.\\
+Los lenguajes de programación usados son \emph{C/C++} \cite{c} \cite{c++} debido a su sencillez, bajo consumo de memoria, velocidad de ejecución y herramientas disponibles \cite{why:c:c++}.\\
 
 Se implementará el algoritmo usando el framework \emph{Malva} \cite{malva}, el cual es un fork de \emph{Mallba} \cite{mallba}. Se estudiaron otras alternativas pero finalmente se optó por este debido a recomendaciones hechas en el curso y al hecho de que contábamos con el soporte del foro de discusión del curso.\\
 
@@ -636,26 +638,32 @@ Para entender ambos enfoques es importante primero presentar dos escenarios de e
 
 \subsubsection{Escenario}
 
-[IMAGEN 1]
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{ideal.png}
+\caption{Escenario ideal}
+\label{fig:ideal}
+\end{figure}
 
-ROUTER ----------------------------------------- DISPOSITIVO (señal -50dbM)
-   0m                                                10m
+La imagen \ref{fig:ideal} presenta un escenario ideal en donde se tiene linea de visión entre el router transmisor y el dispositivo receptor, ubicados a una distancia de 10m uno del otro. La señal percibida en este ejemplo es de de -50dbM.\\
 
-La imagen [1] presenta un escenario ideal en donde se tiene linea de visión entre el router transmisor y el dispositivo receptor, ubicados a una distancia de 10m uno del otro. La señal percibida en este ejemplo es de de -50dbM.\\
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{obstacle.png}
+\caption{Escenario real}
+\label{fig:obstacle}
+\end{figure}
 
-[IMAGEN 2]
+La imagen \ref{fig:obstacle} presenta un escenario un poco más realista, en donde la linea de visión se ve obstruida por un obstáculo (e.g. una pared) entre ellos. En este caso las ondas se ven perturbadas y el dispositivo solo percibe una señal de -80dbM.\\
 
-ROUTER --------------------- OBSTÁCULO --------- DISPOSITIVO (señal -80dbM)
-   0m                           8m                   10m
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{perceived.png}
+\caption{Escenario percibido}
+\label{fig:perceived}
+\end{figure}
 
-La imagen [2] presenta un escenario un poco más realista, en donde la linea de visión se ve obstruida por un obstáculo (e.g. una pared) entre ellos. En este caso las ondas se ven perturbadas y el dispositivo solo percibe una señal de -80dbM.\\
-
-[IMAGEN 3]
-
-ROUTER ----------------------------------------- DISPOSITIVO (señal -80dbM)
-   0m                                                12m
-
-La imagen [3] representa lo que el dispositivo percibiría. Una señal de -80dBm será interpretada por él como una distancia entre el transmisor y receptor de 12m en lugar de 10m, pero esto como no es real. El problema de fondo es la imposibilidad de determinar la existencia de obstáculos entre ambos extremos.
+La imagen \ref{fig:perceived} representa lo que el dispositivo percibiría. Una señal de -80dBm será interpretada por él como una distancia entre el transmisor y receptor de 12m en lugar de 10m, pero esto como no es real. El problema de fondo es la imposibilidad de determinar la existencia de obstáculos entre ambos extremos.
 
 \subsubsection{Enfoque 1 - Atenuación Explícita}
 
@@ -673,11 +681,16 @@ De acuerdo a la representación descripta $(10, -5, 0.15, 0, 0.1)$ representa un
 
 Si la intensidad de la señal que percibe de, por ejemplo, el router $R_1$ es de 82\%, para el cálculo del fitness se asumiría que la misma debió ser 15\% mayor, por lo cual se usará una intensidad teórica de $82 \times 1.15 = 94\%$ en su lugar.\\
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{improvement.png}
+\caption{Escenario mejorado}
+\label{fig:improvement}
+\end{figure}
+
+La imagen \ref{fig:improvement} muestra el efecto que tiene sobre la estimación de la posición el hecho de considerar la atenuación hacia cada router.
+
 Este enfoque, si bien en un primero momento parecía adecuado, tiene un defecto importante. La representación interna del individuo contiene un valor de atenuación hacia cada uno de los routers, por lo que dado cualquier valor para $(x,y)$, el algoritmo será capaz de modificar dichos valores de manera que el fitness sea bueno. En otras palabras, sin importar la estimación de la posición, existirá un vector de atenuación que haga que el individuo sea aceptable, potencialmente mejor que otro cuya posición estimada es más acertada. Asimismo, la representación interna dependería directamente de la cantidad de routers usados ya que para cada uno de ellos se deberá estimar un decaimiento, ocasionando que rápidamente el espacio de búsqueda crezca al punto de que no se explore lo suficiente en tiempos razonables.\\
-
-[IMAGEN 4]
-
-La imagen [4] muestra el efecto que tiene sobre la estimación de la posición el hecho de considerar la atenuación hacia cada router.
 
 \subsubsection{Enfoque 2 - Atenuación Implícita}
 
@@ -786,23 +799,65 @@ Intel Core i5 2.67GHz (doble nucelo, cuatro threads).
 
 \subsubsection{Sistema Operativo}
 
-Se usó \emph{GNU/Linux} \cite{linux}, en su variante \emph{Debian 7.0 (Wheezy)} \cite{debian:wheezy} para 64 bits (amd64).
+Se usó \emph{GNU/Linux} \cite{gnu} \cite{linux}, en su variante \emph{Debian 7.0 (Wheezy)} \cite{debian:stable} para 64 bits (amd64).
 
 Se prestó especial cuidado a los procesos corriendo, deteniendo todos los procesos y servicios innecesarios al momento de realizar las pruebas.
 
 \subsection{Instancias de prueba}
 
-Las instancias de prueba consisten en 5 conjuntos con 3, 4, 5, 6 y 7 routers. Cada uno de ellos fue ubicado en el plano de manera aleatoria respecto a un origen de coordenadas arbitrario.\\
+Para el ajuste paramétrico se usará una instancia de prueba reducida, conformada por 3 routers ubicados aleatoriamente en el plano.\\
 
-La inicialización del dispositivo, como se mencionó antes, también es aleatorea.\\
+Para realizar la evaluación del algoritmo se usarán 25 ejecuciones divididas en 5 conjuntos de 3, 4, 5, 6 y 7 routers (cada conjunto contendrá 5 escenarios inicializados independientemente).\\
 
-Además de estos 5 casos de prueba se montó un escenario real con 3 routers ubicados entre 3 y 10 metros de la computadora y se tomaron medidas de las posiciones e intensidades de señal recibidas. A partir de esto se trianguló la computadora con el objetivo de validar la implementación con un caso real.\\
+Además de estas 25 ejecuciones se realizará una prueba real con 3 routers ubicados entre 3 y 10 metros de la computadora de prueba, con el objetivo de validar la implementación en un escenario real.\\
 
-\subsection{Ajustes de parámetros}
+\subsection{Ajuste paramétrico}
 
+La tabla \ref{tab:tuning} muestra las combinaciones de parámetros estudiados para hacer el ajuste paramétrico. Para cada combinación se realizaron 3 ejecuciones, registrando el valor promedio de tiempo de ejecución (en segundos) y fitness del mejor individuo.
 
+\begin{table}[h]
+\caption{Ajuste paramétrico}
+\centering
+\begin{tabular}{|c|c|c||c|c|}
+\hline
+Población &Cruzamiento &Mutación &Tiempo &Fitness \\
+\hline
+\multirow{9}{*}{ 50} & \multirow{3}{*}{0.85} & 0.01 & 0.0 & 000 \\
+                     &                       & 0.05 & 0.0 & 000 \\
+                     &                       & 0.10 & 0.0 & 000 \\\cline{2-5}
+                     & \multirow{3}{*}{0.90} & 0.01 & 0.0 & 000 \\
+                     &                       & 0.05 & 0.0 & 000 \\
+                     &                       & 0.10 & 0.0 & 000 \\\cline{2-5}
+                     & \multirow{3}{*}{0.95} & 0.01 & 0.0 & 000 \\
+                     &                       & 0.05 & 0.0 & 000 \\
+                     &                       & 0.10 & 0.0 & 000 \\\hline
+\multirow{9}{*}{ 75} & \multirow{3}{*}{0.85} & 0.01 & 0.0 & 000 \\
+                     &                       & 0.05 & 0.0 & 000 \\
+                     &                       & 0.10 & 0.0 & 000 \\\cline{2-5}
+                     & \multirow{3}{*}{0.90} & 0.01 & 0.0 & 000 \\
+                     &                       & 0.05 & 0.0 & 000 \\
+                     &                       & 0.10 & 0.0 & 000 \\\cline{2-5}
+                     & \multirow{3}{*}{0.95} & 0.01 & 0.0 & 000 \\
+                     &                       & 0.05 & 0.0 & 000 \\
+                     &                       & 0.10 & 0.0 & 000 \\\hline
+\multirow{9}{*}{100} & \multirow{3}{*}{0.85} & 0.01 & 0.0 & 000 \\
+                     &                       & 0.05 & 0.0 & 000 \\
+                     &                       & 0.10 & 0.0 & 000 \\\cline{2-5}
+                     & \multirow{3}{*}{0.90} & 0.01 & 0.0 & 000 \\
+                     &                       & 0.05 & 0.0 & 000 \\
+                     &                       & 0.10 & 0.0 & 000 \\\cline{2-5}
+                     & \multirow{3}{*}{0.95} & 0.01 & 0.0 & 000 \\
+                     &                       & 0.05 & 0.0 & 000 \\
+                     &                       & 0.10 & 0.0 & 000 \\\hline
+\end{tabular}
+\label{tab:tuning}
+\end{table}
 
-\subsection{Resultados obtenidos}
+\subsubsection*{Análisis}
+
+...
+
+\subsection{Evaluación}
 
 Para evaluar el algoritmo se harán 30 ejecuciones independientes para el caso de 3, 4, 5, ..., 10 nodos. Adicionalmente se harán 3 ejecuciones en un entorno real, usando 3, 4 y 5 routers.
 
@@ -810,10 +865,11 @@ Para evaluar el algoritmo se harán 30 ejecuciones independientes para el caso d
 
 \begin{itemize}
 \item Tiempo de ejecución
-\item Generación del mejor individuo
+\item Desviación estándar de los tiempos de ejecución
 \item Fitness del mejor individuo
+\item Generación del mejor individuo
 \item Valor promedio del fitness
-\item Desviación estándar del fitness
+\item Desviación estándar de los mejores fitness
 \end{itemize}
 
 ~\\Para los casos reales se reportará además:\\
@@ -823,119 +879,100 @@ Para evaluar el algoritmo se harán 30 ejecuciones independientes para el caso d
 \item La diferencia entre dicha posición y la posición devuelta por servicios existentes
 \end{itemize}
 
-% An example of a floating figure using the graphicx package.
-% Note that \label must occur AFTER (or within) \caption.
-% For figures, \caption should occur after the \includegraphics.
-% Note that IEEEtran v1.7 and later has special internal code that
-% is designed to preserve the operation of \label within \caption
-% even when the captionsoff option is in effect. However, because
-% of issues like this, it may be the safest practice to put all your
-% \label just after \caption rather than within \caption{}.
-%
-% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
-% option should be used if it is desired that the figures are to be
-% displayed while in draft mode.
-%
-%\begin{figure}[!t]
-%\centering
-%\includegraphics[width=2.5in]{myfigure}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-% via \DeclareGraphicsExtensions.
-%\caption{Simulation Results.}
-%\label{fig_sim}
-%\end{figure}
+\begin{table}[h]
+\caption{Resultados}
+\centering
 
-% Note that IEEE typically puts floats only at the top, even when this
-% results in a large percentage of a column being occupied by floats.
+\begin{tabular}{|c||c|c|c||c|c|}
+\hline
+\multicolumn{6}{|c|}{3 Routers}\\
+\hline
+Generación & Fitness & Promedio & Desviación & Tiempo & Desviación \\
+\hline
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+\hline
+\end{tabular}
+\\[2ex]
 
+\begin{tabular}{|c||c|c|c||c|c|}
+\hline
+\multicolumn{6}{|c|}{4 Routers}\\
+\hline
+Generación & Fitness & Promedio & Desviación & Tiempo & Desviación \\
+\hline
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+\hline
+\end{tabular}
+\\[2ex]
 
-% An example of a double column floating figure using two subfigures.
-% (The subfig.sty package must be loaded for this to work.)
-% The subfigure \label commands are set within each subfloat command,
-% and the \label for the overall figure must come after \caption.
-% \hfil is used as a separator to get equal spacing.
-% Watch out that the combined width of all the subfigures on a 
-% line do not exceed the text width or a line break will occur.
-%
-%\begin{figure*}[!t]
-%\centering
-%\subfloat[Case I]{\includegraphics[width=2.5in]{box}%
-%\label{fig_first_case}}
-%\hfil
-%\subfloat[Case II]{\includegraphics[width=2.5in]{box}%
-%\label{fig_second_case}}
-%\caption{Simulation results.}
-%\label{fig_sim}
-%\end{figure*}
-%
-% Note that often IEEE papers with subfigures do not employ subfigure
-% captions (using the optional argument to \subfloat[]), but instead will
-% reference/describe all of them (a), (b), etc., within the main caption.
+\begin{tabular}{|c||c|c|c||c|c|}
+\hline
+\multicolumn{6}{|c|}{5 Routers}\\
+\hline
+Generación & Fitness & Promedio & Desviación & Tiempo & Desviación \\
+\hline
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+\hline
+\end{tabular}
+\\[2ex]
 
+\begin{tabular}{|c||c|c|c||c|c|}
+\hline
+\multicolumn{6}{|c|}{6 Routers}\\
+\hline
+Generación & Fitness & Promedio & Desviación & Tiempo & Desviación \\
+\hline
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+\hline
+\end{tabular}
+\\[2ex]
 
-% An example of a floating table. Note that, for IEEE style tables, the 
-% \caption command should come BEFORE the table. Table text will default to
-% \footnotesize as IEEE normally uses this smaller font for tables.
-% The \label must come after \caption as always.
-%
-%\begin{table}[!t]
-%% increase table row spacing, adjust to taste
-%\renewcommand{\arraystretch}{1.3}
-% if using array.sty, it might be a good idea to tweak the value of
-% \extrarowheight as needed to properly center the text within the cells
-%\caption{An Example of a Table}
-%\label{table_example}
-%\centering
-%% Some packages, such as MDW tools, offer better commands for making tables
-%% than the plain LaTeX2e tabular which is used here.
-%\begin{tabular}{|c||c|}
-%\hline
-%One & Two\\
-%\hline
-%Three & Four\\
-%\hline
-%\end{tabular}
-%\end{table}
+\begin{tabular}{|c||c|c|c||c|c|}
+\hline
+\multicolumn{6}{|c|}{7 Routers}\\
+\hline
+Generación & Fitness & Promedio & Desviación & Tiempo & Desviación \\
+\hline
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
+\hline
+\end{tabular}
 
-% Note that IEEE does not put floats in the very first column - or typically
-% anywhere on the first page for that matter. Also, in-text middle ("here")
-% positioning is not used. Most IEEE journals use top floats exclusively.
-% Note that, LaTeX2e, unlike IEEE journals, places footnotes above bottom
-% floats. This can be corrected via the \fnbelowfloat command of the
-% stfloats package.
+\label{tab:evaluation}
+\end{table}
+
+\subsubsection*{Análisis}
+
+...
+
+\subsection{Análisis de normalidad}
+
+...
 
 \section{Conclusión}
 
 The conclusion goes here.
 
-
-% if have a single appendix:
-%\appendix[Proof of the Zonklar Equations]
-% or
-%\appendix  % for no appendix heading
-% do not use \section anymore after \appendix, only \section*
-% is possibly needed
-
-% use appendices with more than one appendix
-% then use \section to start each appendix
-% you must declare a \section before using any
-% \subsection or using \label (\appendices by itself
-% starts a section numbered zero.)
-%
-
-
-\appendices
-\section{Proof of the First Zonklar Equation}
-Appendix one text goes here.
-
-% Can use something like this to put references on a page
-% by themselves when using endfloat and the captionsoff option.
-\ifCLASSOPTIONcaptionsoff
-  \newpage
-\fi
-
-
+\newpage
 
 % trigger a \newpage just before the given reference
 % number - used to balance the columns on the last page
