@@ -6,6 +6,7 @@ namespace newGA {
 // CONSTANTS
 
 #define MAXDISTANCE 30.0
+#define ALCANCE_MAXIMO 50.0
 
 double GHZ = 1000000000;
 double mwatts = 0.001;
@@ -45,6 +46,11 @@ double dbm_trans = 20.0; // dbm de transmicion de los routers
             if (pbm._nodes[i][1] < pbm._miny) pbm._miny = pbm._nodes[i][1];
             is >> pbm._signal[i];
         }
+
+        pbm._maxx += ALCANCE_MAXIMO;
+        pbm._maxy += ALCANCE_MAXIMO;
+        pbm._minx -= ALCANCE_MAXIMO;
+        pbm._miny -= ALCANCE_MAXIMO;
 
         return is;
     }
