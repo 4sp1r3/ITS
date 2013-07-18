@@ -197,6 +197,9 @@ namespace newGA {
         void parameter_select_parents(const unsigned int value);
         void parameter_select_offsprings(const unsigned int value);
 
+        s_stat & browseHistory_getIteration(int trial, int iteration);
+        float browseHistory_getTime_found_best_by_trial(int trial);
+
         void show_state() const;
         void KeepHistory(const Solution& best_sol, const double best_cost, const double worst_cost, const float time_spent_trial, const float total_time_spent);
     };

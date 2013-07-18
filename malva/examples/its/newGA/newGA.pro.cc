@@ -307,55 +307,6 @@ namespace newGA {
     SetUpParams::~SetUpParams() {
     }
 
-    // Statistics ------------------------------------------------------
-
-    Statistics::Statistics() {
-    }
-
-    ostream& operator<<(ostream& os, const Statistics& stats) {
-        os << "\n---------------------------------------------------------------" << endl;
-        os << "                   STATISTICS OF CURRENT TRIAL                   " << endl;
-        os << "------------------------------------------------------------------" << endl;
-        for (int i = 0; i < stats.stats_data.size(); i++) {
-            os << endl
-                    << " Trial:	" << stats.stats_data[i].trial
-                    << " Generation: " << stats.stats_data[i].nb_generation
-                    << " Evaluation: " << stats.stats_data[i].nb_evaluation
-                    << " Current best cost: " << stats.stats_data[i].best_cost
-                    << " Global best cost: " << stats.stats_data[i].global_best_cost
-                    << " Avg: " << stats.stats_data[i].average_cost
-                    << " Std. Dev.: " << stats.stats_data[i].standard_deviation;
-        }
-
-        os << endl << "------------------------------------------------------------------" << endl;
-        return os;
-    }
-
-    Statistics& Statistics::operator=(const Statistics& stats) {
-        stats_data = stats.stats_data;
-        return *this;
-    }
-
-    void Statistics::update(const Solver& solver) {
-        struct stat *new_stat = (struct stat *) malloc(sizeof (struct stat));
-
-        new_stat->trial = solver.current_trial();
-        new_stat->nb_generation = solver.current_iteration();
-        new_stat->nb_evaluation = solver.current_evaluations();
-        new_stat->average_cost = solver.current_average_cost();
-        new_stat->standard_deviation = solver.current_standard_deviation();
-        new_stat->best_cost = solver.current_best_cost();
-        new_stat->global_best_cost = solver.global_best_cost();
-
-        stats_data.append(*new_stat);
-    }
-
-    void Statistics::clear() {
-        stats_data.remove();
-    }
-
-    Statistics::~Statistics() {
-    }
 
     // Population ------------------------------------------------------
 
@@ -1657,6 +1608,30 @@ namespace newGA {
 
     void Solver::parameter_select_offsprings(const unsigned int value) {
         _sc.set_contents_state_variable("_parameter_select_offsprings", (char *) &value, 1, sizeof (int));
+    }
+
+
+    float Solver::browseHistory_getTime_found_best_by_trial(int trial){
+    	Rlist<struct user_stat> * list = _userstat.getlist();
+    	float time = 0.0;
+    	int size = list->size();
+    	for (int i=0; i< size ; i++ ) {
+    		s_user_stat & ustat = list->operator [](i);
+    		if (ustat.trial == trial)
+    			if (ustat.time_best_found_trial > time) time = ustat.time_best_found_trial ;
+    	}
+    	return time;
+    }
+
+    s_stat & Solver::browseHistory_getIteration(int trial, int iteration){
+    	Rlist<struct stat> * list = _stat.getlist();
+    	int size = list->size();
+    	for (int i=0; i< size ; i++ ) {
+    		s_stat & ret = list->operator [](i);
+    		if (ret.trial == trial)
+    			if (ret.nb_generation == iteration ) return ret;
+    	}
+
     }
 
     Statistics& Solver::statistics() {
