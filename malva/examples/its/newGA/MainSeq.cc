@@ -56,11 +56,14 @@ int main(int argc, char** argv) {
 
         int trials = cfg.independent_runs();
         double * timeT = new double[trials];
+        double * costT = new double[trials];
         double time_promedio = 0.0 ;
 
         for (int i = 0 ; i < trials ; i++) {
         	timeT[i] = solver.browseHistory_getTime_found_best_by_trial(i+1) / 1000000.0;
+        	costT[i] = solver.browseHistory_getBest_Cost_by_trial(i+1);
             printf("Tiempo optimo para trial %d = %f\n", i+1 , timeT[i]);
+            printf("Mejor fitness para trial %d = %f\n", i+1 , costT[i]);
             time_promedio += timeT[i];
         }
 
@@ -87,7 +90,75 @@ int main(int argc, char** argv) {
         		statics.standard_deviation);
 
 
+        /* Para grafica  y test normal*/
+        double cost_promedio = 0;
+        printf("\n [ \n");
+        for (int i=0 ; i < trials ; ++i) {
+        	printf(" %f " , costT[i] );
+        	if (i != (trials -1) ) printf(" , ");
+        	printf("\n");
+        	cost_promedio += costT[i];
+        }
+        printf(" ] \n ");
+        cost_promedio /= (double)trials;
 
+        double cost_desv = 0;
+        for (int i = 0 ; i < trials ; i++) {
+        	cost_desv += pow( cost_promedio - costT[i] , 2.0 );
+        };
+        cost_desv /= (double)trials;
+        cost_desv = sqrt(cost_desv);
+
+        printf("Costo promedio = %f , costo desviacion = %f\n", cost_promedio , cost_desv);
+
+        /*
+         *  Esta parte es para graficar por si no da ok el test de normalidad
+         *
+         *  */
+        int divisiones = trials / 50 ;
+        if (divisiones > 5) { // puedo graficar? o es una corrida de pocas trials?
+        	printf("Tabla para visualizar la forma de distribucion\n");
+        	double * divT = new double[divisiones];
+        	for (int i = 0 ; i < divisiones ; i++) {
+        		divT[i] = 0.0;
+        	};
+
+        	double min_cost = 10000000.0;
+        	double max_cost = -10000000.0 ;
+            for (int i = 0 ; i < trials ; i++) {
+            	if (costT[i] < min_cost) min_cost = costT[i];
+            	if (costT[i] > max_cost) max_cost = costT[i];
+            };
+
+            double delta = (max_cost - min_cost) / ((double)divisiones) ;
+
+            // populo la tabla divT
+            for (int i = 0 ; i < trials ; i++) {
+            	for (int j=0 ; j < divisiones ; j++) {
+            		double interval_min = min_cost + ((double)j) * delta;
+            		double interval_max = interval_min + delta;
+
+            		if ((costT[i] > interval_min) && (costT[i] < interval_max) )
+            			divT[j] += 1.0;
+            	}
+            }
+
+            // escribo la tabla
+            printf("[ \n ");
+        	for (int i=0 ; i < divisiones ; i++) {
+        		double interval_min = min_cost + ((double)i) * delta;
+        		double interval_max = interval_min + delta;
+        		double interval_med = (interval_min + interval_max) / 2.0 ;
+
+        		printf(" %f  , %f \n" , divT[i]  , interval_med );
+        	}
+        	printf(" ] \n");
+
+        }
+
+        printf("\n\n");
+
+        /* Para la tabla... */
         printf("\n F=%s Gen=%d fit=%f fitpro=%f fitdes=%f time=%f timepro=%f timedes=%f\n" ,
         		argv[2] ,
         		iteration ,

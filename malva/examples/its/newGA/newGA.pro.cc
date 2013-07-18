@@ -1623,6 +1623,19 @@ namespace newGA {
     	return time;
     }
 
+    float Solver::browseHistory_getBest_Cost_by_trial(int trial){
+    	Rlist<struct user_stat> * list = _userstat.getlist();
+    	float bestcost = 1000000000000000000000.0;
+    	int size = list->size();
+    	for (int i=0; i< size ; i++ ) {
+    		s_user_stat & ustat = list->operator [](i);
+    		if (ustat.trial == trial)
+    			if (ustat.best_cost_trial < bestcost) bestcost = ustat.best_cost_trial ;
+    	}
+    	return bestcost;
+    };
+
+
     s_stat & Solver::browseHistory_getIteration(int trial, int iteration){
     	Rlist<struct stat> * list = _stat.getlist();
     	int size = list->size();
