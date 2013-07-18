@@ -1,0 +1,21 @@
+Fijarse que operador de selección es menos elitista
+
+  tournament 1
+  ruleta 2
+  ranking 3
+
+Crioterio de parada cambiarlo a 5cm
+
+Revisar los parámetros de configuración (30, 0.9, 0.01)
+
+Cambiar los valores en las imágenes
+
+Redactar el abstract
+
+Redactar las conclusiones
+
+Hacer las gráficas
+
+Hacer test de normalidad
+
+Arreglar el bug del segundo trial

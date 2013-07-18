@@ -466,27 +466,27 @@ Algoritmos Evolutivos, triangulación, WiFi
 
 Se asumirá que los routers presentes en el entorno comparten características similares (e.g. alcance máximo), lo cual resulta razonable asumir para un gran número de routers WiFi existentes en el mercado. Esto será considerado al momento de la inicialización de la población inicial.\\
 
-Por otro lado, resulta inapropiado asumir que las señales no se ven afectadas por obstáculos encontrados en el entorno, lo cual obligará a estimar, además de la posición, cuál es la caída o atenuación de la señal hacia cada router y para esto se estudiarán varias alternativas de modelo de propagación de ondas.\\
+Por otro lado, resulta inapropiado asumir que las señales no se ven afectadas por obstáculos o fuentes de interferencia encontrados en el entorno, lo cual obligará a estimar, además de la posición, cuál es la caída o atenuación de la señal hacia cada router y para esto se estudiarán varias alternativas de modelo de propagación de ondas.\\
 
 \hfill 19 Julio, 2013
 
-\section{Problema}
+\section{Motivación}
 
 Debido a la explosión de las redes WiFi en todo el mundo \cite{wifi:coverage}, en los últimos años han surgido servicios de geolocalización por triangulación WiFi \cite{wifi:positioning} que ofrecen APIs \cite{google:maps} y SKDs  \cite{skyhook:location} para el desarrollo de aplicaciones sensibles a la posición del usuario.\\
 
-Desafortunadamente, ninguna de las grandes empresas en estas áreas han publicado especificaciones de sus implementaciones, por lo que se desconocen muchos detalles del funcionamiento interno y en particular de los algoritmos que utilizan.\\
+Desafortunadamente, ninguna de las grandes empresas en estas áreas han publicado especificaciones de sus implementaciones, por lo que se desconocen muchos detalles del funcionamiento interno y en particular los algoritmos y técnicas que utilizan.\\
 
-En el ámbito científico se exploraron varias alternativas. Quizás el enfoque más sencillo consiste en la triangulación de nodos a partir simplemente de las intensidades de las señales a cada router inalámbrico, como se analiza en \cite{simple:triangulation}. Este enfoque presenta varias desventajas ya que no considera muchos aspectos de la realidad como la caída de señal por ruido electromagnético u obstáculos en el ambiente, condiciones climatológicas que afectan la señal, diversidad de antenas, etc.\\
+En el ámbito científico se exploraron varias alternativas. Quizás el enfoque más sencillo consiste en la triangulación de nodos a partir simplemente de las intensidades de las señales a cada router inalámbrico, como se analiza en \cite{simple:triangulation}. Este enfoque presenta varias desventajas ya que no considera muchos aspectos de la realidad como la caída de señal por ruido electromagnético u obstáculos en el ambiente, condiciones climatológicas que afectan la señal, etc.\\
 
-Otro grupo de investigadores han explorado el problema desde el área de machine learning, consiguiendo buenos resultados utilizando dos enfoques distintos. Por un lado, se han implementado satisfactoriamente sistemas basados en \textit{fuzzy logic} \cite{fuzzy:logic:based:system}, mientras que otros han intentado la integración de más de un sistema de triangulación, con el fin de tomar los beneficios de cada uno de ellos, combinando los resultados a partir de constantes de peso aprendidas y que se van ajustando a medida que se ejecuta el algoritmo \cite{adaptive:weighting}.\\
+Otro grupo de investigadores han explorado el problema desde el área de machine learning, consiguiendo buenos resultados utilizando dos enfoques distintos. Por un lado, se han implementado satisfactoriamente sistemas basados en \textit{fuzzy logic} \cite{fuzzy:logic:based:system}, mientras que otros han intentado la integración de más de un sistema de triangulación, con el fin de tomar los beneficios de cada uno de ellos, combinando los resultados a partir de constantes de peso aprendidas, que se van ajustando a medida que se ejecuta el algoritmo \cite{adaptive:weighting}.\\
 
 Dado el tamaño del espacio de búsqueda, resulta interesante atacar el problema mediante un algoritmo evolutivo con el objetivo de lograr aproximar la posición con una precisión comparable a los servicios existentes pero para eso habrá que restringir el problema de lo contrario sería imposible abordarlo dada la cantidad de variables libres presentes.\\
 
 \section{Dificultades}
 
-El nivel de señal recibido por el dispositivo que se intenta triangular varía con el tiempo, aunque no hayan cambiados sus posiciones relativas. Es importante entender qué ocasiona dichas fluctuaciones, ya que tener una buena estimación de la señal será esencial para la correcta evaluación del individuo.\\
+El nivel de señal recibido por el dispositivo que se intenta triangular varía con el tiempo, aunque no hayan cambiados sus posiciones relativas. Es importante entender qué ocasiona dichas fluctuaciones, ya que tener una buena medición de la señal será esencial para la correcta evaluación del individuo.\\
 
-Por mayores detalles respecto a cuales son los factores más importantes que afectan a la señal recibida y como estos influyen en la misma refererse a \cite{fuzzy:logic:based:system} y \cite{radar:tracking:system}.\\
+Por mayores detalles respecto a cuales son los factores más importantes que afectan a las señales inalámbricas recibidas y como estos influyen en la misma referirse a \cite{fuzzy:logic:based:system} y \cite{radar:tracking:system}.\\
 
 \subsection{Tecnología}
 
@@ -494,68 +494,66 @@ Las cuatro características más importantes que caracterizan a los dispositivos
 
 A pesar de que existen muchas marcas y modelos existentes en el mercado, los fabricantes de routers modernos respetan estándares internacionales para garantizar el correcto funcionamiento de redes WiFi con cualquier dispositivo inalámbrico.\\
 
-Mediante un estudio de mercado se encontró que los routers domésticos son bastante homogéneos en cuanto a sus características, lo cual nos permite asumir algunas cosas que ayudarán a simplificar el el problema de manera de hacerlo abordable.\\
+Mediante un estudio de mercado se encontró que los routers domésticos son bastante homogéneos en cuanto a sus características, lo cual nos permite asumir algunas cosas que ayudarán a simplificar el problema de manera de hacerlo abordable.\\
 
-La frecuencia de transmisión depende del canal en el que se encuentre transmitiendo el router, sin embargo el rango en el que pueden estar transmitiendo no es demasiado grande, pudiendo variar entre 2,412GHz a 2,472GHz. Para simplificar el problema se asumirá entonces que el router opera en una frecuencia similar al promedio, 2,442GHz, correspondiente al canal 7.\\
+La frecuencia de transmisión depende del canal en el que se encuentre transmitiendo el router, sin embargo el rango en el que puede estar transmitir no es demasiado grande, pudiendo variar entre 2,412GHz a 2,472GHz. Para simplificar el problema se asumirá entonces que el router opera en una frecuencia similar al promedio, es decir 2,442GHz, correspondiente al canal 7 \cite{wifi:channels}.\\
 
 En cuanto al tipo de antena, se encontró que todos los routers modernos tienen entre una y dos antenas isotrópicas de ganancia 5dBm, que emiten uniformemente hacia todos lados, por lo que la energía se disipará en el ambiente proporcionalmente al cuadrado de la distancia.\\
 
-En cuanto al a potencia de transmisión, muchos routers permiten configurarla, pudiendo variar de 1dBm (1mW) a 20dBm (100mW), sin embargo en la práctica la mayoría de routers usan la potencia máxima con el fin de hacer llegar la señal más lejos.\\
+Por otro lado muchos routers permiten configurar la potencia de transmisión, pudiendo variar entre 1dBm (1mW) y 20dBm (100mW). A pesar de esto en la práctica la mayoría de los routers usan la potencia máxima de transmisión, la cual en general está activada por defecto, con el fin de hacer llegar la señal más lejos.\\
 
 \subsection{Entorno}
 
 El entorno puede afectar significativamente la calidad e intensidad de la señal, en particular el ruido electromagnético, condiciones climáticas y obstáculos presentes ocasionan una pérdida significativa de la misma.\\
 
-Dado que es imposible construir un modelo de propagación para cada entorno, ya que este afecta de manera diferente a cada dispositivo, resulta vital considerar la caída de la señal percibida por el dispositivo móvil, en lugar de intentar modelar cada variable por separado.\\
+Dado que es imposible construir un modelo de propagación para cada entorno, ya que este afecta de manera diferente a cada dispositivo, resulta vital estimar la caída de la señal percibida por el dispositivo móvil, en lugar de intentar modelar cada variable por separado.\\
 
-Como se verá más adelante, cada router tendrá asociada una caída de señal, la cual el algoritmo intentará aproximar de manera de encontrar la posición más probable del individuo en relación a ellos.\\
-
-Se tendrá entonces que la señal real será igual a la señal emitida por el router, menos la pérdida por disipación (dependiente de la distancia), menos la pérdida por obstáculos (dependiente del entorno).\\
+Se considerará que la señal real es igual a la señal emitida por el router, menos la pérdida por disipación (dependiente de la distancia), menos la pérdida por obstáculos e interferencias (dependiente del entorno).\\
 
 \subsection{Muestreo}
 
 Una tarjeta WiFi estándar solo puede escuchar un canal por vez, por lo que para obtener todas las redes visibles en un entorno es necesario iterar en todos los canales en busca del anuncio de los routers inalámbricos.\\
 
-Esto ocasiona que la información obtenida sobre una red en un determinado momento esté desactualizada por algunos segundos. Esto, sumado a los factores antes mencionados, ocasiona que mediones consecutivas pueden dar valores de intensidad de señal relativamente distintos.\\
+Esto ocasiona que la información obtenida sobre una red en un determinado momento esté desactualizada por algunos segundos. Esto, sumado a los factores antes mencionados, ocasiona que mediones consecutivas pueden dar valores de intensidad de señal bastante distintos.\\
 
-Para evitar este problema se tomará como intensidad de la señal hacia un router el promedio de las cinco últimas lecturas.\\
+Para mitigar este problema se puede considerar como intensidad de señal hacia un router dado el promedio de las últimas 5 lecturas.\\
 
-\subsection{Cantidad de Nodos}
+\subsection{Cantidad de Routers}
 
-La cantidad de nodos afectará la precisión con la que se consiga triangular al dispositivo móvil pero serán necesarios al menos 3 routers para un correcto posicionamiento del mismo.\\
+La cantidad de routers afectará la precisión con la que se consigue triangular al dispositivo móvil pero en cualquier caso serán necesarios al menos tres, de lo contrario no será posible determinar su posición en el plano.\\
 
 \section{Modelos existentes}
 
-El modelo de propagación de ondas permitirá la traducción de una intensidad de señal a una distancia y viceversa.\\
+El modelo de propagación de ondas permitirá la conversión de una intensidad de señal recibida $S_r$ (equivalentemente, una potencia de recepción $P_r$) a una distancia $D$ y viceversa, a través de una función $signal(D)$ y su inversa $distance(S_r)$.\\
 
-Encontrar una buena aproximación de $dt$, la distancia teórica, es esencial ya que a partir de este valor será posible encontrar una aproximación del error entre la distancia real y la distancia estimada del nodo.\\
+Encontrar una buena aproximación de $distance$ es esencial ya que a partir de esta será posible encontrar una aproximación del error entre la distancia real y la distancia estimada del dispositivo.\\
 
-Existen muchas aproximaciones que fueron analizadas en \cite{low:cost:location:determination}, \cite{radar:tracking:system} y \cite{generic:model:signal:propagation}, aquí se describirán las 4 más representativas con el objetivo de analizar distintos enfoques posibles.\\
+Existen muchas aproximaciones que fueron analizadas en \cite{low:cost:location:determination}, \cite{radar:tracking:system} y \cite{generic:model:signal:propagation}, aquí se describirán las cuatro más representativas con el objetivo de analizar distintos enfoques.\\
 
 \subsection{Empirical Propagation Model}
 
-Este modelo de propagación es quizás el más preciso de todos a pesar de ser muy simple. La principal desventaja, que lo hace impracticable en muchos casos, es que requiere del estudio preciso del ambiente en cuestión, pero como vimos antes esto depende fuertemente de las condiciones en un instante dado, por lo que su utilidad es limitada a medida que avanza el tiempo.\\
+Este modelo de propagación es quizás el más preciso de todos a pesar de su simplicidad. La principal desventaja, que lo hace impracticable en muchos casos, es que requiere del estudio preciso del ambiente en cuestión, pero como vimos antes esto depende fuertemente de las condiciones en un instante dado, por lo que su utilidad es limitada a medida que avanza el tiempo.
 
-$$dt(rs) = |rs - ts| \times k$$
+$$distance(S_r) = |S_r - S_t| \times K$$
 
-En donde $rs$ es la intensidad de señal recibida, $ts$ la intensidad de señal transmitida por el router y $k$ es un valor empírico que corresponde a la distancia cubierta por 1dBm.\\
+En donde $S_t$ es la intensidad de señal transmitida por el router y $K$ es un valor empírico que corresponde a la distancia cubierta por 1dBm.\\
 
 \subsection{Wall Attenuation Factor Propagation Model}
 
-Este modelo es una adaptación del \emph{Floor Attenuation Factor Propagation Model} sugerido en \cite{path:loss:prediction:models}.
+Este modelo es una adaptación del \emph{Floor Attenuation Factor Propagation Model} sugerido en \cite{path:loss:prediction:models}.\\
 
-En lugar de considerar la atenuación de la señal debido al factor del piso del edificio, considera el efecto causado por las paredes entre el transmisor y receptor.
+En lugar de considerar la atenuación de la señal debido al factor del piso del edificio, considera el efecto causado por las paredes entre el transmisor y receptor.\\
 
 La ecuación que relaciona la potencia en función de la distancia es:
 
 \begin{equation*}
-P(d) = P(d_0) - 10 \times n \times log(\frac {d} {d_0}) - \begin{cases}
+P_r = P_0 - 10 \times n \times log(\frac {D} {D_0}) - \begin{cases}
 n \times W \times WAF &nW < C\\
 C \times WAF &nW \geq C.
 \end{cases}
 \end{equation*}
 
-En donde $n$ indica el ratio de incremento de la atenuación debido a la distancia, $P(d_0)$ es la potencia de la señal en la distancia de referencia $d_0$, $d$ es la distancia entre el transmisor y el emisor, $C$ es la cantidad de paredes hasta la que el factor de atenuación se ve afectado y $WAF$ es el factor de atenuación.
+En donde $n$ indica el ratio de incremento de la atenuación debido a la distancia, $P_0$ es la potencia de la señal a una distancia de referencia $D_0$, $C$ es la cantidad de paredes hasta la que el factor de atenuación se ve afectado y $WAF$ es el factor de atenuación.\\
 
 Como se puede apreciar este modelo es bastante más complejo y sigue requiriendo un análisis empírico para determinar el factor de atenuación.
 
@@ -576,39 +574,40 @@ Un tercer modelo teórico bastante más complejo considera la pérdida de potenc
 De esta forma la ecuación que relaciona potencia con distancia está dada por:
 
 \begin{align*}
-P_r &= {\frac {G_r \times G_t} {L}} \times P_t\\
-L &= L_p \times L_s \times L_f
+P_r &= {\frac {G_r \times G_t} {L_p \times L_s \times L_f}} \times P_t
 \end{align*}
 
 En donde $G_r$ y $G_t$ son las ganancias de las antenas de recepción y transmisión respectivamente y $P_t$ es la potencia con la que transmite el router.\\
 
-Calcular $L$ es extremadamente complejo y requiere de mediciones del ambiente en donde se va a desenvolver el algoritmo, lo que lo hace poco práctico en este contexto.
+Calcular $L_p$, $L_s$ y $L_f$ es complejo y requiere de mediciones del ambiente en donde se va a desenvolver el algoritmo, lo que lo hace poco práctico en este contexto.
 
 \subsection{Free Space Propagation Model}
 
-Este modelo de propagación está inspirado en la ecuación de propagación de \emph{Friis} \cite{friis:transmission:equation} y es quizás el más útil de todos ya que ofrece un compromiso entre simplicidad y utilidad.
+Este modelo de propagación está inspirado en la ecuación de propagación de \emph{Friis} \cite{friis:transmission:equation} y es quizás el más útil de todos ya que ofrece un compromiso entre simplicidad y utilidad.\\
 
-$$P_r = \frac {G_t \times G_r \times \lambda^2} {(4 \pi \times d)^2} \times P_t$$
+La ecuación en cuestión es:
 
-En donde $P_r$ es la potencia recibida, $G_t$ y $G_r$ son la ganancia de las antenas de transmisión y recepción respectivamente, $\lambda$ es la longitud de onda usada y $d$ la distancia entre el transmisor y receptor.
+$$P_r = \frac {G_t \times G_r \times \lambda^2} {(4 \pi \times D)^2} \times P_t$$
 
-A partir de esta ecuación se puede despejar la distancia teórica entre ambos nodos.
+En donde $\lambda$ es la longitud de onda usada.\\
+
+A partir de esta ecuación se puede despejar la distancia teórica entre ambos nodos, resultando:
 
 $$d(L_{dB}) = \sqrt {\frac {G_t \times G_r \times \lambda^2} {(4 \pi)^2 \times P_r} \times P_t}$$
 
-$\lambda$ se puede obtener a partir de la frecuencia ($F$), utilizando la velocidad de la luz ($C$).
+$\lambda$ se puede obtener a partir de la frecuencia $F$ y la velocidad de la luz $C$:
 
 $$\lambda = \frac {C} {F}$$
 
-Por otro lado, usando las fórmulas de decibel se puede obtener la potencia ($P_1$) a partir de la intensidad ($L_{dB}$) en relación a una potencia de referencia ($P_0$) que en el caso de las redes inalámbricas es 1mW.
+Por otro lado, usando las fórmulas de decibel se puede obtener la potencia $P_r$ en función de la intensidad de la señal $L_{dB}$ y una potencia de referencia $P_0$, que en el caso de las redes inalámbricas es 1mW.
 
-$$P_1 = 10^{\frac {L_{dB}} {10}} \times P_0$$
+$$P_r = 10^{\frac {L_{dB}} {10}} \times P_0$$
 
-Finalmente, obtenemos la distancia teórica entre los nodos a partir de la siguiente ecuación.
+A partir de esto es posible reescribir la ecuación que buscamos de la siguiente forma:
 
 $$d(L_{dB}) = \sqrt {\frac {G_t \times G_r \times (\frac {C} {F})^2} {(4 \pi)^2 \times 10^{\frac {L_{dB}} {10}} \times P_0} \times P_t}$$
 
-En donde simplificándola y usando los valores antes mencionados se tiene:
+Simplificándola y usando los valores antes mencionados se obtiene finalmente una ecuación de la distancia entre el transmisor y receptor en función de la intensidad de señal recibida:
 
 \begin{equation*}
 \begin{split}
@@ -620,23 +619,23 @@ d(L_{dB}) &= \sqrt {\frac {5 \times 5 \times (\frac {299.792.458} {2.442.000.000
 
 \subsection{Tecnologías usadas}
 
-Los lenguajes de programación usados son \emph{C/C++} \cite{c} \cite{c++} debido a su sencillez, bajo consumo de memoria, velocidad de ejecución y herramientas disponibles \cite{why:c:c++}.\\
+Para la implementación del algoritmo se decidió usar los lenguajes de programación \emph{C/C++} \cite{c} \cite{c++} debido a su sencillez, bajo consumo de memoria, velocidad de ejecución y herramientas disponibles \cite{why:c:c++}.\\
 
-Se implementará el algoritmo usando el framework \emph{Malva} \cite{malva}, el cual es un fork de \emph{Mallba} \cite{mallba}. Se estudiaron otras alternativas pero finalmente se optó por este debido a recomendaciones hechas en el curso y al hecho de que contábamos con el soporte del foro de discusión del curso.\\
+Se implementará el algoritmo usando el framework \emph{Malva} \cite{malva}, el cual es un fork de \emph{Mallba} \cite{mallba}. Se estudiaron otras alternativas pero finalmente se optó por este debido a recomendaciones hechas en el curso y al hecho de que contábamos con el soporte del foro de discusión ante cualquier inconveniente.\\
 
 \subsection{Variante}
 
 Luego de estudiar varias alternativas se optó por usar la variante de malva \emph{GA}, correspondiente a un algoritmo genético genérico con operadores personalizados, con el objetivo de tener total control sobre la aplicación de los mismos sobre los individuos.\\
 
+%FIXME
+
 \subsection{Representación interna}
 
-Para la representación interna del individuo se pueden adoptar dos enfoques distintos, dependiendo de como se interprete la intensidad de las señales leídas por las tarjetas de red inalámbrica del dispositivo.\\
+Para la representación interna del individuo se pueden adoptar dos enfoques distintos, dependiendo de como se interprete la intensidad de las señales leídas por la tarjetas de red inalámbrica del dispositivo.\\
 
 En un comienzo se implementó el algoritmo utilizando el primero de dichos enfoques, pero luego de un estudio más profundo del modelo de propagación de ondas elegido, se encontró que el segundo enfoque ofrece ventajas sustanciales, por lo que se prosiguió a adaptar el algoritmo de acuerdo a él.\\
 
 Para entender ambos enfoques es importante primero presentar dos escenarios de ejemplo con el objetivo de explicar de que manera afectan las dos alternativas al problema presentado.\\
-
-\subsubsection{Escenario}
 
 \begin{figure}[h]
 \centering
@@ -645,7 +644,7 @@ Para entender ambos enfoques es importante primero presentar dos escenarios de e
 \label{fig:ideal}
 \end{figure}
 
-La imagen \ref{fig:ideal} presenta un escenario ideal en donde se tiene linea de visión entre el router transmisor y el dispositivo receptor, ubicados a una distancia de 10m uno del otro. La señal percibida en este ejemplo es de de -50dbM.\\
+La imagen \ref{fig:ideal} presenta un escenario ideal en donde se tiene linea de visión entre el router transmisor \emph{R} y el dispositivo receptor \emph{D}, ubicados a una distancia de 10m uno del otro. La señal percibida en este ejemplo es de -25dBm.\\
 
 \begin{figure}[h]
 \centering
@@ -654,7 +653,7 @@ La imagen \ref{fig:ideal} presenta un escenario ideal en donde se tiene linea de
 \label{fig:obstacle}
 \end{figure}
 
-La imagen \ref{fig:obstacle} presenta un escenario un poco más realista, en donde la linea de visión se ve obstruida por un obstáculo (e.g. una pared) entre ellos. En este caso las ondas se ven perturbadas y el dispositivo solo percibe una señal de -80dbM.\\
+La imagen \ref{fig:obstacle} presenta un escenario un poco más realista, en donde la linea de visión se ve obstruida por un obstáculo \emph{O} (e.g. una pared) entre ellos. En este caso las ondas se ven perturbadas y el dispositivo solo percibe una señal de -30dBm, es decir, se tiene una atenuación de 5dBm.\\
 
 \begin{figure}[h]
 \centering
@@ -663,23 +662,23 @@ La imagen \ref{fig:obstacle} presenta un escenario un poco más realista, en don
 \label{fig:perceived}
 \end{figure}
 
-La imagen \ref{fig:perceived} representa lo que el dispositivo percibiría. Una señal de -80dBm será interpretada por él como una distancia entre el transmisor y receptor de 12m en lugar de 10m, pero esto como no es real. El problema de fondo es la imposibilidad de determinar la existencia de obstáculos entre ambos extremos.
+La imagen \ref{fig:perceived} representa la posición \emph{D'} en donde el dispositivo se percibiría a si mismo de no tener en cuenta posibles atenuaciones. Una señal de -30dBm será interpretada por él como una distancia de 12m en lugar de 10m, pero esto como no es real. El problema de fondo es la imposibilidad de determinar la existencia de obstáculos entre ambos extremos y como este afecta a la señal.\\
 
 \subsubsection{Enfoque 1 - Atenuación Explícita}
 
 Cada individuo es una n-úpla de la forma:
 
 \begin{gather*}
-I = (x, y, d_1, \dots, d_n)\\
+I = (x, y, a_1, \dots, a_n)\\
 x, y \in (-\infty, +\infty)\\
-d_i \in [0, 1] \forall i \in (1, \dots, n)
+a_i \in [0, 1] \forall i \in (1, \dots, n)
 \end{gather*}
 
-En donde $(x,y)$ se corresponde con las coordenadas estimadas del individuo en el plano y las constantes $d_i$ representan la atenuación estimada de la señal entre dicho nodo y el router \textit{i}.\\
+En donde $(x,y)$ se corresponde con las coordenadas estimadas del individuo en el plano y los valores $a_i$ representan la atenuación estimada de la señal entre el dispositivo y el router \textit{i}.\\
 
-De acuerdo a la representación descripta $(10, -5, 0.15, 0, 0.1)$ representa un individuo en una posición estimada $(10,-5)$ en el plano (con respecto al origen de coordenadas arbitrario usado para inicializar los routers) y que tiene un decaimiento estimado de señal del 15\%, 0\% y 10\% con el router $R_1$, $R_2$ y $R_3$ respectivamente.\\
+De acuerdo a la representación descripta $(10, -5, 2.7, 0.0, 1.1)$ representa un individuo en una posición estimada $(10,-5)$ en el plano (con respecto al origen de coordenadas arbitrario usado para inicializar los routers) que tiene un decaimiento estimado de señal de 2.7dBm, 0.0dBm y 1.1dBm con respecto al router $R_1$, $R_2$ y $R_3$ respectivamente.\\
 
-Si la intensidad de la señal que percibe de, por ejemplo, el router $R_1$ es de 82\%, para el cálculo del fitness se asumiría que la misma debió ser 15\% mayor, por lo cual se usará una intensidad teórica de $82 \times 1.15 = 94\%$ en su lugar.\\
+Si la intensidad de la señal que percibe de, por ejemplo, el router $R_1$ es de -30dBm, para el cálculo del fitness se asumiría que la misma debió ser 2.7dBm mayor, por lo cual se usará una señal teórica de $-30 + 2,7 = -27,3dBm$ en su lugar.\\
 
 \begin{figure}[h]
 \centering
@@ -688,7 +687,9 @@ Si la intensidad de la señal que percibe de, por ejemplo, el router $R_1$ es de
 \label{fig:improvement}
 \end{figure}
 
-La imagen \ref{fig:improvement} muestra el efecto que tiene sobre la estimación de la posición el hecho de considerar la atenuación hacia cada router.
+La imagen \ref{fig:improvement} muestra el efecto que tiene sobre la estimación de la posición el hecho de considerar la atenuación hacia el router.\\
+
+Al alterar la señal a partir de la atenuación estimada, el dispositivo \emph{D''} se acerca a la posición real \emph{D}.\\
 
 Este enfoque, si bien en un primero momento parecía adecuado, tiene un defecto importante. La representación interna del individuo contiene un valor de atenuación hacia cada uno de los routers, por lo que dado cualquier valor para $(x,y)$, el algoritmo será capaz de modificar dichos valores de manera que el fitness sea bueno. En otras palabras, sin importar la estimación de la posición, existirá un vector de atenuación que haga que el individuo sea aceptable, potencialmente mejor que otro cuya posición estimada es más acertada. Asimismo, la representación interna dependería directamente de la cantidad de routers usados ya que para cada uno de ellos se deberá estimar un decaimiento, ocasionando que rápidamente el espacio de búsqueda crezca al punto de que no se explore lo suficiente en tiempos razonables.\\
 
@@ -703,78 +704,85 @@ x, y \in (-\infty, +\infty)
 
 En donde $(x,y)$ se corresponde con las coordenadas estimadas del individuo en el plano.\\
 
-Este segundo enfoque extiende al anterior haciendo un uso más exhaustivo de la información obtenida del modelo de propagación de ondas. La idea a grandes rasgos consiste en inferir cuál es el decaimiento debido a los obstáculos, de manera que no sea necesario que el algoritmo los estime.\\
+Este segundo enfoque extiende al anterior haciendo un mejor uso de la información obtenida del modelo de propagación de ondas. La idea a grandes rasgos consiste en inferir cuál es el decaimiento debido a los obstáculos, de manera que no sea necesario que el algoritmo lo estime.\\
 
 Para esto es importante notar que dado cualquier punto en el plano, existen dos valores de intensidad de señal. Por un lado se tiene la \emph{señal teórica}, que corresponde a la señal que debería estar llegando en un escenario ideal y queda determinada únicamente a partir de la distancia entre el transmisor y el receptor. Por otro lado se tiene la \emph{señal recibida}, que corresponde a la \emph{señal teórica} menos un \emph{decaimiento} debido a obstáculos e interferencias.\\
 
-De esta manera, la diferencia de ambas magnitudes es una buena aproximación del decaimiento usado en el enfoque anterior.\\
+De esta manera, la diferencia de ambas magnitudes es una buena aproximación del decaimiento usado en el enfoque anterior.
 
-$$d_i = s(\sqrt{(R_x-x)^2+(R_y-y)^2}) - s_r$$
+$$a_i = signal(\sqrt{(R_x-x)^2+(R_y-y)^2}) - S_r$$
 
-Este enfoque no requiere una representación interna dependiente de la cantidad de routers y solo se limita a ajustar la posición del dispositivo, logrando un espacio de búsqueda mucho más reducido, aunque infinito.\\
+Este enfoque no requiere una representación interna dependiente de la cantidad de routers y solo se limita a ajustar la posición del dispositivo, logrando un espacio de búsqueda mucho más acotado, aunque infinito.\\
 
-La idea de aquí en más es adoptar este enfoque y minimizar el vector de decaimientos inferido. En otras palabras, el algoritmo tenderá a acercar los dispositivos a la distancia teórica que corresponda con la intensidad de señal recibida.\\
+La idea de aquí en más será adoptar esta alternativa y minimizar el vector de decaimientos inferido, o equivalentemente, minimizar la suma de la diferencia entre la distancia estimada (calculada a partir de la posición $(x,y)$) y la distancia teórica (calculada a partir de la señal percibida) respecto a cada router.\\
 
-Es importante recordar que esto se estará haciendo para más de un router al mismo tiempo, por lo que si bien el vector del óptimo global será mínimo, en principio no será nulo.\\
+Es importante recordar que esto se estará haciendo para más de un router al mismo tiempo, por lo que el algoritmo deberá encontrar un punto de equilibrio. Si bien el vector del óptimo global será mínimo, en principio no será nulo.\\
 
 \subsection{Función de fitness}
 
-La función de fitness a minimizar es el vector de decaimiento calculado a partir de la posición estimada (usando el modelo de propagación de ondas \emph{free space propagation model} y la intensidad de señal recibida.\\
+La función de fitness a minimizar es la suma de errores respecto a la distancia estimada y la distancia teórica (calculada usando el modelo de propagación de ondas \emph{free space propagation model}).\\
 
 \begin{equation*}
 \begin{split}
-f(x, y) = \sum_{i=1}^{n} |\sqrt{(R_{i_x}-x)^2 + (R_{i_y}-y)^2} - d(R_{i_s})|
+f(x, y) = \sum_{i=1}^{n} |\sqrt{(R_{i_x}-x)^2 + (R_{i_y}-y)^2} - distance(R_{i_s})|
 \end{split}
 \end{equation*}
 
 En donde $(R_{i_x},R_{i_y})$ y $R_{i_s}$ son la posición y la intensidad de señal recibida del router $i$ respectivamente, mientras que $(x,y)$ es la posición estimada del dispositivo que se está triangulando.\\
 
-La función de fitness expresada de esta forma es una aproximación de la suma de los errores reales a partir de la posición estimada. En efecto, lo que se está sumado son las diferencias entre la distancia estimada a un router y la distancia teórica obtenida mediante el modelo de propagación.\\
+La función de fitness así expresada es una aproximación de la suma de los errores reales. Si bien se espera que su valor se aproxime a 0, difícilmente llegará a anularse completamente ya que cualquier atenuación debido a un obstáculo o interferencia implica en algún sentido pérdida de información, imposibilitando lograr triangular al dispositivo con una precisión arbitrariamente grande.
 
 \subsection{Inicialización}
 
-Como se ha dicho antes, se asume que los routers comparten características similares, en particular, que el alcance máximo para todos ellos es de \textit{A} metros.\\
+Como se ha dicho antes, se asume que los routers comparten características similares, en particular, que el alcance máximo para todos ellos es de \textit{A} metros (en la práctica se encontró que dicho valor es aproximadamente 50m \cite{routers:range}).\\
 
-La población será inicializada eligiendo valores aleatorios para \textit{(x, y)} de manera que todos los individuos comiencen  en la intersección de los círculos de centro $(R_{i_x}, R_{i_y})$ y radio \textit{A}, en donde $(R_{i_x}, R_{i_y})$ es la posición del router $R_i$.\\
+La población será inicializada eligiendo valores aleatorios para $(x,y)$ de manera que todos los individuos comiencen dentro del cuadrado que circunscribe todos los círculos de centro $(R_{i_x}, R_{i_y})$ y radio \textit{A}.\\
 
-De esta manera, durante la inicialización de la población, los valores estarán limitados por:
+De esta manera, durante la inicialización de la población los valores estarán limitados por:
 
-$$x_{max} = rand(\max_{i=1} {R_{i_x} - A}, \min_{i=1} {R_{i_x} + A})$$
-$$y_{max} = rand(\max_{i=1} {R_{i_y} - A}, \min_{i=1} {R_{i_y} + A})$$
-
-En donde $rand(min, max)$ es una función que devuelve un número en punto flotante aleatoreo entre $min$ y $max$.
+\begin{alignat*}{2}
+x_{min} = \min_{i=1} {R_{i_x} - A} &\quad x_{max} = \max_{i=1} {R_{i_x} + A} \\
+y_{min} = \min_{i=1} {R_{i_y} - A} &\quad y_{max} = \max_{i=1} {R_{i_y} + A}
+\end{alignat*}
 
 \subsection{Operadores}
 
-Dado que el espacio de búsqueda es inmenso, resulta esencial mantener la diversidad hasta haber muestreado una amplia área del plano, ya que en principio se puede asumir la existencia de muchos óptimos locales. Dicho esto, los operadores que serán utilizados se describen a continuación.\\
+Dado que el espacio de búsqueda es bastante grande, resulta esencial mantener la diversidad hasta haber muestreado una amplia área del plano, ya que en principio se puede asumir la existencia de muchos óptimos locales. Dicho esto, los operadores que serán utilizados se describen a continuación.\\
 
 \subsubsection{Selección}
 
 Se usará selección estocástica universal con punteros equiespaciados.\\
 
+%FIXME
+
 \subsubsection{Cruzamiento}
 
 El operador de cruzamiento promediará los valores de ambos padres.
 
-$$x_3 = \frac {x_1 + x_2} {2}, y_3 = \frac {y_1 + y_2} {2}$$
+$$x_3 = \frac {x_1 + x_2} {2} \quad y_3 = \frac {y_1 + y_2} {2}$$
 
 \subsubsection{Mutación}
 
-El operador de mutación alterará de acuerdo a un valor aleatorio elegido en un determinado rango.
+El operador de mutación alterará la posición de acuerdo a un valor aleatorio elegido en un determinado rango.
 
-$$x = x + k_1, y = y + k_2, k_1, k_2 \in (n,m)$$
+\begin{gather*}
+x = x + k_1 \quad y = y + k_2\\
+k_1, k_2 \in (n,m)
+\end{gather*}
 
 \subsubsection{Búsqueda Local}
 
-Dadas las magnitudes de las distancias con las que se trabaja, un error de 0cm, 25cm o 50cm son igual de aceptables. Por lo tanto no existe la necesidad de optimizar el individuo para alcanzar la mejor estimación posible en su entorno. Se considerará que un individuo con errores de estos ordenes es suficientemente bueno para el problema de modo que no será necesario intentar disminuir aún más el error.\\
+Las distancias con las que se trabajan son del orden de unos pocos metros a algunas decenas de metros. Dadas estas magnitudes, un error de entre 10cm y 50cm son igual de aceptables. Por lo tanto no existe la necesidad de optimizar el individuo para alcanzar la mejor estimación posible en su entorno.\\
 
-\subsection{Criterio de parada}
+Se considerará que un individuo con errores de estos ordenes es suficientemente bueno, de modo que no será necesario intentar disminuir aún más dicho error.\\
 
-Las distancias con las que se trabajan son del orden de unos pocos metros a algunas decenas de metros. A partir de esto parece razonable parar el algoritmo si se consigue un individuo cuya suma de errores (es decir, el valor de la función de fitness) es menor a 50cm.\\
+\subsection{Criterio de Parada}
 
-Al mismo tiempo será necesario un límite en el número de generaciones con el objetivo de evitar que el algorimo converja a un óptimo local en donde no puede lograr tal precisión, ocasionando que no termine de ejecutarse. Para evitar esto empíricamente se encontró que un límite de 500 generaciones es suficiente, ya que en la mayoría de las ejecuciones la generación del mejor individuo estaba por debajo de este límite.\\
+A partir de lo dicho anteriormente parece razonable parar el algoritmo si se consigue un individuo cuya suma de errores (es decir, el valor de la función de fitness) es menor a 5cm.\\
 
-\subsection{Mecanismo de reparación}
+Al mismo tiempo será necesario un límite en el número de generaciones con el objetivo de evitar que el algorimo converja a un óptimo local en donde no puede lograr tal precisión, ocasionando que no termine de ejecutarse. Para evitar esto empíricamente se encontró que un límite de 100 generaciones es suficiente, ya que en la mayoría de las ejecuciones la generación del mejor individuo estaba por debajo de este límite.\\
+
+\subsection{Mecanismo de Reparación}
 
 Cabe señalar que los individuos son válidos desde el momento de su inicialización y los operadores aplicados no los corrompen, por lo que no hace falta un mecanismo de reparación o de descarte de individuos inválidos.
 
@@ -786,191 +794,157 @@ Dado que en la práctica la implementación realizada no parece necesitar de gra
 
 \subsubsection{Marca y modelo}
 
-Dell Inspiron N5010
+Dell Inspiron N5010\\
 
 \subsubsection{Procesador}
 
-Intel Core i5 2.67GHz (doble nucelo, cuatro threads).
+Intel Core i5 2.67GHz (doble nucleo, cuatro threads), 64KB de cache L1, 512KB de cache L2, 3MB de cache L3\\
 
-64KB de cache L1
-512KB de cache L2
-3MB de cache L3
-4GB de memoria DDR3 1333MHz
+\subsubsection{Memoria}
+
+4GB de memoria DDR3 1333MHz\\
 
 \subsubsection{Sistema Operativo}
 
-Se usó \emph{GNU/Linux} \cite{gnu} \cite{linux}, en su variante \emph{Debian 7.0 (Wheezy)} \cite{debian:stable} para 64 bits (amd64).
+\emph{GNU/Linux} \cite{gnu} \cite{linux}, en su variante \emph{Debian 7.0 Wheezy} \cite{debian:stable} para 64 bits (amd64).\\
 
-Se prestó especial cuidado a los procesos corriendo, deteniendo todos los procesos y servicios innecesarios al momento de realizar las pruebas.
-
-\subsection{Instancias de prueba}
-
-Para el ajuste paramétrico se usará una instancia de prueba reducida, conformada por 3 routers ubicados aleatoriamente en el plano.\\
-
-Para realizar la evaluación del algoritmo se usarán 25 ejecuciones divididas en 5 conjuntos de 3, 4, 5, 6 y 7 routers (cada conjunto contendrá 5 escenarios inicializados independientemente).\\
-
-Además de estas 25 ejecuciones se realizará una prueba real con 3 routers ubicados entre 3 y 10 metros de la computadora de prueba, con el objetivo de validar la implementación en un escenario real.\\
+Se prestó especial cuidado a los procesos ejecutándose, deteniendo todos las aplicaciones y servicios innecesarios al momento de realizar las pruebas.
 
 \subsection{Ajuste paramétrico}
 
-La tabla \ref{tab:tuning} muestra las combinaciones de parámetros estudiados para hacer el ajuste paramétrico. Para cada combinación se realizaron 3 ejecuciones, registrando el valor promedio de tiempo de ejecución (en segundos) y fitness del mejor individuo.
+Para el ajuste paramétrico se usará una instancia de prueba reducida, conformada por 3 routers ubicados aleatoriamente en el plano. A partir de dicha instancia y para cada combinación de parámetros se harán 3 ejecuciones independientes.\\
+
+La tabla \ref{tab:tuning} muestra las combinaciones de parámetros estudiados para hacer el ajuste paramétrico, el fitness corresponde al mejor individuo encontrado en las 5 ejecuciones independientes.
 
 \begin{table}[h]
 \caption{Ajuste paramétrico}
 \centering
-\begin{tabular}{|c|c|c||c|c|}
+\begin{tabular}{|c|c|c||r|}
 \hline
-Población &Cruzamiento &Mutación &Tiempo &Fitness \\
+Población &Cruzamiento &Mutación &Fitness \\
 \hline
-\multirow{9}{*}{ 50} & \multirow{3}{*}{0.85} & 0.01 & 0.0 & 000 \\
-                     &                       & 0.05 & 0.0 & 000 \\
-                     &                       & 0.10 & 0.0 & 000 \\\cline{2-5}
-                     & \multirow{3}{*}{0.90} & 0.01 & 0.0 & 000 \\
-                     &                       & 0.05 & 0.0 & 000 \\
-                     &                       & 0.10 & 0.0 & 000 \\\cline{2-5}
-                     & \multirow{3}{*}{0.95} & 0.01 & 0.0 & 000 \\
-                     &                       & 0.05 & 0.0 & 000 \\
-                     &                       & 0.10 & 0.0 & 000 \\\hline
-\multirow{9}{*}{ 75} & \multirow{3}{*}{0.85} & 0.01 & 0.0 & 000 \\
-                     &                       & 0.05 & 0.0 & 000 \\
-                     &                       & 0.10 & 0.0 & 000 \\\cline{2-5}
-                     & \multirow{3}{*}{0.90} & 0.01 & 0.0 & 000 \\
-                     &                       & 0.05 & 0.0 & 000 \\
-                     &                       & 0.10 & 0.0 & 000 \\\cline{2-5}
-                     & \multirow{3}{*}{0.95} & 0.01 & 0.0 & 000 \\
-                     &                       & 0.05 & 0.0 & 000 \\
-                     &                       & 0.10 & 0.0 & 000 \\\hline
-\multirow{9}{*}{100} & \multirow{3}{*}{0.85} & 0.01 & 0.0 & 000 \\
-                     &                       & 0.05 & 0.0 & 000 \\
-                     &                       & 0.10 & 0.0 & 000 \\\cline{2-5}
-                     & \multirow{3}{*}{0.90} & 0.01 & 0.0 & 000 \\
-                     &                       & 0.05 & 0.0 & 000 \\
-                     &                       & 0.10 & 0.0 & 000 \\\cline{2-5}
-                     & \multirow{3}{*}{0.95} & 0.01 & 0.0 & 000 \\
-                     &                       & 0.05 & 0.0 & 000 \\
-                     &                       & 0.10 & 0.0 & 000 \\\hline
+\multirow{9}{*}{5}  & \multirow{3}{*}{0.70} & 0.01 &  21.791 \\
+                    &                       & 0.05 &   0.107 \\
+                    &                       & 0.10 &  11.443 \\\cline{2-4}
+                    & \multirow{3}{*}{0.80} & 0.01 &  12.261 \\
+                    &                       & 0.05 &   0.177 \\
+                    &                       & 0.10 &   9.347 \\\cline{2-4}
+                    & \multirow{3}{*}{0.90} & 0.01 &  11.341 \\
+                    &                       & 0.05 &   0.091 \\
+                    &                       & 0.10 & 115.718 \\\hline
+\multirow{9}{*}{15} & \multirow{3}{*}{0.70} & 0.01 &   0.086 \\
+                    &                       & 0.05 &   0.083 \\
+                    &                       & 0.10 &   0.084 \\\cline{2-4}
+                    & \multirow{3}{*}{0.80} & 0.01 &   0.130 \\
+                    &                       & 0.05 &   0.083 \\
+                    &                       & 0.10 &   0.083 \\\cline{2-4}
+                    & \multirow{3}{*}{0.90} & 0.01 &   0.746 \\
+                    &                       & 0.05 &   0.083 \\
+                    &                       & 0.10 &   0.084 \\\hline
+\multirow{9}{*}{30} & \multirow{3}{*}{0.70} & 0.01 &   0.083 \\
+                    &                       & 0.05 &   0.083 \\
+                    &                       & 0.10 &   0.083 \\\cline{2-4}
+                    & \multirow{3}{*}{0.80} & 0.01 &   0.087 \\
+                    &                       & 0.05 &   0.084 \\
+                    &                       & 0.10 &   0.083 \\\cline{2-4}
+                    & \multirow{3}{*}{0.90} & 0.01 &   0.486 \\
+                    &                       & 0.05 &   0.083 \\
+                    &                       & 0.10 &   0.083 \\\hline
 \end{tabular}
 \label{tab:tuning}
 \end{table}
 
+%FIXME gráfica
+
 \subsubsection*{Análisis}
 
-...
+A partir de los resultados obtenidos se puede apreciar que para poblaciones chicas las soluciones dependen sensiblemente de las probabilidades de cruzamiento y mutación. Por el contrario, para poblaciones de 15 y 30 elementos los individuos obtenidos son muy buenos sin importar el resto de los parámetros, aunque existe una posible tendencia a empeorar las soluciones con una probabilidad de 0.01 para el operador de mutación.\\
+
+Con el objetivo de obtener soluciones de calidad y al mismo tiempo mantener la diversidad en la población se optará de aquí en más por una población de 30 individuos, una probabilidad de 0.9 para el operador de cruzamiento y de 0.1 para el operador de mutación.
 
 \subsection{Evaluación}
 
-Para evaluar el algoritmo se harán 30 ejecuciones independientes para el caso de 3, 4, 5, ..., 10 nodos. Adicionalmente se harán 3 ejecuciones en un entorno real, usando 3, 4 y 5 routers.
+Para realizar la evaluación del algoritmo se usarán 25 instancias de prueba divididas en 5 conjuntos de 3, 4, 5, 6 y 7 routers. Para cada instancia se harán 5 ejecuciones independientes, completando en total 125 ejecuciones.\\
 
-~\\Para todos los casos se reportará:\\
-
-\begin{itemize}
-\item Tiempo de ejecución
-\item Desviación estándar de los tiempos de ejecución
-\item Fitness del mejor individuo
-\item Generación del mejor individuo
-\item Valor promedio del fitness
-\item Desviación estándar de los mejores fitness
-\end{itemize}
-
-~\\Para los casos reales se reportará además:\\
+Para todos los casos se reportará:\\
 
 \begin{itemize}
-\item El error entre la posición del mejor individuo y la posición real que debió encontrar
-\item La diferencia entre dicha posición y la posición devuelta por servicios existentes
+\item $G$: generación del mejor individuo ($I$)
+\item $f$: fitness de $I$
+\item $f_{AVG}$: promedio de fitness de los individuos de $G$
+\item $\sigma_f$: desviación estándar de los individuos de $G$
+\item $t$: segundos utilizados para encontrar $I$
+\item $t_{AVG}$: promedio de $t$ para todas las ejecuciones
+\item $\sigma_t$: desviación estándar de $t$ para todas las ejecuciones
 \end{itemize}
 
 \begin{table}[h]
 \caption{Resultados}
 \centering
 
-\begin{tabular}{|c||c|c|c||c|c|}
+\begin{tabular}{|c||c||c|c|c||c|c|c|}
 \hline
-\multicolumn{6}{|c|}{3 Routers}\\
+$R$ & $G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ \\
 \hline
-Generación & Fitness & Promedio & Desviación & Tiempo & Desviación \\
-\hline
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-\hline
-\end{tabular}
-\\[2ex]
+\multirow{5}{*}{3} & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\\hline
 
-\begin{tabular}{|c||c|c|c||c|c|}
-\hline
-\multicolumn{6}{|c|}{4 Routers}\\
-\hline
-Generación & Fitness & Promedio & Desviación & Tiempo & Desviación \\
-\hline
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-\hline
-\end{tabular}
-\\[2ex]
+\multirow{5}{*}{4} & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\\hline
 
-\begin{tabular}{|c||c|c|c||c|c|}
-\hline
-\multicolumn{6}{|c|}{5 Routers}\\
-\hline
-Generación & Fitness & Promedio & Desviación & Tiempo & Desviación \\
-\hline
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-\hline
-\end{tabular}
-\\[2ex]
+\multirow{5}{*}{5} & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\\hline
 
-\begin{tabular}{|c||c|c|c||c|c|}
-\hline
-\multicolumn{6}{|c|}{6 Routers}\\
-\hline
-Generación & Fitness & Promedio & Desviación & Tiempo & Desviación \\
-\hline
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-\hline
-\end{tabular}
-\\[2ex]
+\multirow{5}{*}{6} & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\\hline
 
-\begin{tabular}{|c||c|c|c||c|c|}
-\hline
-\multicolumn{6}{|c|}{7 Routers}\\
-\hline
-Generación & Fitness & Promedio & Desviación & Tiempo & Desviación \\
-\hline
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-000 & 0.00 & 0.00 & 0.00 & 000 & 000 \\
-\hline
+\multirow{5}{*}{7} & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\
+                   & 000 & 0.00 & 0.00 & 0.00 & 000 & 000 & 000 \\\hline
 \end{tabular}
 
 \label{tab:evaluation}
 \end{table}
 
+%FIXME gráficas
+
+\subsubsection{Análisis de Normalidad}
+
+%FIXME
+
 \subsubsection*{Análisis}
 
-...
+Todas las soluciones obtenidas son muy buenas, presentando en general errores menores a 10cm. Por otro lado los tiempos de ejecución son muy cortos, evidenciando la capacidad del algoritmo implementado para hallar rápidamente una excelente aproximación de la posición real del dispositivo.\\
 
-\subsection{Análisis de normalidad}
+A partir del fitness de los mejores individuos y de las generaciones en las que fueron encontrados parece correcto afirmar que aunque se corriera el algoritmo por más tiempo no sería posible mejorar el error. De hecho, parece estar encontrando las mejores soluciones posibles, pero está sujeto a la falta de información debido a las atenuaciones existentes.\\
 
-...
+A medida que aumenta la cantidad de routers se debería mejorar marginalmente los resultados, aún así es evidente que con 3 routers es suficiente y con 7 routers parece primar la imprecisión intrínseca del modelo elegido, no pudiendo mejorar arbitrariamente la precisión, como se había predecido en un principio.\\
 
 \section{Conclusión}
 
-The conclusion goes here.
+%FIXME
+
+\section{Trabajo Futuro}
+
+Durante el análisis del problema se hicieron varias suposiciones, que si bien son adecuadas en el contexto en el que se trabaja, no dejan de ser una simplificación de la realidad.\\
+
+En el futuro se debería adoptar otro modelo de propagación de ondas más sofisticado con el objetivo de ver de que manera esto influye en las soluciones encontradas por el algoritmo.\\
+
+Además de esto sería interesante triangular a los dispositivos en un espacio tridimencional, lo que requeriría agregar una nueva coordenada a la representación interna de los individuos y tener ciertas consideraciones especiales respecto a las antenas.
 
 \newpage
 
