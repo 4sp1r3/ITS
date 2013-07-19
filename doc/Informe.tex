@@ -422,18 +422,15 @@
 % in the abstract or keywords.
 
 \begin{abstract}
-The abstract goes here.
+
+Cada vez son más los dispositivos móviles con servicios y aplicaciones sensibles a la posición del usuario. Para esto en general se usa GPS consiguiendo excelentes resultados. En el interior de muchos edificios su utilización se ve fuertemente limitada debido a que en general la señal de los satélites que intervienen en la triangulación no es muy buena, pudiendo ser afectada por obstáculos e interferencias. En estos casos la precisión puede ser mejorada haciendo uso sistemas de geolocalización que utilizan información de redes inalámbricas de corto alcance como WiFi, una técnica que es posible gracias a la proliferación de routers y access points cuya posición aproximada sí se conoce. El enfoque presentado parte de la base que se tiene la posición de al menos tres routers inalámbricos presentes en el entorno. Se estudiará como mediante un algoritmo evolutivo se puede aproximar la posición de un dispositivo móvil, si este es capaz de medir las intensidades de las señales hacia cada uno de dichos transmisores.\\
+
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
 \begin{IEEEkeywords}
-Algoritmos Evolutivos, triangulación, WiFi
+Algoritmos Evolutivos; triangulación; WiFi
 \end{IEEEkeywords}
-
-
-
-
-
 
 % For peer review papers, you can put extra information on the cover
 % page as needed:
@@ -625,9 +622,7 @@ Se implementará el algoritmo usando el framework \emph{Malva} \cite{malva}, el 
 
 \subsection{Variante}
 
-Luego de estudiar varias alternativas se optó por usar la variante de malva \emph{GA}, correspondiente a un algoritmo genético genérico con operadores personalizados, con el objetivo de tener total control sobre la aplicación de los mismos sobre los individuos.\\
-
-%FIXME
+Luego de estudiar varias alternativas se optó por usar la variante de \emph{malva} denominada \emph{GA}, correspondiente a un algoritmo genético genérico con operadores personalizados, con el objetivo de tener total control sobre la aplicación de los mismos sobre los individuos.\\
 
 \subsection{Representación interna}
 
@@ -751,9 +746,7 @@ Dado que el espacio de búsqueda es bastante grande, resulta esencial mantener l
 
 \subsubsection{Selección}
 
-Se usará selección estocástica universal con punteros equiespaciados.\\
-
-%FIXME
+Se usará selección por torneo, habiendo probado también selección por ranking y rouletta, obteniendo en todos los casos resultados similares.\\
 
 \subsubsection{Cruzamiento}
 
@@ -775,6 +768,10 @@ k_1, k_2 \in (n,m)
 Las distancias con las que se trabajan son del orden de unos pocos metros a algunas decenas de metros. Dadas estas magnitudes, un error de entre 10cm y 50cm son igual de aceptables. Por lo tanto no existe la necesidad de optimizar el individuo para alcanzar la mejor estimación posible en su entorno.\\
 
 Se considerará que un individuo con errores de estos ordenes es suficientemente bueno, de modo que no será necesario intentar disminuir aún más dicho error.\\
+
+\subsection{Reemplazo de Individuos}
+
+Dadas las características del framework se decidió realizar el reemplazo poblacional luego de aplicado el operador de cruzamiento. Para esto se seleccionan los dos mejores individuos entre los padres y sus respectivos hijos, pudiendo ocurrir que el individuo descendiente reemplace a uno de sus padres si su fitness es mejor que el de ellos.\\
 
 \subsection{Criterio de Parada}
 
@@ -936,7 +933,11 @@ A medida que aumenta la cantidad de routers se debería mejorar marginalmente lo
 
 \section{Conclusión}
 
-%FIXME
+A juzgar por los resultados obtenidos en el análisis experimental se puede concluir la validez de la propuesta de usar algoritmos evolutivos para triangular nodos inalámbricos.\\
+
+Como se evidencia para cada uno de los casos de prueba usados, el algoritmo fue capaz de encontrar una aproximación sumamente precisa de la posición real del dispositivo. Si bien esta aproximación está limitada por incertidumbres en las mediciones y sesgada por el modelo de propagación de ondas usado, se demostró la posibilidad de encontrar excelentes soluciones en tiempos muy reducidos.\\
+
+Concluimos que un enfoque como el presentado aquí perfectamente puede ser usado en dispositivos móviles para encontrar su posición respecto a al menos tres routers de los cuales sí se conoce su ubicación.\\
 
 \section{Trabajo Futuro}
 
@@ -944,7 +945,9 @@ Durante el análisis del problema se hicieron varias suposiciones, que si bien s
 
 En el futuro se debería adoptar otro modelo de propagación de ondas más sofisticado con el objetivo de ver de que manera esto influye en las soluciones encontradas por el algoritmo.\\
 
-Además de esto sería interesante triangular a los dispositivos en un espacio tridimencional, lo que requeriría agregar una nueva coordenada a la representación interna de los individuos y tener ciertas consideraciones especiales respecto a las antenas.
+Además de esto sería interesante triangular a los dispositivos en un espacio tridimencional, lo que requeriría agregar una nueva coordenada a la representación interna de los individuos y tener ciertas consideraciones especiales respecto a las antenas.\\
+
+Por último, por no contar con el equipo adecuado y los medios para realizar mediciones suficientemente precisas se optó por limitarse a la simulación de triangulaciones con ejemplos generados aleatoriamente. En un futuro se deberá poner a prueba la propuesta utilizando routers reales en un ambiente controlado, con el objetivo de poner a prueba la validez del estudio realizado.\\
 
 \newpage
 
