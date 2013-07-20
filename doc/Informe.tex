@@ -791,7 +791,7 @@ Las instancias de prueba son generadas de manera de simular entornos realistas.\
 
 Para esto se define la posición real del dispositivo y cierta cantidad de routers en un círculo de centro $(0,0)$ y radio 15m.\\
 
-Una vez hecho se tiene la posición de todos los nodos presentes se calcula la distancia real entre el dispositivo y cada uno de los routers. Mediante esta distancia y el modelo de propagación de ondas se obtiene la señal real que percibiría, a la cual se le substrae un valor aleatorio, correspondiente al decaimiento, de entre 0dBm y 2dBm.\\
+Una vez que se tiene la posición de todos los nodos presentes se calcula la distancia real entre el dispositivo y cada uno de los routers. Mediante esta distancia y el modelo de propagación de ondas se obtiene la señal que en teoría percibiría, a lo cual se le substrae un valor aleatorio, correspondiente al decaimiento, de entre 0dBm y 2dBm.\\
 
 \subsection{Entorno de Prueba}
 
@@ -881,7 +881,7 @@ Con el objetivo de obtener soluciones de calidad y al mismo tiempo mantener la d
 \label{fig:density}
 \end{figure}
 
-Se realizaron pruebas de normalidad y exponencialidad con el test de Kolmogorov–Smirnov, en ambos casos de obtuvo resultados negativos.
+Se realizaron pruebas de normalidad y exponencialidad usando el test de Kolmogorov–Smirnov, en ambos casos de obtuvo resultados negativos.
 
 \subsection{Evaluación}
 
@@ -966,9 +966,9 @@ $R$ & $G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $Error
 
 \subsubsection*{Análisis}
 
-Todas las soluciones obtenidas son muy buenas, presentando en general errores del orden de 1m. Por otro lado los tiempos de ejecución son muy cortos, evidenciando la capacidad del algoritmo implementado para hallar rápidamente una excelente aproximación de la posición real del dispositivo.\\
+Todas las soluciones obtenidas son muy buenas, presentando en general errores del orden de 1,5m. Por otro lado los tiempos de ejecución son muy cortos, evidenciando la capacidad del algoritmo implementado para hallar rápidamente una excelente aproximación de la posición real del dispositivo.\\
 
-A partir del fitness de los mejores individuos y de las generaciones en las que fueron encontrados parece correcto afirmar que aunque se corriera el algoritmo por más tiempo no sería posible mejorar el error. De hecho, parece estar encontrando las mejores soluciones posibles, pero está sujeto a la falta de información debido a las atenuaciones existentes.\\
+A partir del fitness de los mejores individuos y de las generaciones en las que fueron encontrados parece correcto afirmar que aunque se corriera el algoritmo por más tiempo no sería posible mejorar el error, en la práctica esta suposición fue comprobada para todas las instancias de prueba usadas. De hecho, el algoritmo parece estar encontrando las mejores soluciones posibles, pero está sujeto a la falta de información debido a las atenuaciones existentes.\\
 
 A medida que aumenta la cantidad de routers se mejora marginalmente los resultados, aún así cabe señalar la variación de errores para instancias de prueba con la misma cantidad de routers, lo cual es razonable ya que una correcta triangulación depende en gran medida de la posición relativa de los nodos.\\
 
@@ -986,7 +986,7 @@ Concluimos que un enfoque como el presentado aquí perfectamente puede ser usado
 
 Durante el análisis del problema se hicieron varias suposiciones, que si bien son adecuadas en el contexto en el que se trabaja, no dejan de ser una simplificación de la realidad.\\
 
-En el futuro se debería adoptar otro modelo de propagación de ondas más sofisticado con el objetivo de ver de que manera esto influye en las soluciones encontradas por el algoritmo.\\
+En el futuro se debería adoptar otro modelo de propagación de ondas más sofisticado con el objetivo de ver de que manera esto influye en las soluciones encontradas por el algoritmo. De la misma manera sería prudente probar distintas implementaciones de operadores con el fin de aumentar la diversidad.\\
 
 Además de esto sería interesante triangular a los dispositivos en un espacio tridimencional, lo que requeriría agregar una nueva coordenada a la representación interna de los individuos y tener ciertas consideraciones especiales respecto a las antenas.\\
 
