@@ -62,13 +62,13 @@ int main(int argc, char** argv) {
         for (int i = 0 ; i < trials ; i++) {
         	timeT[i] = solver.browseHistory_getTime_found_best_by_trial(i+1) / 1000000.0;
         	costT[i] = solver.browseHistory_getBest_Cost_by_trial(i+1);
-            printf("Tiempo optimo para trial %d = %f\n", i+1 , timeT[i]);
-            printf("Mejor fitness para trial %d = %f\n", i+1 , costT[i]);
+            printf("Tiempo optimo para trial %d = %.4f\n", i+1 , timeT[i]);
+            printf("Mejor fitness para trial %d = %.4f\n", i+1 , costT[i]);
             time_promedio += timeT[i];
         }
 
         time_promedio /= (double)trials;
-        printf("Tpromedio es = %f\n" , time_promedio);
+        printf("Tpromedio es = %.4f\n" , time_promedio);
 
         double time_desviacion = 0;
         for (int i = 0 ; i < trials ; i++) {
@@ -77,7 +77,7 @@ int main(int argc, char** argv) {
         time_desviacion /= (double)trials;
         time_desviacion = sqrt(time_desviacion);
 
-        printf("Desviacion Tiempo = %f\n" , time_desviacion);
+        printf("Desviacion Tiempo = %.4f\n" , time_desviacion);
 
         int iteration = solver.iteration_best_found();
         int trial = solver.trial_best_found();
@@ -85,16 +85,17 @@ int main(int argc, char** argv) {
         printf("global se obtubo en Trial=%d , Iteracion=%d\n" , trial, iteration);
 
         s_stat statics = solver.browseHistory_getIteration(trial, iteration);
-        printf("En ese Trial/iteracion el costo promedio=%f , desviacion=%f\n",
+        printf("En ese Trial/iteracion el costo promedio=%.4f , desviacion=%.4f\n",
         		statics.average_cost,
         		statics.standard_deviation);
 
 
         /* Para grafica  y test normal*/
         double cost_promedio = 0;
+        printf("\n ##### TABLA Fitness optimo por trial ######\n");
         printf("\n [ \n");
         for (int i=0 ; i < trials ; ++i) {
-        	printf(" %f " , costT[i] );
+        	printf(" %.4f " , costT[i] );
         	if (i != (trials -1) ) printf(" , ");
         	printf("\n");
         	cost_promedio += costT[i];
@@ -109,57 +110,25 @@ int main(int argc, char** argv) {
         cost_desv /= (double)trials;
         cost_desv = sqrt(cost_desv);
 
-        printf("Costo promedio = %f , costo desviacion = %f\n", cost_promedio , cost_desv);
+        printf("fitnes promedio entre todos los triasls = %.4f\n" , cost_promedio);
+        printf("desviacion de fitness entre las triasl = %.4f\n\n", cost_desv);
 
-        /*
-         *  Esta parte es para graficar por si no da ok el test de normalidad
-         *
-         *  */
-        int divisiones = trials / 50 ;
-        if (divisiones > 5) { // puedo graficar? o es una corrida de pocas trials?
-        	printf("Tabla para visualizar la forma de distribucion\n");
-        	double * divT = new double[divisiones];
-        	for (int i = 0 ; i < divisiones ; i++) {
-        		divT[i] = 0.0;
-        	};
-
-        	double min_cost = 10000000.0;
-        	double max_cost = -10000000.0 ;
-            for (int i = 0 ; i < trials ; i++) {
-            	if (costT[i] < min_cost) min_cost = costT[i];
-            	if (costT[i] > max_cost) max_cost = costT[i];
-            };
-
-            double delta = (max_cost - min_cost) / ((double)divisiones) ;
-
-            // populo la tabla divT
-            for (int i = 0 ; i < trials ; i++) {
-            	for (int j=0 ; j < divisiones ; j++) {
-            		double interval_min = min_cost + ((double)j) * delta;
-            		double interval_max = interval_min + delta;
-
-            		if ((costT[i] > interval_min) && (costT[i] < interval_max) )
-            			divT[j] += 1.0;
-            	}
-            }
-
-            // escribo la tabla
-            printf("[ \n ");
-        	for (int i=0 ; i < divisiones ; i++) {
-        		double interval_min = min_cost + ((double)i) * delta;
-        		double interval_max = interval_min + delta;
-        		double interval_med = (interval_min + interval_max) / 2.0 ;
-
-        		printf(" %f  , %f \n" , divT[i]  , interval_med );
-        	}
-        	printf(" ] \n");
-
+        /* TABLA DE Fitness en funcion de generacion (para el trial 1)*/
+        printf("\n ##### TABLA mejor Fitness en funcion de generacion (para trial1) ######\n");
+        printf("\n [ \n");
+        for (int i=0 ; i <= cfg.nb_evolution_steps() ; ++i) {
+        	double aux = solver.browseHistory_getIteration(1,i).best_cost;
+        	printf(" %.4f " , aux );
+        	if (i != (cfg.nb_evolution_steps()) ) printf(" , ");
+        	printf("\n");
         }
+        printf(" ] \n ");
+
 
         printf("\n\n");
 
         /* Para la tabla... */
-        printf("\n F=%s Gen=%d fit=%f fitpro=%f fitdes=%f time=%f timepro=%f timedes=%f\n" ,
+        printf("\n F=%s Gen=%d fit=%.4f fitpro=%.4f fitdes=%.4f time=%.4f timepro=%.4f timedes=%.4f\n" ,
         		argv[2] ,
         		iteration ,
         		solver.global_best_solution().fitness() ,
