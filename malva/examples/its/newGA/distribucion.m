@@ -3070,6 +3070,11 @@ for i = 1:a_size
     end
 end
 
+#normalizo para que sea una distribucion de probabilidad
+for i = 1:c_size
+    c(i,4) =  c(i,4) / a_size;
+end
+
 
 
 plot(c(:,1) , c(:,2))
