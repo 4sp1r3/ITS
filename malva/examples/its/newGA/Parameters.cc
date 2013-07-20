@@ -67,11 +67,13 @@ int main(int argc, char** argv) {
         	    if (solver.pid() == 0) {
         	        solver.show_state();
         	        cout << "Solution: " << solver.global_best_solution()
-        	             << "Fitness: " << solver.global_best_solution().fitness() << endl;
+        	             << "Fitness: ";
+                    printf("%.4f", solver.global_best_solution().fitness());
+                    cout << endl;
         	        ofsResult << solver.userstatistics();
         	    }
 
-        	    printf("FINISH Poblacion = %d , Cross = %f , Mutation = %f \n\n",
+        	    printf("FINISH Poblacion = %d , Cross = %.4f , Mutation = %.4f \n\n",
         	    		population[ite_population] , cross[ite_cross] , mutation[ite_mutation]);
 
         	}

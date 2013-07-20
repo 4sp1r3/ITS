@@ -1,7 +1,7 @@
-10                  // number of independent runs
-10                  // number of generations
+5                   // number of independent runs
+100                 // number of generations
 30                  // number of individuals
-15                  // size of offsprings in each generation
+30                  // size of offsprings in each generation
 0                   // if replaces parents for offsprings, or only offsprings may be new parents
 0                   // display state ? 0=false, 1=true
 Selections          // selections to apply
