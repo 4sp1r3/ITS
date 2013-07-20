@@ -3004,24 +3004,24 @@ z =  [
  ] ;
 
 z_size = size(z)(1)
-
-z_promedio = 0 ;
-for i = 1:z_size
-    z_promedio = z_promedio + z(i) ;
-end
-z_promedio =  z_promedio / z_size ;
+z_promedio = mean(z);
 
 
-raros = 0.35
+raros_max = 0.325
+raros_min = 0.31
 raros_count = 0;
 ind = 1;
 for i = 1:z_size
-    if ( z(i) > raros )
+    if ( z(i) > raros_max )
         #a(i) = a_promedio ;  No lo guardo... ;
         raros_count =  raros_count + 1 ;
     else
-        a(ind,1) = z(i) ;
-        ind = ind +1 ;
+        if ( z(i) < raros_min )
+            raros_count =  raros_count + 1 ;
+        else
+            a(ind,1) = z(i) ;
+            ind = ind +1 ;
+        endif
     endif
 end
 raros_count
@@ -3032,25 +3032,17 @@ a_min = min(a)
 a_delta = a_max - a_min
 
 
-for i = 1:a_size
-    b(i) = a(i) - a_min ;
-end
-
 b_size = a_size ;
 
-b_esperado = 0 ;
 for i = 1:b_size
-    b_esperado =  b_esperado + b(i);
+    b(i,1) = a(i,1) - a_min ;
 end
-b_esperado =  b_esperado / b_size
 
 
-b_desv = 0 ;
-for i = 1:b_size
-    b_desv = (b_esperado - b(i))^2 ;
-end
-b_desv = b_desv / b_size ;
-b_desv = b_desv^0.5
+b_esperado = mean(b) ;
+b_var = var(b) ;
+b_desv = std (b) ;
+
 
 #exponencial....
 exp_lambda = 1 / b_esperado
