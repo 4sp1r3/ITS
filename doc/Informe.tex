@@ -614,7 +614,7 @@ d(L_{dB}) &= \sqrt {\frac {5 \times 5 \times (\frac {299.792.458} {2.442.000.000
 
 \section{Algoritmo}
 
-\subsection{Tecnologías usadas}
+\subsection{Tecnologías Usadas}
 
 Para la implementación del algoritmo se decidió usar los lenguajes de programación \emph{C/C++} \cite{c} \cite{c++} debido a su sencillez, bajo consumo de memoria, velocidad de ejecución y herramientas disponibles \cite{why:c:c++}.\\
 
@@ -624,7 +624,7 @@ Se implementará el algoritmo usando el framework \emph{Malva} \cite{malva}, el 
 
 Luego de estudiar varias alternativas se optó por usar la variante de \emph{malva} denominada \emph{GA}, correspondiente a un algoritmo genético genérico con operadores personalizados, con el objetivo de tener total control sobre la aplicación de los mismos sobre los individuos.\\
 
-\subsection{Representación interna}
+\subsection{Representación Interna}
 
 Para la representación interna del individuo se pueden adoptar dos enfoques distintos, dependiendo de como se interprete la intensidad de las señales leídas por la tarjetas de red inalámbrica del dispositivo.\\
 
@@ -713,7 +713,7 @@ La idea de aquí en más será adoptar esta alternativa y minimizar el vector de
 
 Es importante recordar que esto se estará haciendo para más de un router al mismo tiempo, por lo que el algoritmo deberá encontrar un punto de equilibrio. Si bien el vector del óptimo global será mínimo, en principio no será nulo.\\
 
-\subsection{Función de fitness}
+\subsection{Función de Fitness}
 
 La función de fitness a minimizar es la suma de errores respecto a la distancia estimada y la distancia teórica (calculada usando el modelo de propagación de ondas \emph{free space propagation model}).\\
 
@@ -765,7 +765,7 @@ k_1, k_2 \in (n,m)
 
 \subsubsection{Búsqueda Local}
 
-Las distancias con las que se trabajan son del orden de unos pocos metros a algunas decenas de metros. Dadas estas magnitudes, un error de entre 10cm y 50cm son igual de aceptables. Por lo tanto no existe la necesidad de optimizar el individuo para alcanzar la mejor estimación posible en su entorno.\\
+Las distancias con las que se trabajan son del orden de unos pocos metros a algunas decenas de metros. Dadas estas magnitudes, un error de entre 5cm y 25cm son igual de aceptables. Por lo tanto no existe la necesidad de optimizar el individuo para alcanzar la mejor estimación posible en su entorno.\\
 
 Se considerará que un individuo con errores de estos ordenes es suficientemente bueno, de modo que no será necesario intentar disminuir aún más dicho error.\\
 
@@ -777,7 +777,7 @@ Dadas las características del framework se decidió realizar el reemplazo pobla
 
 A partir de lo dicho anteriormente parece razonable parar el algoritmo si se consigue un individuo cuya suma de errores (es decir, el valor de la función de fitness) es menor a 5cm.\\
 
-Al mismo tiempo será necesario un límite en el número de generaciones con el objetivo de evitar que el algorimo converja a un óptimo local en donde no puede lograr tal precisión, ocasionando que no termine de ejecutarse. Para evitar esto empíricamente se encontró que un límite de 100 generaciones es suficiente, ya que en la mayoría de las ejecuciones la generación del mejor individuo estaba por debajo de este límite.\\
+Al mismo tiempo será necesario un límite en el número de generaciones con el objetivo de evitar que el algoritmo converja a un óptimo local en donde no puede lograr tal precisión, ocasionando que no termine de ejecutarse. Para evitar esto empíricamente se encontró que un límite de 100 generaciones es suficiente, ya que en la mayoría de las ejecuciones la generación del mejor individuo estaba por debajo de este límite.\\
 
 \subsection{Mecanismo de Reparación}
 
@@ -785,11 +785,19 @@ Cabe señalar que los individuos son válidos desde el momento de su inicializac
 
 \section{Análisis Experimental}
 
-\subsection{Entorno de prueba}
+\subsection{Instancias de Prueba}
+
+Las instancias de prueba son generadas de manera de simular entornos realistas.\\
+
+Para esto se define la posición real del dispositivo y cierta cantidad de routers en un círculo de centro $(0,0)$ y radio 15m.\\
+
+Una vez hecho se tiene la posición de todos los nodos presentes se calcula la distancia real entre el dispositivo y cada uno de los routers. Mediante esta distancia y el modelo de propagación de ondas se obtiene la señal real que percibiría, a la cual se le substrae un valor aleatorio, correspondiente al decaimiento, de entre 0dBm y 2dBm.\\
+
+\subsection{Entorno de Prueba}
 
 Dado que en la práctica la implementación realizada no parece necesitar de grandes tiempos de ejecución ni grandes cantidades de memoria o procesamiento que requieran correrlo en un cluster, se usará una computadora de características moderadas para realizar las pruebas.\\
 
-\subsubsection{Marca y modelo}
+\subsubsection{Marca y Modelo}
 
 Dell Inspiron N5010\\
 
@@ -820,49 +828,64 @@ La tabla \ref{tab:tuning} muestra las combinaciones de parámetros estudiados pa
 \hline
 Población &Cruzamiento &Mutación &Fitness \\
 \hline
-\multirow{9}{*}{5}  & \multirow{3}{*}{0.70} & 0.01 & 0.2959 \\
-                    &                       & 0.05 & 0.2553 \\
-                    &                       & 0.10 & 0.2555\\ \cline{2-4}
-                    & \multirow{3}{*}{0.80} & 0.01 & 0.3964 \\
-                    &                       & 0.05 & 0.2554 \\
+\multirow{9}{*}{5}  & \multirow{3}{*}{0.70} & 0.01 & 0.4776 \\
+                    &                       & 0.05 & 0.2555 \\
+                    &                       & 0.10 & 0.3230 \\ \cline{2-4}
+                    & \multirow{3}{*}{0.80} & 0.01 & 0.3166 \\
+                    &                       & 0.05 & 0.3383 \\
+                    &                       & 0.10 & 0.2588 \\ \cline{2-4}
+                    & \multirow{3}{*}{0.90} & 0.01 & 0.2606 \\
+                    &                       & 0.05 & 0.2965 \\
+                    &                       & 0.10 & 0.2566 \\ \hline
+\multirow{9}{*}{15} & \multirow{3}{*}{0.70} & 0.01 & 0.2707 \\
+                    &                       & 0.05 & 0.3181 \\
                     &                       & 0.10 & 0.2558 \\ \cline{2-4}
-                    & \multirow{3}{*}{0.90} & 0.01 & 0.2742 \\
-                    &                       & 0.05 & 0.2560 \\
-                    &                       & 0.10 & 0.2559 \\ \hline
-\multirow{9}{*}{15} & \multirow{3}{*}{0.70} & 0.01 & 0.2575 \\
-                    &                       & 0.05 & 0.2553 \\
-                    &                       & 0.10 & 0.2553 \\ \cline{2-4}
-                    & \multirow{3}{*}{0.80} & 0.01 & 0.2653 \\
-                    &                       & 0.05 & 0.2553 \\
-                    &                       & 0.10 & 0.2553 \\ \cline{2-4}
-                    & \multirow{3}{*}{0.90} & 0.01 & 0.2554 \\
-                    &                       & 0.05 & 0.2553 \\
+                    & \multirow{3}{*}{0.80} & 0.01 & 0.2623 \\
+                    &                       & 0.05 & 0.2568 \\
+                    &                       & 0.10 & 0.2561 \\ \cline{2-4}
+                    & \multirow{3}{*}{0.90} & 0.01 & 0.2701 \\
+                    &                       & 0.05 & 0.2605 \\
                     &                       & 0.10 & 0.2553 \\ \hline
-\multirow{9}{*}{30} & \multirow{3}{*}{0.70} & 0.01 & 0.2553 \\
-                    &                       & 0.05 & 0.2553 \\
+\multirow{9}{*}{30} & \multirow{3}{*}{0.70} & 0.01 & 0.2559 \\
+                    &                       & 0.05 & 0.2554 \\
                     &                       & 0.10 & 0.2553 \\ \cline{2-4}
-                    & \multirow{3}{*}{0.80} & 0.01 & 0.2555 \\
-                    &                       & 0.05 & 0.2553 \\
-                    &                       & 0.10 & 0.2553 \\ \cline{2-4}
-                    & \multirow{3}{*}{0.90} & 0.01 & 0.2553 \\
-                    &                       & 0.05 & 0.2553 \\
-                    &                       & 0.10 & 0.2553 \\ \hline
+                    & \multirow{3}{*}{0.80} & 0.01 & 0.3199 \\
+                    &                       & 0.05 & 0.2554 \\
+                    &                       & 0.10 & 0.2554 \\ \cline{2-4}
+                    & \multirow{3}{*}{0.90} & 0.01 & 0.3194 \\
+                    &                       & 0.05 & 0.2561 \\
+                    &                       & 0.10 & 0.2554 \\ \hline
 \end{tabular}
 \label{tab:tuning}
 \end{table}
 
-%FIXME gráfica
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{fitness_generations.png}
+\caption{Evolución del fitness en función de la generación}
+\label{fig:fitness_generations}
+\end{figure}
 
 \subsubsection*{Análisis}
 
-A partir de los resultados obtenidos se puede apreciar que para poblaciones chicas las soluciones dependen sensiblemente de las probabilidades de cruzamiento y mutación. Por el contrario, para poblaciones de 15 y 30 elementos los individuos obtenidos son muy buenos sin importar el resto de los parámetros, aunque existe una posible tendencia a empeorar las soluciones con una probabilidad de 0.01 para el operador de mutación.\\
+A partir de los resultados obtenidos se puede apreciar como, para todas las combinaciones de parámetros con los que se probó, las soluciones son muy buenas. Existe cierta tendencia a obtener soluciones marginalmente peores para una probabilidad de cruzamiento 0.01, en especial combinando esto con poblaciones chicas, una posible explicación de este fenómeno es la diversidad.\\
 
-Con el objetivo de obtener soluciones de calidad y al mismo tiempo mantener la diversidad en la población se optará de aquí en más por una población de 30 individuos, una probabilidad de 0.9 para el operador de cruzamiento y de 0.1 para el operador de mutación.
+Con el objetivo de obtener soluciones de calidad y al mismo tiempo mantener la diversidad en la población se optará de aquí en más por una población de 30 individuos, una probabilidad de 0.9 para el operador de cruzamiento y de 0.1 para el operador de mutación.\\
+
+\subsubsection*{Análisis de Normalidad}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{distribution.png}
+\caption{Distribución de la probabilidad de fitness}
+\label{fig:distribution}
+\end{figure}
+
+El análisis de normalidad dió negativo.
 
 \subsection{Evaluación}
 
 Para realizar la evaluación del algoritmo se usarán 25 instancias de prueba divididas en 5 conjuntos de 3, 4, 5, 6 y 7 routers. Para cada instancia se harán 5 ejecuciones independientes, completando en total 125 ejecuciones.\\
-
 
 Para todos los casos se reportará:\\
 
@@ -887,7 +910,7 @@ $R$ & $G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $Error
 \hline
 \multirow{5}{*}{3} & 63 & 0.8010 & 0.8143 & 0.0432 & 0.0025 & 0.0029 & 0.0012 & 2.3242 \\
                    & 32 & 0.0673 & 0.0673 & 0.0000 & 0.0013 & 0.0027 & 0.0010 & 0.4029 \\
-                   & 71 & 0.8471 & 0.8831 & 0.1006 & 0.0028 & 0.0033 & 0.0009 & 8.6753 \\
+                   & 37 & 0.1235 & 0.1344 & 0.0588 & 0.0015 & 0.0032 & 0.0009 & 0,4697 \\
                    & 67 & 0.2488 & 0.2675 & 0.0346 & 0.0026 & 0.0027 & 0.0011 & 1.8703 \\
                    & 93 & 0.9314 & 0.9398 & 0.0260 & 0.0037 & 0.0028 & 0.0009 & 0.2762 \\ \hline
 
@@ -913,34 +936,51 @@ $R$ & $G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $Error
                    & 66 & 1.0254 & 1.0827 & 0.1501 & 0.0053 & 0.0061 & 0.0017 & 0.8127 \\
                    & 63 & 1.8974 & 1.8975 & 0.0000 & 0.0051 & 0.0062 & 0.0016 & 1.2088 \\
                    & 95 & 3.3067 & 3.3073 & 0.0034 & 0.0076 & 0.0061 & 0.0017 & 1.5144 \\
-                   & 58 & 5.4602 & 5.4837 & 0.0833 & 0.0047 & 0.0059 & 0.0020 & 1.3776 \\ \hline
+                   & 58 & 5.4602 & 5.4837 & 0.0833 & 0.0047 & 0.0059 & 0.0020 & 1.3776 \\  \hline
 
 \end{tabular}
 
 \label{tab:evaluation}
 \end{table}
 
-%FIXME gráficas
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{generations.png}
+\caption{Generación de los mejores individuos}
+\label{fig:generations}
+\end{figure}
 
-\subsubsection{Análisis de Normalidad}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{fitness.png}
+\caption{Fitness de los mejores individuos}
+\label{fig:fitness}
+\end{figure}
 
-%FIXME
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{errors.png}
+\caption{Errores reales de los mejores individuos}
+\label{fig:errors}
+\end{figure}
 
 \subsubsection*{Análisis}
 
-Todas las soluciones obtenidas son muy buenas, presentando en general errores menores a 10cm. Por otro lado los tiempos de ejecución son muy cortos, evidenciando la capacidad del algoritmo implementado para hallar rápidamente una excelente aproximación de la posición real del dispositivo.\\
+Todas las soluciones obtenidas son muy buenas, presentando en general errores del orden de 1m. Por otro lado los tiempos de ejecución son muy cortos, evidenciando la capacidad del algoritmo implementado para hallar rápidamente una excelente aproximación de la posición real del dispositivo.\\
 
 A partir del fitness de los mejores individuos y de las generaciones en las que fueron encontrados parece correcto afirmar que aunque se corriera el algoritmo por más tiempo no sería posible mejorar el error. De hecho, parece estar encontrando las mejores soluciones posibles, pero está sujeto a la falta de información debido a las atenuaciones existentes.\\
 
-A medida que aumenta la cantidad de routers se debería mejorar marginalmente los resultados, aún así es evidente que con 3 routers es suficiente y con 7 routers parece primar la imprecisión intrínseca del modelo elegido, no pudiendo mejorar arbitrariamente la precisión, como se había predecido en un principio.\\
+A medida que aumenta la cantidad de routers se mejora marginalmente los resultados, aún así cabe señalar la variación de errores para instancias de prueba con la misma cantidad de routers, lo cual es razonable ya que una correcta triangulación depende en gran medida de la posición relativa de los nodos.\\
+
+En general, parece primar la imprecisión intrínseca del modelo elegido, no pudiendo mejorar arbitrariamente la precisión, como se había predecido en un principio.\\
 
 \section{Conclusión}
 
 A juzgar por los resultados obtenidos en el análisis experimental se puede concluir la validez de la propuesta de usar algoritmos evolutivos para triangular nodos inalámbricos.\\
 
-Como se evidencia para cada uno de los casos de prueba usados, el algoritmo fue capaz de encontrar una aproximación sumamente precisa de la posición real del dispositivo. Si bien esta aproximación está limitada por incertidumbres en las mediciones y sesgada por el modelo de propagación de ondas usado, se demostró la posibilidad de encontrar excelentes soluciones en tiempos muy reducidos.\\
+Como se evidencia para cada uno de los casos de prueba usados, el algoritmo fue capaz de encontrar una aproximación bastante precisa de la posición real del dispositivo. Si bien esta aproximación está limitada por incertidumbres en las mediciones y sesgada por el modelo de propagación de ondas usado, se demostró la posibilidad de triangular dispositivos móviles en tiempos muy reducidos.\\
 
-Concluimos que un enfoque como el presentado aquí perfectamente puede ser usado en dispositivos móviles para encontrar su posición respecto a al menos tres routers de los cuales sí se conoce su ubicación.\\
+Concluimos que un enfoque como el presentado aquí perfectamente puede ser usado en la práctica si se cuenta con al menos tres routers de los cuales sí se conoce su ubicación.\\
 
 \section{Trabajo Futuro}
 
