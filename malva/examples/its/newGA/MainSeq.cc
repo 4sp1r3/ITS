@@ -95,7 +95,7 @@ int main(int argc, char** argv) {
         printf("\n ##### TABLA Fitness optimo por trial ######\n");
         printf("\n [ \n");
         for (int i=0 ; i < trials ; ++i) {
-        	printf(" %.4f " , costT[i] );
+        	printf(" %f " , costT[i] );
         	if (i != (trials -1) ) printf(" , ");
         	printf("\n");
         	cost_promedio += costT[i];
@@ -113,12 +113,12 @@ int main(int argc, char** argv) {
         printf("fitnes promedio entre todos los triasls = %.4f\n" , cost_promedio);
         printf("desviacion de fitness entre las triasl = %.4f\n\n", cost_desv);
 
-        /* TABLA DE Fitness en funcion de generacion (para el trial 1)*/
-        printf("\n ##### TABLA mejor Fitness en funcion de generacion (para trial1) ######\n");
+        /* TABLA DE Fitness en funcion de generacion (para el trial mejor)*/
+        printf("\n ##### TABLA mejor Fitness en funcion de generacion (para mejor trial=%d) ######\n" , trial);
         printf("\n [ \n");
         for (int i=0 ; i <= cfg.nb_evolution_steps() ; ++i) {
-        	double aux = solver.browseHistory_getIteration(1,i).best_cost;
-        	printf(" %.4f " , aux );
+        	double aux = solver.browseHistory_getIteration(trial,i).best_cost;
+        	printf(" %f " , aux );
         	if (i != (cfg.nb_evolution_steps()) ) printf(" , ");
         	printf("\n");
         }

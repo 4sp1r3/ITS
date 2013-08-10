@@ -1,4 +1,4 @@
-100                   // number of independent runs
+10                   // number of independent runs
 1000                 // number of generations
 30                  // number of individuals
 30                  // size of offsprings in each generation
