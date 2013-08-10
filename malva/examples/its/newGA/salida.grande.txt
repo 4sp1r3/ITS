@@ -1,4 +1,3 @@
-[algevo33@pcunix127 newGA]$ ./allinstances.sh 
 Solution: (3.76887,3.89952) -0.262063 0.402586 -0.0878325
  F=../instances/parameters.in Gen=497 fit=0.2553 fitpro=0.2822 fitdes=0.0310 time=0.0192 timepro=0.0211 timedes=0.0101 timetot=3.8904
 Solution: (-6.35441,-3.49413) 0.429464 -0.455363 0.145765

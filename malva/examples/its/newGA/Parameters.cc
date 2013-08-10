@@ -65,11 +65,17 @@ int main(int argc, char** argv) {
         	    solver.run();
 
         	    if (solver.pid() == 0) {
+
+        	    	float avgBestCost = 0.0;
+        	    	for (int i = 1; i <= cfg.independent_runs() ; i++) {
+        	    			avgBestCost += solver.browseHistory_getBest_Cost_by_trial(i);
+        	    	}
+        	    	avgBestCost = avgBestCost / ( (float)cfg.independent_runs() ) ;
+
         	        solver.show_state();
-        	        cout << "Solution: " << solver.global_best_solution()
-        	             << "Fitness: ";
-                    printf("%.4f", solver.global_best_solution().fitness());
-                    cout << endl;
+        	        cout << "Solution: " << solver.global_best_solution() << " ";
+                    printf("Fitness: %.4f ", solver.global_best_solution().fitness());
+                    printf("FitnessP: %.4f \n", avgBestCost);
         	        ofsResult << solver.userstatistics();
         	    }
 

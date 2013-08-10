@@ -128,15 +128,16 @@ int main(int argc, char** argv) {
         printf("\n\n");
 
         /* Para la tabla... */
-        printf("\n F=%s Gen=%d fit=%.4f fitpro=%.4f fitdes=%.4f time=%.4f timepro=%.4f timedes=%.4f\n" ,
+        printf("\n F=%s Gen=%d fit=%.4f fitpro=%.4f fitdes=%.4f time=%.4f timepro=%.4f timedes=%.4f timetot=%.4f\n" ,
         		argv[2] ,
         		iteration ,
         		solver.global_best_solution().fitness() ,
-        		statics.average_cost,
-        		statics.standard_deviation,
+        		cost_promedio,
+        		cost_desv,
         		timeT[trial-1],
         		time_promedio,
-        		time_desviacion);
+        		time_desviacion,
+        		(solver.current_time_spent() / 1000000.0) ) ;
 
 
 

@@ -1,5 +1,5 @@
-5                   // number of independent runs
-100                 // number of generations
+100                   // number of independent runs
+1000                 // number of generations
 30                  // number of individuals
 30                  // size of offsprings in each generation
 0                   // if replaces parents for offsprings, or only offsprings may be new parents
