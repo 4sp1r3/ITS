@@ -817,44 +817,44 @@ Se prestó especial cuidado a los procesos ejecutándose, deteniendo todos las a
 
 \subsection{Ajuste Paramétrico}
 
-Para el ajuste paramétrico se usará una instancia de prueba reducida, conformada por 3 routers ubicados aleatoriamente en el plano. A partir de dicha instancia y para cada combinación de parámetros se harán 3 ejecuciones independientes.\\
+Para el ajuste paramétrico se usará una instancia de prueba reducida, conformada por 3 routers ubicados aleatoriamente en el plano. A partir de dicha instancia y para cada combinación de parámetros se harán 100 ejecuciones independientes.\\
 
-La tabla \ref{tab:tuning} muestra las combinaciones de parámetros estudiados para hacer el ajuste paramétrico, el fitness corresponde al mejor individuo encontrado en las 5 ejecuciones independientes.
+La tabla \ref{tab:tuning} muestra las combinaciones de parámetros estudiados para hacer el ajuste paramétrico, $f$ corresponde al fitness del mejor individuo encontrado mientras que $f_{AVG}$ al valor promedio de fitness de los mejores individuos de cada ejecución realizada.
 
 \begin{table}[h]
 \caption{Ajuste paramétrico}
 \centering
-\begin{tabular}{|c|c|c||r|}
+\begin{tabular}{|c|c|c||c|c|}
 \hline
-Población &Cruzamiento &Mutación &Fitness \\
+Población &Cruzamiento &Mutación &$f$ &$f_{AVG}$ \\
 \hline
-\multirow{9}{*}{5}  & \multirow{3}{*}{0.70} & 0.01 & 0.4776 \\
-                    &                       & 0.05 & 0.2555 \\
-                    &                       & 0.10 & 0.3230 \\ \cline{2-4}
-                    & \multirow{3}{*}{0.80} & 0.01 & 0.3166 \\
-                    &                       & 0.05 & 0.3383 \\
-                    &                       & 0.10 & 0.2588 \\ \cline{2-4}
-                    & \multirow{3}{*}{0.90} & 0.01 & 0.2606 \\
-                    &                       & 0.05 & 0.2965 \\
-                    &                       & 0.10 & 0.2566 \\ \hline
-\multirow{9}{*}{15} & \multirow{3}{*}{0.70} & 0.01 & 0.2707 \\
-                    &                       & 0.05 & 0.3181 \\
-                    &                       & 0.10 & 0.2558 \\ \cline{2-4}
-                    & \multirow{3}{*}{0.80} & 0.01 & 0.2623 \\
-                    &                       & 0.05 & 0.2568 \\
-                    &                       & 0.10 & 0.2561 \\ \cline{2-4}
-                    & \multirow{3}{*}{0.90} & 0.01 & 0.2701 \\
-                    &                       & 0.05 & 0.2605 \\
-                    &                       & 0.10 & 0.2553 \\ \hline
-\multirow{9}{*}{30} & \multirow{3}{*}{0.70} & 0.01 & 0.2559 \\
-                    &                       & 0.05 & 0.2554 \\
-                    &                       & 0.10 & 0.2553 \\ \cline{2-4}
-                    & \multirow{3}{*}{0.80} & 0.01 & 0.3199 \\
-                    &                       & 0.05 & 0.2554 \\
-                    &                       & 0.10 & 0.2554 \\ \cline{2-4}
-                    & \multirow{3}{*}{0.90} & 0.01 & 0.3194 \\
-                    &                       & 0.05 & 0.2561 \\
-                    &                       & 0.10 & 0.2554 \\ \hline
+\multirow{9}{*}{5}  & \multirow{3}{*}{0.70} & 0.01 & 0.2554 & 27.8884 \\
+                    &                       & 0.05 & 0.2553 & 9.2270 \\
+                    &                       & 0.10 & 0.2553 & 0.2843 \\ \cline{2-5}
+                    & \multirow{3}{*}{0.80} & 0.01 & 0.2553 & 77.1144 \\
+                    &                       & 0.05 & 0.2553 & 1.1174 \\
+                    &                       & 0.10 & 0.2553 & 0.2836 \\ \cline{2-5}
+                    & \multirow{3}{*}{0.90} & 0.01 & 0.2553 & 66.8574 \\
+                    &                       & 0.05 & 0.2553 & 0.5750 \\
+                    &                       & 0.10 & 0.2553 & 0.2817 \\ \hline
+\multirow{9}{*}{15} & \multirow{3}{*}{0.70} & 0.01 & 0.2553 & 0.2912 \\
+                    &                       & 0.05 & 0.2553 & 0.2866 \\
+                    &                       & 0.10 & 0.2553 & 0.2828 \\ \cline{2-5}
+                    & \multirow{3}{*}{0.80} & 0.01 & 0.2553 & 1.5069 \\
+                    &                       & 0.05 & 0.2553 & 0.2841 \\
+                    &                       & 0.10 & 0.2553 & 0.2878 \\ \cline{2-5}
+                    & \multirow{3}{*}{0.90} & 0.01 & 0.2553 & 0.5879 \\
+                    &                       & 0.05 & 0.2553 & 0.2860 \\
+                    &                       & 0.10 & 0.2553 & 0.2891 \\ \hline
+\multirow{9}{*}{30} & \multirow{3}{*}{0.70} & 0.01 & 0.2553 & 0.2880 \\
+                    &                       & 0.05 & 0.2553 & 0.2941 \\
+                    &                       & 0.10 & 0.2553 & 0.2853 \\ \cline{2-5}
+                    & \multirow{3}{*}{0.80} & 0.01 & 0.2553 & 0.2907 \\
+                    &                       & 0.05 & 0.2553 & 0.2878 \\
+                    &                       & 0.10 & 0.2553 & 0.2866 \\ \cline{2-5}
+                    & \multirow{3}{*}{0.90} & 0.01 & 0.2553 & 0.2870 \\
+                    &                       & 0.05 & 0.2553 & 0.2878 \\
+                    &                       & 0.10 & 0.2553 & 0.2835 \\ \hline
 \end{tabular}
 \label{tab:tuning}
 \end{table}
@@ -871,17 +871,6 @@ Población &Cruzamiento &Mutación &Fitness \\
 A partir de los resultados obtenidos se puede apreciar como, para todas las combinaciones de parámetros con los que se probó, las soluciones son muy buenas. Existe cierta tendencia a obtener soluciones marginalmente peores para una probabilidad de cruzamiento 0.01, en especial combinando esto con poblaciones chicas, una posible explicación de este fenómeno es la diversidad.\\
 
 Con el objetivo de obtener soluciones de calidad y al mismo tiempo mantener la diversidad en la población se optará de aquí en más por una población de 30 individuos, una probabilidad de 0.9 para el operador de cruzamiento y de 0.1 para el operador de mutación.\\
-
-\subsubsection*{Análisis de la Distribución}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=\linewidth]{density.png}
-\caption{Distribución de la probabilidad de fitness}
-\label{fig:density}
-\end{figure}
-
-Se realizaron pruebas de normalidad y exponencialidad usando el test de Kolmogorov–Smirnov, en ambos casos de obtuvo resultados negativos.
 
 \subsection{Evaluación}
 
