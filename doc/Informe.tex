@@ -442,7 +442,6 @@ Algoritmos Evolutivos; triangulación; WiFi
 % creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
 
-
 \section{Introducción}
 % The very first letter is a 2 line initial drop letter followed
 % by the rest of the first word in caps.
@@ -483,7 +482,7 @@ Dado el tamaño del espacio de búsqueda, resulta interesante atacar el problema
 
 El nivel de señal recibido por el dispositivo que se intenta triangular varía con el tiempo, aunque no hayan cambiados sus posiciones relativas. Es importante entender qué ocasiona dichas fluctuaciones, ya que tener una buena medición de la señal será esencial para la correcta evaluación del individuo.\\
 
-Por mayores detalles respecto a cuales son los factores más importantes que afectan a las señales inalámbricas recibidas y como estos influyen en la misma referirse a \cite{fuzzy:logic:based:system} y \cite{radar:tracking:system}.\\
+Por mayores detalles respecto a cuales son los factores más importantes que afectan a las señales inalámbricas recibidas y como estos influyen en la misma referirse a \cite{fuzzy:logic:based:system} y \cite{radar:tracking:system}.
 
 \subsection{Tecnología}
 
@@ -497,7 +496,7 @@ La frecuencia de transmisión depende del canal en el que se encuentre transmiti
 
 En cuanto al tipo de antena, se encontró que todos los routers modernos tienen entre una y dos antenas isotrópicas de ganancia 5dBm, que emiten uniformemente hacia todos lados, por lo que la energía se disipará en el ambiente proporcionalmente al cuadrado de la distancia.\\
 
-Por otro lado muchos routers permiten configurar la potencia de transmisión, pudiendo variar entre 1dBm (1mW) y 20dBm (100mW). A pesar de esto en la práctica la mayoría de los routers usan la potencia máxima de transmisión, la cual en general está activada por defecto, con el fin de hacer llegar la señal más lejos.\\
+Por otro lado muchos routers permiten configurar la potencia de transmisión, pudiendo variar entre 1dBm (1mW) y 20dBm (100mW). A pesar de esto en la práctica la mayoría de los routers usan la potencia máxima de transmisión, la cual en general está activada por defecto, con el fin de hacer llegar la señal más lejos.
 
 \subsection{Entorno}
 
@@ -505,7 +504,7 @@ El entorno puede afectar significativamente la calidad e intensidad de la señal
 
 Dado que es imposible construir un modelo de propagación para cada entorno, ya que este afecta de manera diferente a cada dispositivo, resulta vital estimar la caída de la señal percibida por el dispositivo móvil, en lugar de intentar modelar cada variable por separado.\\
 
-Se considerará que la señal real es igual a la señal emitida por el router, menos la pérdida por disipación (dependiente de la distancia), menos la pérdida por obstáculos e interferencias (dependiente del entorno).\\
+Se considerará que la señal real es igual a la señal emitida por el router, menos la pérdida por disipación (dependiente de la distancia), menos la pérdida por obstáculos e interferencias (dependiente del entorno).
 
 \subsection{Muestreo}
 
@@ -513,7 +512,7 @@ Una tarjeta WiFi estándar solo puede escuchar un canal por vez, por lo que para
 
 Esto ocasiona que la información obtenida sobre una red en un determinado momento esté desactualizada por algunos segundos. Esto, sumado a los factores antes mencionados, ocasiona que mediones consecutivas pueden dar valores de intensidad de señal bastante distintos.\\
 
-Para mitigar este problema se puede considerar como intensidad de señal hacia un router dado el promedio de las últimas 5 lecturas.\\
+Para mitigar este problema se puede considerar como intensidad de señal hacia un router dado el promedio de las últimas 5 lecturas.
 
 \subsection{Cantidad de Routers}
 
@@ -525,7 +524,7 @@ El modelo de propagación de ondas permitirá la conversión de una intensidad d
 
 Encontrar una buena aproximación de $distance$ es esencial ya que a partir de esta será posible encontrar una aproximación del error entre la distancia real y la distancia estimada del dispositivo.\\
 
-Existen muchas aproximaciones que fueron analizadas en \cite{low:cost:location:determination}, \cite{radar:tracking:system} y \cite{generic:model:signal:propagation}, aquí se describirán las cuatro más representativas con el objetivo de analizar distintos enfoques.\\
+Existen muchas aproximaciones que fueron analizadas en \cite{low:cost:location:determination}, \cite{radar:tracking:system} y \cite{generic:model:signal:propagation}, aquí se describirán las cuatro más representativas con el objetivo de analizar distintos enfoques.
 
 \subsection{Empirical Propagation Model}
 
@@ -533,7 +532,7 @@ Este modelo de propagación es quizás el más preciso de todos a pesar de su si
 
 $$distance(S_r) = |S_r - S_t| \times K$$
 
-En donde $S_t$ es la intensidad de señal transmitida por el router y $K$ es un valor empírico que corresponde a la distancia cubierta por 1dBm.\\
+En donde $S_t$ es la intensidad de señal transmitida por el router y $K$ es un valor empírico que corresponde a la distancia cubierta por 1dBm.
 
 \subsection{Wall Attenuation Factor Propagation Model}
 
@@ -611,6 +610,7 @@ Simplificándola y usando los valores antes mencionados se obtiene finalmente un
 d(L_{dB}) &= \sqrt {\frac {5 \times 5 \times (\frac {299.792.458} {2.442.000.000})^2} {(4 \pi)^2 \times 10^{\frac {L_{dB}} {10}} \times 0,001} \times 0,1} = \sqrt {\frac {0.2386} {10^{\frac {L_{dB}} {10}}}}
 \end{split}
 \end{equation*}
+\\
 
 \section{Algoritmo}
 
@@ -618,11 +618,11 @@ d(L_{dB}) &= \sqrt {\frac {5 \times 5 \times (\frac {299.792.458} {2.442.000.000
 
 Para la implementación del algoritmo se decidió usar los lenguajes de programación \emph{C/C++} \cite{c} \cite{c++} debido a su sencillez, bajo consumo de memoria, velocidad de ejecución y herramientas disponibles \cite{why:c:c++}.\\
 
-Se implementará el algoritmo usando el framework \emph{Malva} \cite{malva}, el cual es un fork de \emph{Mallba} \cite{mallba}. Se estudiaron otras alternativas pero finalmente se optó por este debido a recomendaciones hechas en el curso y al hecho de que contábamos con el soporte del foro de discusión ante cualquier inconveniente.\\
+Se implementará el algoritmo usando el framework \emph{Malva} \cite{malva}, el cual es un fork de \emph{Mallba} \cite{mallba}. Se estudiaron otras alternativas pero finalmente se optó por este debido a recomendaciones hechas en el curso y al hecho de que contábamos con el soporte del foro de discusión ante cualquier inconveniente.
 
 \subsection{Variante}
 
-Luego de estudiar varias alternativas se optó por usar la variante de \emph{malva} denominada \emph{GA}, correspondiente a un algoritmo genético genérico con operadores personalizados, con el objetivo de tener total control sobre la aplicación de los mismos sobre los individuos.\\
+Luego de estudiar varias alternativas se optó por usar la variante de \emph{malva} denominada \emph{GA}, correspondiente a un algoritmo genético genérico con operadores personalizados, con el objetivo de tener total control sobre la aplicación de los mismos sobre los individuos.
 
 \subsection{Representación Interna}
 
@@ -711,7 +711,7 @@ Este enfoque no requiere una representación interna dependiente de la cantidad 
 
 La idea de aquí en más será adoptar esta alternativa y minimizar el vector de decaimientos inferido, o equivalentemente, minimizar la suma de la diferencia entre la distancia estimada (calculada a partir de la posición $(x,y)$) y la distancia teórica (calculada a partir de la señal percibida) respecto a cada router.\\
 
-Es importante recordar que esto se estará haciendo para más de un router al mismo tiempo, por lo que el algoritmo deberá encontrar un punto de equilibrio. Si bien el vector del óptimo global será mínimo, en principio no será nulo.\\
+Es importante recordar que esto se estará haciendo para más de un router al mismo tiempo, por lo que el algoritmo deberá encontrar un punto de equilibrio. Si bien el vector del óptimo global será mínimo, en principio no será nulo.
 
 \subsection{Función de Fitness}
 
@@ -742,11 +742,11 @@ y_{min} = \min_{i=1} {R_{i_y} - A} &\quad y_{max} = \max_{i=1} {R_{i_y} + A}
 
 \subsection{Operadores}
 
-Dado que el espacio de búsqueda es bastante grande, resulta esencial mantener la diversidad hasta haber muestreado una amplia área del plano, ya que en principio se puede asumir la existencia de muchos óptimos locales. Dicho esto, los operadores que serán utilizados se describen a continuación.\\
+Dado que el espacio de búsqueda es bastante grande, resulta esencial mantener la diversidad hasta haber muestreado una amplia área del plano, ya que en principio se puede asumir la existencia de muchos óptimos locales. Dicho esto, los operadores que serán utilizados se describen a continuación.
 
 \subsubsection{Selección}
 
-Se usará selección por torneo, habiendo probado también selección por ranking y rouletta, obteniendo en todos los casos resultados similares.\\
+Se usará selección por torneo, habiendo probado también selección por ranking y rouletta, obteniendo en todos los casos resultados similares.
 
 \subsubsection{Cruzamiento}
 
@@ -767,21 +767,21 @@ k_1, k_2 \in (n,m)
 
 Las distancias con las que se trabajan son del orden de unos pocos metros a algunas decenas de metros. Dadas estas magnitudes, un error de entre 5cm y 25cm son igual de aceptables. Por lo tanto no existe la necesidad de optimizar el individuo para alcanzar la mejor estimación posible en su entorno.\\
 
-Se considerará que un individuo con errores de estos ordenes es suficientemente bueno, de modo que no será necesario intentar disminuir aún más dicho error.\\
+Se considerará que un individuo con errores de estos ordenes es suficientemente bueno, de modo que no será necesario intentar disminuir aún más dicho error.
 
 \subsection{Reemplazo de Individuos}
 
-Dadas las características del framework se decidió realizar el reemplazo poblacional luego de aplicado el operador de cruzamiento. Para esto se seleccionan los dos mejores individuos entre los padres y sus respectivos hijos, pudiendo ocurrir que el individuo descendiente reemplace a uno de sus padres si su fitness es mejor que el de ellos.\\
+Dadas las características del framework se decidió realizar el reemplazo poblacional luego de aplicado el operador de cruzamiento. Para esto se seleccionan los dos mejores individuos entre los padres y sus respectivos hijos, pudiendo ocurrir que el individuo descendiente reemplace a uno de sus padres si su fitness es mejor que el de ellos.
 
 \subsection{Criterio de Parada}
 
 A partir de lo dicho anteriormente parece razonable parar el algoritmo si se consigue un individuo cuya suma de errores (es decir, el valor de la función de fitness) es menor a 5cm.\\
 
-Al mismo tiempo será necesario un límite en el número de generaciones con el objetivo de evitar que el algoritmo converja a un óptimo local en donde no puede lograr tal precisión, ocasionando que no termine de ejecutarse. Para evitar esto empíricamente se encontró que un límite de 1000 generaciones es suficiente, ya que en la mayoría de las ejecuciones la generación del mejor individuo estaba por debajo de este límite.\\
+Al mismo tiempo será necesario un límite en el número de generaciones con el objetivo de evitar que el algoritmo converja a un óptimo local en donde no puede lograr tal precisión, ocasionando que no termine de ejecutarse. Para evitar esto empíricamente se encontró que un límite de 1000 generaciones es suficiente, ya que en la mayoría de las ejecuciones la generación del mejor individuo estaba por debajo de este límite.
 
 \subsection{Mecanismo de Reparación}
 
-Cabe señalar que los individuos son válidos desde el momento de su inicialización y los operadores aplicados no los corrompen, por lo que no hace falta un mecanismo de reparación o de descarte de individuos inválidos.
+Cabe señalar que los individuos son válidos desde el momento de su inicialización y los operadores aplicados no los corrompen, por lo que no hace falta un mecanismo de reparación o de descarte de individuos inválidos.\\
 
 \section{Análisis Experimental}
 
@@ -791,7 +791,7 @@ Las instancias de prueba son generadas de manera de simular entornos realistas.\
 
 Para esto se define la posición real del dispositivo y cierta cantidad de routers en un círculo de centro $(0,0)$ y radio 15m.\\
 
-Una vez que se tiene la posición de todos los nodos presentes se calcula la distancia real entre el dispositivo y cada uno de los routers. Mediante esta distancia y el modelo de propagación de ondas se obtiene la señal que en teoría percibiría, a lo cual se le substrae un valor aleatorio, correspondiente al decaimiento, de entre 0dBm y 2dBm.\\
+Una vez que se tiene la posición de todos los nodos presentes se calcula la distancia real entre el dispositivo y cada uno de los routers. Mediante esta distancia y el modelo de propagación de ondas se obtiene la señal que en teoría percibiría, a lo cual se le substrae un valor aleatorio, correspondiente al decaimiento, de entre 0dBm y 2dBm.
 
 \subsection{Entorno de Prueba}
 
@@ -799,15 +799,15 @@ Dado que en la práctica la implementación realizada no parece necesitar de gra
 
 \subsubsection{Marca y Modelo}
 
-Dell Inspiron N5010\\
+Dell Inspiron N5010.\\
 
 \subsubsection{Procesador}
 
-Intel Core i5 2.67GHz (doble nucleo, cuatro threads), 64KB de cache L1, 512KB de cache L2, 3MB de cache L3\\
+Intel Core i5 2.67GHz (doble nucleo, cuatro threads), 64KB de cache L1, 512KB de cache L2, 3MB de cache L3.\\
 
 \subsubsection{Memoria}
 
-4GB de memoria DDR3 1333MHz\\
+4GB de memoria DDR3 1333MHz.\\
 
 \subsubsection{Sistema Operativo}
 
@@ -870,139 +870,100 @@ Población &Cruzamiento &Mutación &$f$ &$f_{AVG}$ \\
 
 A partir de los resultados obtenidos se puede apreciar como para todas las combinaciones de parámetros con los que se probó, las soluciones son muy buenas. Sin embargo, el fitness promedio es significativamente peor cuando algunos de los parámetros es bajo, dado que esto deteriora la diversidad de los individuos.\\
 
-Con el objetivo de obtener soluciones de calidad y al mismo tiempo mantener la diversidad en la población se optará de aquí en más por la combinación de parámetros que dio mejores resultados en la práctica. De esta manera, se usará una población de 30 individuos, una probabilidad de 0.9 para el operador de cruzamiento y de 0.1 para el operador de mutación.\\
+Con el objetivo de obtener soluciones de calidad y al mismo tiempo mantener la diversidad en la población se optará de aquí en más por la combinación de parámetros que dio mejores resultados en la práctica. De esta manera, se usará una población de 30 individuos, una probabilidad de 0.9 para el operador de cruzamiento y de 0.1 para el operador de mutación.
 
 \subsection{Evaluación}
 
-Para realizar la evaluación del algoritmo se usarán 35 instancias de prueba divididas en 7 conjuntos de 3, 5, 7, 10, 20, 50 y 100 routers. Para cada instancia se harán 100 ejecuciones independientes, completando en total 3500 ejecuciones.\\
+Para realizar la evaluación del algoritmo se usarán 35 instancias de prueba divididas en 7 conjuntos de 3, 5, 7, 10, 20, 50 y 100 routers. Para cada instancia se harán 100 ejecuciones independientes, totalizando 3500 ejecuciones.\\
 
-Para todos los casos se reportará:\\
-
-\begin{itemize}
-\item $G$: generación del mejor individuo ($I$)
-\item $f$: fitness de $I$
-\item $f_{AVG}$: promedio de fitness de los individuos de $G$
-\item $\sigma_f$: desviación estándar de los individuos de $G$
-\item $t$: tiempo en segundos utilizados para encontrar $I$
-\item $t_{AVG}$: promedio de $t$ para todas las ejecuciones
-\item $\sigma_t$: desviación estándar de $t$ para todas las ejecuciones
-\item $T$: tiempo total de ejecución en segundos
-\item $E$: error en metros respecto de la posición real
-\end{itemize}
+Para cada caso se reportará: $G$ generación del mejor individuo ($I$), $f$ fitness de $I$, $f_{AVG}$ promedio de fitness de los individuos de $G$, $\sigma_f$ desviación estándar de los individuos de $G$, $t$ tiempo en segundos utilizados para encontrar $I$, $t_{AVG}$ promedio de $t$ para todas las ejecuciones, $\sigma_t$ desviación estándar de $t$ para todas las ejecuciones, $T$ tiempo total de ejecución en segundos, $E$ error real en metros.
 
 \begin{table}[h]
-
 \caption{Resultados}
 \centering
 \hspace{-1.0cm}
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\multicolumn{9}{|c|}{3 Routers}\\
-\hline
-$G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $T$ & $E$ \\
-\hline
+\multicolumn{9}{|c|}{3 Routers}\\ \hline
+$G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $T$ & $E$ \\ \hline
 320 & 0.8010 & 5.5104 & 6.3907 & 0.0125 & 0.0225 & 0.0109 & 3.88 & 2.32 \\
 915 & 0.0673 & 3.6614 & 6.0123 & 0.0354 & 0.0253 & 0.0097 & 3.86 & 0.40 \\
 580 & 0.1235 & 0.1235 & 0.0000 & 0.0229 & 0.0245 & 0.0096 & 3.93 & 0.47 \\
 712 & 0.2488 & 0.2488 & 0.0000 & 0.0275 & 0.0239 & 0.0092 & 3.88 & 1.87 \\
-452 & 0.9314 & 0.9844 & 0.0647 & 0.0176 & 0.0193 & 0.0110 & 3.88 & 0.28 \\
-\hline
+452 & 0.9314 & 0.9844 & 0.0647 & 0.0176 & 0.0193 & 0.0110 & 3.88 & 0.28 \\ \hline
 \end{tabular}
 \label{tab:evaluation3}
 \newline
-\newline
+
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\multicolumn{9}{|c|}{5 Routers}\\
-\hline
-$G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $T$ & $E$ \\
-\hline
+\multicolumn{9}{|c|}{5 Routers}\\ \hline
+$G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $T$ & $E$ \\ \hline
 385 & 1.5151 & 1.5151 & 0.0000 & 0.0226 & 0.0316 & 0.0154 & 5.91 & 1.96 \\
 353 & 3.2720 & 3.2720 & 0.0000 & 0.0210 & 0.0350 & 0.0142 & 5.97 & 1.60 \\
 257 & 1.9190 & 1.9190 & 0.0000 & 0.0151 & 0.0295 & 0.0160 & 5.91 & 1.20 \\
 869 & 2.0561 & 2.0561 & 0.0000 & 0.0511 & 0.0305 & 0.0156 & 5.93 & 1.78 \\
-406 & 1.3183 & 1.6141 & 0.4453 & 0.0236 & 0.0307 & 0.0157 & 5.93 & 2.93 \\
-\hline
+406 & 1.3183 & 1.6141 & 0.4453 & 0.0236 & 0.0307 & 0.0157 & 5.93 & 2.93 \\ \hline
 \end{tabular}
 \label{tab:evaluation5}
 \newline
-\newline
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-\hline
-\multicolumn{9}{|c|}{7 Routers}\\
-\hline
-$G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $T$ & $E$ \\
-\hline
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} \hline
+\multicolumn{9}{|c|}{7 Routers}\\ \hline
+$G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $T$ & $E$ \\ \hline
 84 & 1.6373 & 1.6373 & 0.0000 & 0.0068 & 0.0441 & 0.0191 & 8.00 & 0.96 \\
 961 & 1.0254 & 1.0254 & 0.0000 & 0.0757 & 0.0468 & 0.0186 & 7.86 & 0.81 \\
 346 & 1.8974 & 1.8974 & 0.0000 & 0.0272 & 0.0441 & 0.0208 & 7.91 & 1.21 \\
 545 & 3.3067 & 3.3067 & 0.0000 & 0.0429 & 0.0386 & 0.0202 & 7.90 & 1.51 \\
-169 & 5.4602 & 5.4602 & 0.0000 & 0.0132 & 0.0459 & 0.0202 & 8.01 & 1.38 \\
-\hline
+169 & 5.4602 & 5.4602 & 0.0000 & 0.0132 & 0.0459 & 0.0202 & 8.01 & 1.38 \\ \hline
 \end{tabular}
 \label{tab:evaluation7}
 \newline
-\newline
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-\hline
-\multicolumn{9}{|c|}{10 Routers}\\
-\hline
-$G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $T$ & $E$ \\
-\hline
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} \hline
+\multicolumn{9}{|c|}{10 Routers}\\ \hline
+$G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $T$ & $E$ \\ \hline
 799 & 6.1032 & 6.1032 & 0.0000 & 0.0874 & 0.0605 & 0.0270 & 10.94 & 1.50 \\
 458 & 3.3524 & 3.3524 & 0.0000 & 0.0510 & 0.0565 & 0.0294 & 10.96 & 1.04 \\
 508 & 18.5925 & 18.5925 & 0.0000 & 0.0553 & 0.0619 & 0.0284 & 11.02 & 1.57 \\
 567 & 0.9153 & 0.9153 & 0.0000 & 0.0612 & 0.0606 & 0.0274 & 10.83 & 1.59 \\
-776 & 2.2515 & 2.2515 & 0.0000 & 0.0858 & 0.0666 & 0.0275 & 10.97 & 1.05 \\
-\hline
+776 & 2.2515 & 2.2515 & 0.0000 & 0.0858 & 0.0666 & 0.0275 & 10.97 & 1.05 \\ \hline
 \end{tabular}
 \label{tab:evaluation10}
 \newline
-\newline
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-\hline
-\multicolumn{9}{|c|}{20 Routers}\\
-\hline
-$G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $T$ & $E$ \\
-\hline
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} \hline
+\multicolumn{9}{|c|}{20 Routers}\\ \hline
+$G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $T$ & $E$ \\ \hline
 520 & 9.7758 & 9.7758 & 0.0000 & 0.1105 & 0.1158 & 0.0587 & 21.04 & 1.31 \\
 333 & 8.0590 & 8.0590 & 0.0000 & 0.0706 & 0.1199 & 0.0558 & 21.18 & 1.34 \\
 555 & 13.4780 & 13.4780 & 0.0000 & 0.1169 & 0.1132 & 0.0584 & 21.05 & 0.91 \\
 228 & 23.2258 & 23.2258 & 0.0000 & 0.0474 & 0.1151 & 0.0542 & 21.05 & 1.03 \\
-98 & 8.1096 & 8.1096 & 0.0000 & 0.0208 & 0.1081 & 0.0550 & 20.78 & 0.97 \\
-\hline
+98 & 8.1096 & 8.1096 & 0.0000 & 0.0208 & 0.1081 & 0.0550 & 20.78 & 0.97 \\ \hline
 \end{tabular}
 \label{tab:evaluation20}
 \newline
-\newline
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-\hline
-\multicolumn{9}{|c|}{50 Routers}\\
-\hline
-$G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $T$ & $E$ \\
-\hline
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} \hline
+\multicolumn{9}{|c|}{50 Routers}\\ \hline
+$G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $T$ & $E$ \\ \hline
 636 & 39.0652 & 39.0653 & 0.0000 & 0.3241 & 0.2683 & 0.1371 & 50.77 & 0.20 \\
 819 & 31.9775 & 31.9775 & 0.0000 & 0.4685 & 0.2835 & 0.1309 & 51.07 & 1.28 \\
 125 & 29.3588 & 29.3588 & 0.0000 & 0.0629 & 0.2444 & 0.1349 & 50.39 & 1.03 \\
 694 & 31.5268 & 31.5268 & 0.0000 & 0.3537 & 0.2744 & 0.1407 & 50.49 & 1.34 \\
-843 & 36.3826 & 36.3826 & 0.0000 & 0.4247 & 0.2577 & 0.1302 & 50.73 & 1.40 \\
-\hline
+843 & 36.3826 & 36.3826 & 0.0000 & 0.4247 & 0.2577 & 0.1302 & 50.73 & 1.40 \\ \hline
 \end{tabular}
 \label{tab:evaluation50}
 \newline
-\newline
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-\hline
-\multicolumn{9}{|c|}{100 Routers}\\
-\hline
-$G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $T$ & $E$ \\
-\hline
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} \hline
+\multicolumn{9}{|c|}{100 Routers}\\ \hline
+$G$ & $f$ & $f_{AVG}$ & $\sigma_f$ & $t$ & $t_{AVG}$ & $\sigma_t$ & $T$ & $E$ \\ \hline
 564 & 53.0036 & 53.0037 & 0.0000 & 0.5636 & 0.5590 & 0.2641 & 100.42 & 1.08 \\
 739 & 62.1487 & 62.1488 & 0.0000 & 0.7380 & 0.5247 & 0.2520 & 100.10 & 1.21 \\
 313 & 93.6970 & 93.6970 & 0.0000 & 0.3131 & 0.4912 & 0.2844 & 100.79 & 1.14 \\
 276 & 56.3132 & 56.3133 & 0.0000 & 0.2746 & 0.5312 & 0.2559 & 100.36 & 1.19 \\
-288 & 67.7403 & 67.7403 & 0.0000 & 0.2911 & 0.5335 & 0.2550 & 101.14 & 1.24 \\
-\hline
+288 & 67.7403 & 67.7403 & 0.0000 & 0.2911 & 0.5335 & 0.2550 & 101.14 & 1.24 \\ \hline
 \end{tabular}
 \label{tab:evaluation100}
 \end{table}
